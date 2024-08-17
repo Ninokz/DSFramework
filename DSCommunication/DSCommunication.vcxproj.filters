@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\Component">
+      <UniqueIdentifier>{08bd5803-a513-45d9-9c45-6bf3ad2169f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Component">
+      <UniqueIdentifier>{2e0296e6-b520-4ff5-ae6d-3686654ea245}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\entry">
+      <UniqueIdentifier>{4f3adf7d-6e4e-44e6-b43e-eec5c7a609ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Core">
+      <UniqueIdentifier>{b8f4ebba-7d24-41f4-b02a-2b2692bc9d09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Core">
+      <UniqueIdentifier>{7ef92ce6-12a4-4ded-89e2-03a7030dc113}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Server">
+      <UniqueIdentifier>{ddf48bcd-f10b-489d-b920-3ce607a83de9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Server">
+      <UniqueIdentifier>{8889c990-4f59-48ab-b27a-51a8fa74b0a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Client">
+      <UniqueIdentifier>{ea8fbee4-e1fd-4c73-af84-54f3a41d37ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Client">
+      <UniqueIdentifier>{b689bfde-14f5-474f-8c12-43a9c59a7d28}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Session.cpp">
+      <Filter>源文件\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="ConAcceptor.cpp">
+      <Filter>源文件\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="IOServicePool.cpp">
+      <Filter>源文件\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SessionManager.cpp">
+      <Filter>源文件\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件\entry</Filter>
+    </ClCompile>
+    <ClCompile Include="DSCPacket.cpp">
+      <Filter>源文件\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool.cpp">
+      <Filter>源文件\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="EventHandler.cpp">
+      <Filter>源文件\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="AsyncTcpServer.cpp">
+      <Filter>源文件\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>源文件\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="AsyncClient.cpp">
+      <Filter>源文件\Client</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Session.h">
+      <Filter>头文件\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ConAcceptor.h">
+      <Filter>头文件\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>头文件\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="IOServicePool.h">
+      <Filter>头文件\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionManager.h">
+      <Filter>头文件\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="DSCPacket.h">
+      <Filter>头文件\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ConcurrentQueue.h">
+      <Filter>头文件\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool.h">
+      <Filter>头文件\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="EventHandler.h">
+      <Filter>头文件\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="AsyncTcpServer.h">
+      <Filter>头文件\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>头文件\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="AsyncTcpClient.h">
+      <Filter>头文件\Client</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
