@@ -6,6 +6,8 @@
 
 #include <iostream>
 
+#include <boost/asio.hpp>
+
 namespace DSFramework {
 	namespace DSCommunication {
 		const uint8_t DSC_PACKET_HEAD_BYTES_SIZE = 2;

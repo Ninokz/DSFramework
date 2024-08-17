@@ -63,8 +63,8 @@ namespace DSFramework {
 					/// 将头部数据转换为数据长度
 					unsigned short data_size = 0;
 					memcpy(&data_size, m_cached_HeadRecvPacket->m_data, DSC_PACKET_HEAD_BYTES_SIZE);
-
-					std::cout << boost::asio::detail::socket_ops::network_to_host_short(data_size);
+					/// 网络字节序转换为主机字节序
+					data_size = boost::asio::detail::socket_ops::network_to_host_short(data_size);
 
 					/// 头部长度异常
 					if (data_size > DSC_PACKET_BODY_MAX_SIZE)

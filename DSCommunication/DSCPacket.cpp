@@ -55,8 +55,11 @@ namespace DSFramework {
 		DSCSendPacket::DSCSendPacket(char* data, uint16_t dataSize) :
 			DSCPacket(dataSize + DSC_PACKET_HEAD_BYTES_SIZE)
 		{
+			/// convert the dataSize to network byte order
+			unsigned short size = boost::asio::detail::socket_ops::host_to_network_short(dataSize);
+			
 			/// write the size num to the first DSC_PACKET_HEAD_BYTES_SIZE bytes
-			memcpy(m_data, &dataSize, DSC_PACKET_HEAD_BYTES_SIZE);
+			memcpy(m_data, &size, DSC_PACKET_HEAD_BYTES_SIZE);
 			/// copy the data to the rest of the array
 			memcpy(m_data + DSC_PACKET_HEAD_BYTES_SIZE, data, dataSize);
 		}
@@ -64,8 +67,11 @@ namespace DSFramework {
 		DSCSendPacket::DSCSendPacket(const char* data, uint16_t dataSize) :
 			DSCPacket(dataSize + DSC_PACKET_HEAD_BYTES_SIZE)
 		{
+			/// convert the dataSize to network byte order
+			unsigned short size = boost::asio::detail::socket_ops::host_to_network_short(dataSize);
+
 			/// write the size num to the first DSC_PACKET_HEAD_BYTES_SIZE bytes
-			memcpy(m_data, &dataSize, DSC_PACKET_HEAD_BYTES_SIZE);
+			memcpy(m_data, &size, DSC_PACKET_HEAD_BYTES_SIZE);
 			/// copy the data to the rest of the array
 			memcpy(m_data + DSC_PACKET_HEAD_BYTES_SIZE, data, dataSize);	
 		}
