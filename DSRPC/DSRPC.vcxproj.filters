@@ -33,6 +33,15 @@
     <ClCompile Include="RPCServerStub.cpp">
       <Filter>源文件\Server</Filter>
     </ClCompile>
+    <ClCompile Include="RPCTaskManager.cpp">
+      <Filter>源文件\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="RequestDispatcher.cpp">
+      <Filter>源文件\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="ResponseDispatcher.cpp">
+      <Filter>源文件\Server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RPCServerStub.h">
@@ -41,7 +50,16 @@
     <ClInclude Include="Dispatcher.h">
       <Filter>头文件\Component</Filter>
     </ClInclude>
-    <ClInclude Include="DSRPCTask.h">
+    <ClInclude Include="RPCTask.h">
+      <Filter>头文件\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="RPCTaskManager.h">
+      <Filter>头文件\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="RequestDispatcher.h">
+      <Filter>头文件\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="ResponseDispatcher.h">
       <Filter>头文件\Server</Filter>
     </ClInclude>
   </ItemGroup>

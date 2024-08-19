@@ -132,12 +132,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RequestDispatcher.cpp" />
+    <ClCompile Include="ResponseDispatcher.cpp" />
     <ClCompile Include="RPCServerStub.cpp" />
+    <ClCompile Include="RPCTaskManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dispatcher.h" />
-    <ClInclude Include="DSRPCTask.h" />
+    <ClInclude Include="RequestDispatcher.h" />
+    <ClInclude Include="ResponseDispatcher.h" />
+    <ClInclude Include="RPCTask.h" />
     <ClInclude Include="RPCServerStub.h" />
+    <ClInclude Include="RPCTaskManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

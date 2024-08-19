@@ -8,10 +8,10 @@
 namespace DSFramework {
 	namespace DSRPC {
 		template<class TTask>
-		class DSRPCTask
+		class RPCTask
 		{
 		public:
-			enum class DSRPCTaskStatus
+			enum class RPCTaskStatus
 			{
 				TaskWaiting,
 				TaskCommited,
@@ -28,14 +28,14 @@ namespace DSFramework {
 
 			TTask m_task;
 		public:
-			DSRPCTask(const std::string& submitterID) : 
+			RPCTask(const std::string& submitterID) :
 				m_taskID(boost::uuids::to_string(boost::uuids::random_generator()())),
 				m_createdTime(boost::posix_time::second_clock::local_time()), 
 				m_status(DSRPCTaskStatus::TaskWaiting), 
 				m_submitterID(submitterID)
 			{}
 
-			virtual ~DSRPCTask() {}
+			virtual ~RPCTask() {}
 		};
 	}
 }
