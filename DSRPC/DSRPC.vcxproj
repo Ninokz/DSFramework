@@ -131,7 +131,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DSRPCTask.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RPCServerStub.cpp" />
   </ItemGroup>

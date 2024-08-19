@@ -33,9 +33,6 @@
     <ClCompile Include="RPCServerStub.cpp">
       <Filter>源文件\Server</Filter>
     </ClCompile>
-    <ClCompile Include="DSRPCTask.cpp">
-      <Filter>源文件\Server</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RPCServerStub.h">
