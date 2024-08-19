@@ -22,7 +22,6 @@ using DSFramework::DSComponent::Log;
 namespace DSFramework {
 	namespace DSCommunication {
 		const uint8_t SEND_QUEUE_MAX_SIZE = 32;
-		const uint8_t RECV_QUEUE_MAX_SIZE = 32;
 
 		class EventHandler;
 		class Session : public std::enable_shared_from_this<Session>
