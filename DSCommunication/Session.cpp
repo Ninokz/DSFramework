@@ -7,7 +7,6 @@ namespace DSFramework {
 	namespace DSCommunication {
 		Session::Session(boost::asio::io_context& ioContext, std::shared_ptr<EventHandler> eventHandler, uint8_t sendQMaxSize):
 			m_uuid(boost::uuids::to_string(boost::uuids::random_generator()())),
-			m_lastActiveTime(boost::posix_time::microsec_clock::local_time()),
 			m_eventHandlerPtr(eventHandler),
 			m_socket(ioContext),
 			m_sendQueueMaxSize(sendQMaxSize)
@@ -114,9 +113,6 @@ namespace DSFramework {
 
 					/// 消息接收触发, 使用OnMessage将消息传递给上层
 					this->m_eventHandlerPtr->OnData(shared_from_this(), std::move(recvPacketShawdow));
-					
-					/// 更新最后活动时间
-					this->m_lastActiveTime = boost::posix_time::microsec_clock::local_time();
 
 					/// 重新开始读取消息头
 					this->m_cached_HeadRecvPacket->Clear();

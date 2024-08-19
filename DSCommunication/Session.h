@@ -28,7 +28,6 @@ namespace DSFramework {
 		{
 		private:
 			std::string m_uuid;
-			boost::posix_time::ptime m_lastActiveTime;
 			tcp::socket m_socket;
 
 			std::shared_ptr<EventHandler> m_eventHandlerPtr;
@@ -43,8 +42,6 @@ namespace DSFramework {
 			bool m_closed = true;
 		public:
 			tcp::socket& GetSocket() { return m_socket; }
-			void SetLastTime(boost::posix_time::ptime time) { m_lastActiveTime = time; }
-			boost::posix_time::ptime GetLastTime() { return m_lastActiveTime; }
 			std::string GetUUID() { return m_uuid; }
 		public:
 			Session(boost::asio::io_context& ioContext, std::shared_ptr<EventHandler> eventHandler, uint8_t sendQMaxSize);
