@@ -21,6 +21,7 @@ namespace DSFramework {
 				return false;
 			}
 			m_sessions.insert(std::make_pair(session->GetUUID(), session));
+			LOG_DEBUG_CONSOLE("Session" + session->GetUUID() + " is added.");
 			return true;
 		}
 
@@ -40,7 +41,7 @@ namespace DSFramework {
 		{
 			if (AddSession(sender))
 			{
-				LOG_INFO_CONSOLE("Session " + sender->GetUUID() + " is connected.");
+				
 			}
 			else
 			{
