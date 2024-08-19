@@ -6,7 +6,7 @@ namespace DSFramework {
 			m_ioc(),
 			m_running(false)
 		{
-			m_session = std::make_shared<Session>(m_ioc, &(this->m_eventHandlerPtr), SEND_QUEUE_MAX_SIZE);
+			m_session = std::make_shared<Session>(m_ioc, m_eventHandlerPtr, SEND_QUEUE_MAX_SIZE);
 		}
 
 		AsyncTcpClient::~AsyncTcpClient()
@@ -16,6 +16,7 @@ namespace DSFramework {
 				Disconnect();
 			}
 			LOG_INFO_CONSOLE("Client stopped");
+			LOG_DEBUG_CONSOLE("EventHandler reference count: " + std::to_string(m_eventHandlerPtr.use_count()));
 		}
 
 		bool AsyncTcpClient::Connect(std::string address, short port)
@@ -65,17 +66,17 @@ namespace DSFramework {
 
 		void AsyncTcpClient::AddCloseEventHandler(std::shared_ptr<ICloseEventHandler> handler)
 		{
-			m_eventHandlerPtr.AddCloseEventHandler(handler);
+			m_eventHandlerPtr->AddCloseEventHandler(handler);
 		}
 
 		void AsyncTcpClient::AddConnectEventHandler(std::shared_ptr<IConnectEventHandler> handler)
 		{
-			m_eventHandlerPtr.AddConnectEventHandler(handler);
+			m_eventHandlerPtr->AddConnectEventHandler(handler);
 		}
 
 		void AsyncTcpClient::AddDataReceivedEventHandler(std::shared_ptr<IDataEventHandler> handler)
 		{
-			m_eventHandlerPtr.AddDataEventHandler(handler);
+			m_eventHandlerPtr->AddDataEventHandler(handler);
 		}
 	}
 }

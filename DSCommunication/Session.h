@@ -31,7 +31,7 @@ namespace DSFramework {
 			boost::posix_time::ptime m_lastActiveTime;
 			tcp::socket m_socket;
 
-			EventHandler* m_eventHandlerPtr;
+			std::shared_ptr<EventHandler> m_eventHandlerPtr;
 	
 			std::mutex m_sendQueueMutex;
 			std::uint8_t m_sendQueueMaxSize;
@@ -47,7 +47,7 @@ namespace DSFramework {
 			boost::posix_time::ptime GetLastTime() { return m_lastActiveTime; }
 			std::string GetUUID() { return m_uuid; }
 		public:
-			Session(boost::asio::io_context& ioContext, EventHandler* eventHandler, uint8_t recvQSize);
+			Session(boost::asio::io_context& ioContext, std::shared_ptr<EventHandler> eventHandler, uint8_t sendQMaxSize);
 			virtual ~Session();
 
 			void Start();

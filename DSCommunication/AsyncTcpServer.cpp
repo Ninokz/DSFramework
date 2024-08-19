@@ -9,7 +9,7 @@ namespace DSFramework {
 			m_port(port),
 			m_running(false)
 		{
-			m_acceptor = std::make_unique<ConAcceptor>(m_ioc, port, *m_eventHandlerPtr);
+			m_acceptor = std::make_unique<ConAcceptor>(m_ioc, port, m_eventHandlerPtr);
 		}
 
 		AsyncTcpServer::~AsyncTcpServer()
@@ -20,6 +20,8 @@ namespace DSFramework {
 				m_serverThread.join();
 			}
 			LOG_INFO_CONSOLE("Server stopped");
+			/// check m_eventHandlerPtr's reference count is 1
+			LOG_DEBUG_CONSOLE("AsyncTcpServer EventHandler reference count: " + std::to_string(m_eventHandlerPtr.use_count()));
 		}
 
 		void AsyncTcpServer::Start()

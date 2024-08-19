@@ -5,12 +5,12 @@
 
 namespace DSFramework {
 	namespace DSCommunication {
-		Session::Session(boost::asio::io_context& ioContext, EventHandler* eventHandler, uint8_t recvQSize):
+		Session::Session(boost::asio::io_context& ioContext, std::shared_ptr<EventHandler> eventHandler, uint8_t sendQMaxSize):
 			m_uuid(boost::uuids::to_string(boost::uuids::random_generator()())),
 			m_lastActiveTime(boost::posix_time::microsec_clock::local_time()),
 			m_eventHandlerPtr(eventHandler),
 			m_socket(ioContext),
-			m_sendQueueMaxSize(recvQSize)
+			m_sendQueueMaxSize(sendQMaxSize)
 		{
 		}
 
@@ -19,6 +19,7 @@ namespace DSFramework {
 			if (!m_closed)
 				Close();
 			LOG_INFO_CONSOLE("Session " + m_uuid + " closed and destroyed.");
+			m_eventHandlerPtr.reset();
 		}
 
 		void Session::Close()

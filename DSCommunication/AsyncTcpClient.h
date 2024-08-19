@@ -25,7 +25,7 @@ namespace DSFramework {
 			std::shared_ptr<Session> m_session;
 
 			tcp::endpoint m_remoteEp;
-			EventHandler m_eventHandlerPtr;
+			std::shared_ptr<EventHandler> m_eventHandlerPtr;
 			bool m_running;
 		public:
 			AsyncTcpClient();
