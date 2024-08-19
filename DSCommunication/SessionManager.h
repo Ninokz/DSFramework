@@ -22,7 +22,7 @@ using DSFramework::DSComponent::IOServicePool;
 namespace DSFramework {
 	namespace DSCommunication {
 
-		class SessionManager : public ICloseEventHandler, public IConnectEventHandler, public std::enable_shared_from_this<SessionManager>
+		class SessionManager : public ICloseEventHandler, public IConnectEventHandler
 		{
 		protected:
 			size_t m_maxSessionCount;

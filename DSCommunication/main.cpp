@@ -16,7 +16,11 @@ using namespace DSFramework::DSCommunication;
 // Ö÷
 int main()
 {
-	AsyncTcpServer server(9000, 100);
+	std::shared_ptr<SessionManager> sessionManager = std::make_shared<SessionManager>(100);
+
+	AsyncTcpServer server(9000);
+	server.AddConnectEventHandler(sessionManager);
+	server.AddCloseEventHandler(sessionManager);
 	server.Start();
 	return 0;
 }

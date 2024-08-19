@@ -27,16 +27,15 @@ namespace DSFramework {
 			boost::asio::io_context m_ioc;
 			std::thread m_serverThread;
 			std::unique_ptr<ConAcceptor> m_acceptor;
-			std::shared_ptr<SessionManager> m_sessionManager;
 			EventHandler m_eventHandler;
-			short m_port;
 
+			short m_port;
 			bool m_running;
 		private:
 			AsyncTcpServer(const AsyncTcpServer& other) = delete;
 			AsyncTcpServer& operator=(const AsyncTcpServer& other) = delete;
 		public:
-			AsyncTcpServer(short port, size_t maxSessionCount);
+			AsyncTcpServer(short port);
 			virtual ~AsyncTcpServer();
 			void Start();
 

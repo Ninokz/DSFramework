@@ -19,9 +19,6 @@
     <Filter Include="源文件\Component">
       <UniqueIdentifier>{2e0296e6-b520-4ff5-ae6d-3686654ea245}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\entry">
-      <UniqueIdentifier>{4f3adf7d-6e4e-44e6-b43e-eec5c7a609ed}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\Core">
       <UniqueIdentifier>{b8f4ebba-7d24-41f4-b02a-2b2692bc9d09}</UniqueIdentifier>
     </Filter>
@@ -54,9 +51,6 @@
     <ClCompile Include="SessionManager.cpp">
       <Filter>源文件\Core</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件\entry</Filter>
-    </ClCompile>
     <ClCompile Include="DSCPacket.cpp">
       <Filter>源文件\Core</Filter>
     </ClCompile>
@@ -74,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="AsyncClient.cpp">
       <Filter>源文件\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
