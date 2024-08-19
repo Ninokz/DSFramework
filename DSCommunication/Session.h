@@ -9,7 +9,6 @@
 #include <boost/bind/bind.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_generators.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
 
 #include "DSCPacket.h"
 #include "Logger.h"
