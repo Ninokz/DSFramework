@@ -13,10 +13,33 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\Component">
+      <UniqueIdentifier>{86c55ade-7db5-4e91-a441-d8b744f71ea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Component">
+      <UniqueIdentifier>{2bde8c4e-a999-4ee3-aa76-c0490fd3c9e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Server">
+      <UniqueIdentifier>{232ac6f2-bc05-47cc-9377-97bc0695e44b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Server">
+      <UniqueIdentifier>{a9a7d400-298b-4bf6-a76c-4fda822f1d68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="RPCServerStub.cpp">
+      <Filter>源文件\Server</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RPCServerStub.h">
+      <Filter>头文件\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="Dispatcher.h">
+      <Filter>头文件\Component</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
