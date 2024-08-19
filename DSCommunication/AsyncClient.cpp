@@ -16,7 +16,6 @@ namespace DSFramework {
 				Disconnect();
 			}
 			LOG_INFO_CONSOLE("Client stopped");
-			LOG_DEBUG_CONSOLE("EventHandler reference count: " + std::to_string(m_eventHandlerPtr.use_count()));
 		}
 
 		bool AsyncTcpClient::Connect(std::string address, short port)
@@ -37,7 +36,7 @@ namespace DSFramework {
 					m_clientThread = std::thread([this] {
 						m_running = true;
 						m_ioc.run();
-						});
+					});
 					LOG_INFO_CONSOLE("Client connected to " + address + ":" + std::to_string(port));
 					return true;
 				}
