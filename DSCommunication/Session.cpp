@@ -8,7 +8,7 @@ namespace DSFramework {
 		Session::Session(boost::asio::io_context& ioContext, EventHandler* eventHandler, uint8_t recvQSize):
 			m_uuid(boost::uuids::to_string(boost::uuids::random_generator()())),
 			m_lastActiveTime(boost::posix_time::microsec_clock::local_time()),
-			m_eventHandler(eventHandler),
+			m_eventHandlerPtr(eventHandler),
 			m_socket(ioContext),
 			m_sendQueueMaxSize(recvQSize)
 		{
@@ -24,7 +24,7 @@ namespace DSFramework {
 		void Session::Close()
 		{
 			m_closed = true;
-			m_eventHandler->OnClose(shared_from_this());
+			m_eventHandlerPtr->OnClose(shared_from_this());
 			m_socket.close();
 		}
 
@@ -40,7 +40,7 @@ namespace DSFramework {
 					boost::bind(&Session::HandleHeadRead, shared_from_this(),
 						std::placeholders::_1, std::placeholders::_2));
 
-				m_eventHandler->OnConnect(shared_from_this());
+				m_eventHandlerPtr->OnConnect(shared_from_this());
 				m_closed = false;
 			}
 			catch (std::exception& e) {
@@ -112,7 +112,7 @@ namespace DSFramework {
 					auto recvPacketShawdow = std::make_shared<DSCRecvPacket>(*m_cached_BodyRecvPacket);
 
 					/// 消息接收触发, 使用OnMessage将消息传递给上层
-					this->m_eventHandler->OnData(shared_from_this(), std::move(recvPacketShawdow));
+					this->m_eventHandlerPtr->OnData(shared_from_this(), std::move(recvPacketShawdow));
 					
 					/// 更新最后活动时间
 					this->m_lastActiveTime = boost::posix_time::microsec_clock::local_time();

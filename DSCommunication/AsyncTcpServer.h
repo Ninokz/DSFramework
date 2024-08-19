@@ -27,7 +27,7 @@ namespace DSFramework {
 			boost::asio::io_context m_ioc;
 			std::thread m_serverThread;
 			std::unique_ptr<ConAcceptor> m_acceptor;
-			EventHandler m_eventHandler;
+			std::shared_ptr<EventHandler> m_eventHandlerPtr;
 
 			short m_port;
 			bool m_running;

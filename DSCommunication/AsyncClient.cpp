@@ -6,7 +6,7 @@ namespace DSFramework {
 			m_ioc(),
 			m_running(false)
 		{
-			m_session = std::make_shared<Session>(m_ioc, &(this->m_eventHandler), SEND_QUEUE_MAX_SIZE);
+			m_session = std::make_shared<Session>(m_ioc, &(this->m_eventHandlerPtr), SEND_QUEUE_MAX_SIZE);
 		}
 
 		AsyncTcpClient::~AsyncTcpClient()
@@ -65,17 +65,17 @@ namespace DSFramework {
 
 		void AsyncTcpClient::AddCloseEventHandler(std::shared_ptr<ICloseEventHandler> handler)
 		{
-			m_eventHandler.AddCloseEventHandler(handler);
+			m_eventHandlerPtr.AddCloseEventHandler(handler);
 		}
 
 		void AsyncTcpClient::AddConnectEventHandler(std::shared_ptr<IConnectEventHandler> handler)
 		{
-			m_eventHandler.AddConnectEventHandler(handler);
+			m_eventHandlerPtr.AddConnectEventHandler(handler);
 		}
 
 		void AsyncTcpClient::AddDataReceivedEventHandler(std::shared_ptr<IDataEventHandler> handler)
 		{
-			m_eventHandler.AddDataEventHandler(handler);
+			m_eventHandlerPtr.AddDataEventHandler(handler);
 		}
 	}
 }

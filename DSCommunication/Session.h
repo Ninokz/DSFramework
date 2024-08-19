@@ -32,7 +32,7 @@ namespace DSFramework {
 			boost::posix_time::ptime m_lastActiveTime;
 			tcp::socket m_socket;
 
-			EventHandler* m_eventHandler;
+			EventHandler* m_eventHandlerPtr;
 	
 			std::mutex m_sendQueueMutex;
 			std::uint8_t m_sendQueueMaxSize;

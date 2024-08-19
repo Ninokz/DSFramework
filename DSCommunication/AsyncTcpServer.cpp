@@ -5,11 +5,11 @@ namespace DSFramework {
 	namespace DSCommunication {
 		AsyncTcpServer::AsyncTcpServer(short port)
 			: m_ioc(),
-			m_eventHandler(),
+			m_eventHandlerPtr(std::make_shared<EventHandler>()),
 			m_port(port),
 			m_running(false)
 		{
-			m_acceptor = std::make_unique<ConAcceptor>(m_ioc, port, m_eventHandler);
+			m_acceptor = std::make_unique<ConAcceptor>(m_ioc, port, m_eventHandlerPtr);
 		}
 
 		AsyncTcpServer::~AsyncTcpServer()
@@ -45,17 +45,17 @@ namespace DSFramework {
 
 		void AsyncTcpServer::AddCloseEventHandler(std::shared_ptr<ICloseEventHandler> handler)
 		{
-			m_eventHandler.AddCloseEventHandler(handler);
+			m_eventHandlerPtr.AddCloseEventHandler(handler);
 		}
 
 		void AsyncTcpServer::AddConnectEventHandler(std::shared_ptr<IConnectEventHandler> handler)
 		{
-			m_eventHandler.AddConnectEventHandler(handler);
+			m_eventHandlerPtr.AddConnectEventHandler(handler);
 		}
 
 		void AsyncTcpServer::AddDataReceivedEventHandler(std::shared_ptr<IDataEventHandler> handler)
 		{
-			m_eventHandler.AddDataEventHandler(handler);
+			m_eventHandlerPtr.AddDataEventHandler(handler);
 		}
 	}
 }
