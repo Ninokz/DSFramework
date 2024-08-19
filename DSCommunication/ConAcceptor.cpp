@@ -16,7 +16,6 @@ namespace DSFramework {
 		{
 			this->m_acceptor.close();
 			LOG_INFO_CONSOLE("Connection acceptor closed");
-			LOG_DEBUG_CONSOLE("ConAcceptor EventHandler reference count: " + std::to_string(m_eventHandlerPtr.use_count()));
 		}
 
 		void ConAcceptor::StartAccept() {

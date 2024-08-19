@@ -20,8 +20,6 @@ namespace DSFramework {
 				m_serverThread.join();
 			}
 			LOG_INFO_CONSOLE("Server stopped");
-			/// check m_eventHandlerPtr's reference count is 1
-			LOG_DEBUG_CONSOLE("AsyncTcpServer EventHandler reference count: " + std::to_string(m_eventHandlerPtr.use_count()));
 		}
 
 		void AsyncTcpServer::Start()

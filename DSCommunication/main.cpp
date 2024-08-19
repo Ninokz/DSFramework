@@ -18,8 +18,8 @@ int main()
 {
 	std::shared_ptr<SessionManager> sessionManager = std::make_shared<SessionManager>(100);
 	AsyncTcpServer server(9000);
-	server.AddConnectEventHandler(sessionManager);
-	server.AddCloseEventHandler(sessionManager);
+	server.AddConnectEventHandler(std::static_pointer_cast<IConnectEventHandler>(sessionManager));
+	server.AddCloseEventHandler(std::static_pointer_cast<ICloseEventHandler>(sessionManager));
 	server.Start();
 	return 0;
 }
