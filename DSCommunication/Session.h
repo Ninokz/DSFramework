@@ -24,8 +24,7 @@ namespace DSFramework {
 		const uint8_t SEND_QUEUE_MAX_SIZE = 32;
 		const uint8_t RECV_QUEUE_MAX_SIZE = 32;
 
-		class IEventHandler;
-		class ISessionManager;
+		class EventHandler;
 		class Session : public std::enable_shared_from_this<Session>
 		{
 		private:
@@ -33,7 +32,7 @@ namespace DSFramework {
 			boost::posix_time::ptime m_lastActiveTime;
 			tcp::socket m_socket;
 
-			IEventHandler* m_eventHandler;
+			EventHandler* m_eventHandler;
 	
 			std::mutex m_sendQueueMutex;
 			std::uint8_t m_sendQueueMaxSize;
@@ -49,7 +48,7 @@ namespace DSFramework {
 			boost::posix_time::ptime GetLastTime() { return m_lastActiveTime; }
 			std::string GetUUID() { return m_uuid; }
 		public:
-			Session(boost::asio::io_context& ioContext, IEventHandler* eventHandler, uint8_t recvQSize);
+			Session(boost::asio::io_context& ioContext, EventHandler* eventHandler, uint8_t recvQSize);
 			virtual ~Session();
 
 			void Start();

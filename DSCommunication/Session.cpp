@@ -5,7 +5,7 @@
 
 namespace DSFramework {
 	namespace DSCommunication {
-		Session::Session(boost::asio::io_context& ioContext, IEventHandler* eventHandler, uint8_t recvQSize):
+		Session::Session(boost::asio::io_context& ioContext, EventHandler* eventHandler, uint8_t recvQSize):
 			m_uuid(boost::uuids::to_string(boost::uuids::random_generator()())),
 			m_lastActiveTime(boost::posix_time::microsec_clock::local_time()),
 			m_eventHandler(eventHandler),

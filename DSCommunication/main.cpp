@@ -13,7 +13,7 @@
 
 using namespace DSFramework::DSComponent;
 using namespace DSFramework::DSCommunication;
-// Ö÷
+
 int main()
 {
 	std::shared_ptr<SessionManager> sessionManager = std::make_shared<SessionManager>(100);

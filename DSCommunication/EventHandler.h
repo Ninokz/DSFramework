@@ -33,18 +33,7 @@ namespace DSFramework {
 			virtual void OnData(std::shared_ptr<Session> sender, std::shared_ptr<DSCRecvPacket> msg) = 0;
 		};
 
-		class IEventHandler
-		{
-		public:
-			IEventHandler() = default;
-			virtual ~IEventHandler() = default;
-
-			virtual void OnClose(std::shared_ptr<Session> sender) = 0;
-			virtual void OnConnect(std::shared_ptr<Session> sender) = 0;
-			virtual void OnData(std::shared_ptr<Session> sender, std::shared_ptr<DSCRecvPacket> msg) = 0;
-		};
-
-		class EventHandler : public IEventHandler
+		class EventHandler : public std::enable_shared_from_this<EventHandler>
 		{
 		protected:
 			std::vector<std::shared_ptr<ICloseEventHandler>> m_closeEventHandlers;
@@ -60,11 +49,11 @@ namespace DSFramework {
 
 			void AddDataEventHandler(std::shared_ptr<IDataEventHandler> handler);
 
-			virtual void OnClose(std::shared_ptr<Session> sender) override;
+			void OnClose(std::shared_ptr<Session> sender);
 
-			virtual void OnConnect(std::shared_ptr<Session> sender) override;
+			void OnConnect(std::shared_ptr<Session> sender);
 
-			virtual void OnData(std::shared_ptr<Session> sender, std::shared_ptr<DSCRecvPacket> msg) override;
+			void OnData(std::shared_ptr<Session> sender, std::shared_ptr<DSCRecvPacket> msg);
 		};
 	}
 }

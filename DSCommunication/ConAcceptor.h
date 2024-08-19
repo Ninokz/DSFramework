@@ -29,9 +29,9 @@ namespace DSFramework {
 		private:
 			tcp::acceptor m_acceptor;
 			boost::asio::io_context& m_ioc;
-			IEventHandler& m_eventHandler;
+			EventHandler& m_eventHandler;
 		public:
-			ConAcceptor(boost::asio::io_context& ioc, short port, IEventHandler& eventHandler);
+			ConAcceptor(boost::asio::io_context& ioc, short port, EventHandler& eventHandler);
 			virtual ~ConAcceptor();
 		private:
 			void StartAccept();

@@ -5,7 +5,7 @@
 using DSFramework::DSComponent::IOServicePool;
 namespace DSFramework {
 	namespace DSCommunication {
-		ConAcceptor::ConAcceptor(boost::asio::io_context& ioc, short port, IEventHandler& eventHandler) :
+		ConAcceptor::ConAcceptor(boost::asio::io_context& ioc, short port, EventHandler& eventHandler) :
 			m_ioc(ioc), m_acceptor(ioc, tcp::endpoint(tcp::v4(), port)), m_eventHandler(eventHandler)
 		{
 			StartAccept();
