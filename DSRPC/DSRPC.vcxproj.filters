@@ -33,7 +33,7 @@
     <ClCompile Include="RPCServerStub.cpp">
       <Filter>源文件\Server</Filter>
     </ClCompile>
-    <ClCompile Include="DSRPCPacket.cpp">
+    <ClCompile Include="DSRPCTask.cpp">
       <Filter>源文件\Server</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,7 +44,7 @@
     <ClInclude Include="Dispatcher.h">
       <Filter>头文件\Component</Filter>
     </ClInclude>
-    <ClInclude Include="DSRPCPacket.h">
+    <ClInclude Include="DSRPCTask.h">
       <Filter>头文件\Server</Filter>
     </ClInclude>
   </ItemGroup>

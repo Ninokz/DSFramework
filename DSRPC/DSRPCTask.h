@@ -7,9 +7,10 @@
 
 namespace DSFramework {
 	namespace DSRPC {
-		class DSRPCPacket
+		class DSRPCTask
 		{
 		public:
+			boost::posix_time::ptime m_time;
 
 		};
 	}

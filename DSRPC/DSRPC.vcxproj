@@ -131,13 +131,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DSRPCPacket.cpp" />
+    <ClCompile Include="DSRPCTask.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RPCServerStub.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dispatcher.h" />
-    <ClInclude Include="DSRPCPacket.h" />
+    <ClInclude Include="DSRPCTask.h" />
     <ClInclude Include="RPCServerStub.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
