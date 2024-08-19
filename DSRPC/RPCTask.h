@@ -23,15 +23,15 @@ namespace DSFramework {
 			boost::posix_time::ptime m_createdTime;
 			boost::posix_time::ptime m_commitedTime;
 			boost::posix_time::ptime m_completedTime;
-			DSRPCTaskStatus m_status;
-			std::string m_submitterID;
+			RPCTaskStatus m_status;
+			std::string m_submitterID;	// SessionID
 
 			TTask m_task;
 		public:
 			RPCTask(const std::string& submitterID) :
 				m_taskID(boost::uuids::to_string(boost::uuids::random_generator()())),
 				m_createdTime(boost::posix_time::second_clock::local_time()), 
-				m_status(DSRPCTaskStatus::TaskWaiting), 
+				m_status(RPCTaskStatus::TaskWaiting),
 				m_submitterID(submitterID)
 			{}
 
