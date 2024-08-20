@@ -41,7 +41,7 @@ namespace DSFramework {
 
 			void AddCloseEventHandler(std::shared_ptr<ICloseEventHandler> handler);
 			void AddConnectEventHandler(std::shared_ptr<IConnectEventHandler> handler);
-			void AddDataReceivedEventHandler(std::shared_ptr<IDataEventHandler> handler);
+			void AddDataEventHandler(std::shared_ptr<IDataEventHandler> handler);
 		};
 	}
 }

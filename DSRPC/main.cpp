@@ -4,6 +4,8 @@
 
 #include "RPCServerStub.h"
 
+using DSFramework::DSRPC::RPCServerStub;
+
 using DSFramework::DSCommunication::Session;
 using DSFramework::DSCommunication::DSCRecvPacket;
 using DSFramework::DSCommunication::IDataEventHandler;
@@ -14,12 +16,13 @@ using DSFramework::DSCommunication::ICloseEventHandler;
 
 int main()
 {
+	std::shared_ptr<RPCServerStub> rpcServerStub = std::make_shared<RPCServerStub>();
 	std::shared_ptr<SessionManager> sessionManager = std::make_shared<SessionManager>(100);
 
 	AsyncTcpServer server(9000);
 	server.AddConnectEventHandler(std::static_pointer_cast<IConnectEventHandler>(sessionManager));
 	server.AddCloseEventHandler(std::static_pointer_cast<ICloseEventHandler>(sessionManager));
+	server.AddDataEventHandler(std::static_pointer_cast<IDataEventHandler>(rpcServerStub));
 	server.Start();
-
 	return 0;
 }

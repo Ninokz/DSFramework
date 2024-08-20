@@ -27,7 +27,7 @@ namespace DSFramework {
 			str.append("DataSize: ");
 			str.append(std::to_string(m_dataSize));
 			std::string data = std::string(m_data, m_dataSize);
-			str.append("\nData: ");
+			str.append(" Data: ");
 			str.append(data);
 			return str;
 		}

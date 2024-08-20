@@ -73,7 +73,7 @@ namespace DSFramework {
 			m_eventHandlerPtr->AddConnectEventHandler(handler);
 		}
 
-		void AsyncTcpClient::AddDataReceivedEventHandler(std::shared_ptr<IDataEventHandler> handler)
+		void AsyncTcpClient::AddDataEventHandler(std::shared_ptr<IDataEventHandler> handler)
 		{
 			m_eventHandlerPtr->AddDataEventHandler(handler);
 		}
