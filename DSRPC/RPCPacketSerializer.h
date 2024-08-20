@@ -16,6 +16,8 @@ namespace DSFramework {
 			static std::shared_ptr<RPCPacket> Deserialize(const char* data, size_t size, bool* result);
 			
 			static bool Serialize(const std::shared_ptr<RPCPacket> packet, const char** data, size_t* size);
+
+			static bool CheckPacket(const std::shared_ptr<RPCPacket> packet);
 		};
 	}
 }

@@ -3,6 +3,10 @@
 #include <unordered_map>
 #include <shared_mutex>
 
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/uuid/uuid_io.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+
 #include "RPCPacket.pb.h"
 
 using DSFramework::DSRPC::Packet::RPCPacket;
@@ -22,10 +26,9 @@ namespace DSFramework {
 			RPCTaskManager();
 			virtual ~RPCTaskManager();
 
-			bool AddTask(TASKID& taskId, std::shared_ptr<RPCPacket> task);
+			TASKID AddTask(std::shared_ptr<RPCPacket> task);
 			void RemoveTask(TASKID& taskId);
 			bool IsTaskExist(TASKID& taskId);
-
 			bool UpdateTaskStatus(TASKID& taskId, RPCTaskStatus status);
 		};
 	}

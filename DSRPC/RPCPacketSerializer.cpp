@@ -40,5 +40,13 @@ namespace DSFramework {
 
             return true;
 		}
+
+        bool RPCPacketSerializer::CheckPacket(const std::shared_ptr<RPCPacket> packet)
+        {
+			if (packet->has_task())
+				return true;
+			else
+                return false;
+        }
 	}
 }

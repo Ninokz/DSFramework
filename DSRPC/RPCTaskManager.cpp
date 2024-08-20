@@ -13,16 +13,21 @@ namespace DSFramework {
 
 		}
 
-		bool RPCTaskManager::AddTask(TASKID& taskId, std::shared_ptr<RPCPacket> task)
+		DSFramework::DSRPC::RPCTaskManager::TASKID RPCTaskManager::AddTask(std::shared_ptr<RPCPacket> task)
 		{
 			std::unique_lock<std::shared_mutex> lock(m_taskMutex);
-			if (this->m_taskMap.find(taskId) == this->m_taskMap.end())
-			{
-				this->m_taskMap.insert(std::make_pair(taskId, task));
-				return true;
-			}
-			else
-				return false;
+			boost::uuids::uuid uuid = boost::uuids::random_generator()();
+			TASKID taskId = boost::uuids::to_string(uuid);
+
+			task->mutable_task()->set_task_uid(taskId);
+			std::string timestamp = boost::posix_time::to_simple_string(boost::posix_time::second_clock::local_time());
+			task->mutable_task()->set_created_time(timestamp);
+			task->mutable_task()->set_commited_time(boost::posix_time::not_a_date_time);
+			task->mutable_task()->set_completed_time(boost::posix_time::not_a_date_time);
+			task->mutable_task()->set_task_status(Packet::RPCTaskStatus::WAITING);
+
+			this->m_taskMap.insert(std::make_pair(taskId, task));
+			return taskId;
 		}
 
 		void RPCTaskManager::RemoveTask(TASKID& taskId)

@@ -19,6 +19,7 @@ namespace DSFramework {
 			Node* m_tail;
 			std::condition_variable m_dataCondi;
 
+			std::atomic<int> m_count;
 		private:
 			Node* get_tail()
 			{
@@ -48,6 +49,7 @@ namespace DSFramework {
 			std::shared_ptr<T> WaitPop()
 			{
 				std::unique_ptr<Node> const old_head = wait_pop_head();
+				m_count.fetch_sub(1);
 				return old_head->data;
 			}
 
@@ -55,6 +57,11 @@ namespace DSFramework {
 			{
 				std::lock_guard<std::mutex> head_lock(m_headMutex);
 				return (m_head.get() == get_tail());
+			}
+
+			inline int size()
+			{
+				return m_count.load();
 			}
 
 			void Push(T newValue) 
@@ -68,6 +75,7 @@ namespace DSFramework {
 					m_tail->next = std::move(p);
 					m_tail = new_tail;
 				}
+				m_count.fetch_add(1);
 				m_dataCondi.notify_one();
 			}
 		};
