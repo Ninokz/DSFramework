@@ -31,9 +31,15 @@
     <Filter Include="源文件\Packet">
       <UniqueIdentifier>{3c04cebb-f854-49fd-86d6-2be2e175ca93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Ref">
+      <UniqueIdentifier>{021bf799-9dd2-4d12-a539-2ca0dd05139d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Ref">
+      <UniqueIdentifier>{a500bb72-d070-4cc3-a290-b8084a5cbe47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="DSRPCmain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="RPCServerStub.cpp">
@@ -53,6 +59,39 @@
     </ClCompile>
     <ClCompile Include="RPCPacketSerializer.cpp">
       <Filter>源文件\Packet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DSCommunication\AsyncClient.cpp">
+      <Filter>源文件\Ref</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DSCommunication\AsyncTcpServer.cpp">
+      <Filter>源文件\Ref</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DSCommunication\ConAcceptor.cpp">
+      <Filter>源文件\Ref</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DSCommunication\DSCPacket.cpp">
+      <Filter>源文件\Ref</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DSCommunication\EventHandler.cpp">
+      <Filter>源文件\Ref</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DSCommunication\IOServicePool.cpp">
+      <Filter>源文件\Ref</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DSCommunication\Logger.cpp">
+      <Filter>源文件\Ref</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DSCommunication\main.cpp">
+      <Filter>源文件\Ref</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DSCommunication\Session.cpp">
+      <Filter>源文件\Ref</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DSCommunication\SessionManager.cpp">
+      <Filter>源文件\Ref</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DSCommunication\ThreadPool.cpp">
+      <Filter>源文件\Ref</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +115,42 @@
     </ClInclude>
     <ClInclude Include="RPCPacketSerializer.h">
       <Filter>头文件\Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DSCommunication\AsyncTcpClient.h">
+      <Filter>头文件\Ref</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DSCommunication\AsyncTcpServer.h">
+      <Filter>头文件\Ref</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DSCommunication\ConAcceptor.h">
+      <Filter>头文件\Ref</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DSCommunication\ConcurrentQueue.h">
+      <Filter>头文件\Ref</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DSCommunication\DSCPacket.h">
+      <Filter>头文件\Ref</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DSCommunication\EventHandler.h">
+      <Filter>头文件\Ref</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DSCommunication\IOServicePool.h">
+      <Filter>头文件\Ref</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DSCommunication\Logger.h">
+      <Filter>头文件\Ref</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DSCommunication\Session.h">
+      <Filter>头文件\Ref</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DSCommunication\SessionManager.h">
+      <Filter>头文件\Ref</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DSCommunication\Singleton.h">
+      <Filter>头文件\Ref</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DSCommunication\ThreadPool.h">
+      <Filter>头文件\Ref</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

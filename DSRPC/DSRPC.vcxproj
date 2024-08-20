@@ -106,7 +106,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_WIN32_WINNT=0x0601;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -131,7 +131,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\DSCommunication\AsyncClient.cpp" />
+    <ClCompile Include="..\DSCommunication\AsyncTcpServer.cpp" />
+    <ClCompile Include="..\DSCommunication\ConAcceptor.cpp" />
+    <ClCompile Include="..\DSCommunication\DSCPacket.cpp" />
+    <ClCompile Include="..\DSCommunication\EventHandler.cpp" />
+    <ClCompile Include="..\DSCommunication\IOServicePool.cpp" />
+    <ClCompile Include="..\DSCommunication\Logger.cpp" />
+    <ClCompile Include="..\DSCommunication\main.cpp" />
+    <ClCompile Include="..\DSCommunication\Session.cpp" />
+    <ClCompile Include="..\DSCommunication\SessionManager.cpp" />
+    <ClCompile Include="..\DSCommunication\ThreadPool.cpp" />
+    <ClCompile Include="DSRPCmain.cpp" />
     <ClCompile Include="RequestDispatcher.cpp" />
     <ClCompile Include="ResponseDispatcher.cpp" />
     <ClCompile Include="RPCPacket.pb.cc" />
@@ -140,6 +151,18 @@
     <ClCompile Include="RPCTaskManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\DSCommunication\AsyncTcpClient.h" />
+    <ClInclude Include="..\DSCommunication\AsyncTcpServer.h" />
+    <ClInclude Include="..\DSCommunication\ConAcceptor.h" />
+    <ClInclude Include="..\DSCommunication\ConcurrentQueue.h" />
+    <ClInclude Include="..\DSCommunication\DSCPacket.h" />
+    <ClInclude Include="..\DSCommunication\EventHandler.h" />
+    <ClInclude Include="..\DSCommunication\IOServicePool.h" />
+    <ClInclude Include="..\DSCommunication\Logger.h" />
+    <ClInclude Include="..\DSCommunication\Session.h" />
+    <ClInclude Include="..\DSCommunication\SessionManager.h" />
+    <ClInclude Include="..\DSCommunication\Singleton.h" />
+    <ClInclude Include="..\DSCommunication\ThreadPool.h" />
     <ClInclude Include="Dispatcher.h" />
     <ClInclude Include="RequestDispatcher.h" />
     <ClInclude Include="ResponseDispatcher.h" />

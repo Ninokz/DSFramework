@@ -158,7 +158,7 @@
     <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="IOServicePool.cpp" />
     <ClCompile Include="Logger.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="DSCmain.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="SessionManager.cpp" />
     <ClCompile Include="ThreadPool.cpp" />
