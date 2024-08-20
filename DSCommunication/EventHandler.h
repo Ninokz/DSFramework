@@ -3,14 +3,9 @@
 #define _WIN32_WINNT 0x0601
 #endif
 
-#include <mutex>
 #include <memory>
-#include <string>
-#include <iostream>
-#include <unordered_map>
 
 #include "Session.h"
-
 
 namespace DSFramework {
 	namespace DSCommunication {

@@ -12,9 +12,10 @@
 #include <boost/asio.hpp>
 #include <boost/bind/bind.hpp>
 
+#include "Logger.h"
 #include "Session.h"
 #include "SessionManager.h"
-#include "Logger.h"
+
 
 using std::unordered_map;
 using boost::asio::ip::tcp;

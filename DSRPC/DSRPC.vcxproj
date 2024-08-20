@@ -134,6 +134,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RequestDispatcher.cpp" />
     <ClCompile Include="ResponseDispatcher.cpp" />
+    <ClCompile Include="RPCPacket.pb.cc" />
+    <ClCompile Include="RPCPacketSerializer.cpp" />
     <ClCompile Include="RPCServerStub.cpp" />
     <ClCompile Include="RPCTaskManager.cpp" />
   </ItemGroup>
@@ -141,9 +143,10 @@
     <ClInclude Include="Dispatcher.h" />
     <ClInclude Include="RequestDispatcher.h" />
     <ClInclude Include="ResponseDispatcher.h" />
+    <ClInclude Include="RPCPacket.pb.h" />
+    <ClInclude Include="RPCPacketSerializer.h" />
     <ClInclude Include="RPCServerStub.h" />
     <ClInclude Include="RPCTaskManager.h" />
-    <ClInclude Include="RPCTaskSerializer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

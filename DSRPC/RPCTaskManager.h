@@ -5,11 +5,12 @@
 
 namespace DSFramework {
 	namespace DSRPC {
-
 		class RPCTaskManager
 		{
+		private:
 
-			
+		public:
+
 		};
 	}
 }

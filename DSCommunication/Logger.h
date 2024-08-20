@@ -2,13 +2,11 @@
 #include <fstream>
 #include <iostream>
 #include <memory>
-#include <queue>
 #include <string>
-#include <mutex>
-#include <condition_variable>
 #include <sstream>
 #include <vector>
 #include <thread>
+
 #include <boost/asio.hpp>
 #include <boost/bind/bind.hpp>
 #include <boost/thread.hpp>

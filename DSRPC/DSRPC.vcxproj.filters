@@ -25,6 +25,12 @@
     <Filter Include="源文件\Server">
       <UniqueIdentifier>{a9a7d400-298b-4bf6-a76c-4fda822f1d68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Packet">
+      <UniqueIdentifier>{ce99d2ee-78db-41e3-b6d9-ab905961572b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Packet">
+      <UniqueIdentifier>{3c04cebb-f854-49fd-86d6-2be2e175ca93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -42,6 +48,12 @@
     <ClCompile Include="ResponseDispatcher.cpp">
       <Filter>源文件\Server</Filter>
     </ClCompile>
+    <ClCompile Include="RPCPacket.pb.cc">
+      <Filter>源文件\Packet</Filter>
+    </ClCompile>
+    <ClCompile Include="RPCPacketSerializer.cpp">
+      <Filter>源文件\Packet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RPCServerStub.h">
@@ -56,11 +68,14 @@
     <ClInclude Include="ResponseDispatcher.h">
       <Filter>头文件\Server</Filter>
     </ClInclude>
-    <ClInclude Include="RPCTaskSerializer.h">
-      <Filter>头文件\Component</Filter>
-    </ClInclude>
     <ClInclude Include="RPCTaskManager.h">
-      <Filter>头文件\Component</Filter>
+      <Filter>头文件\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="RPCPacket.pb.h">
+      <Filter>头文件\Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="RPCPacketSerializer.h">
+      <Filter>头文件\Packet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
