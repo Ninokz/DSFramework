@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include <shared_mutex>
 
-#include "RPCTask.h"
+#include "RPCTaskWrapper.h"
 
 namespace DSFramework {
 	namespace DSRPC {
@@ -13,7 +13,7 @@ namespace DSFramework {
 			using TASKID = std::string;
 		private:
 			std::shared_mutex m_mutex;
-			std::unordered_map<TASKID, RPCTask<TTask>> m_tasks;
+			std::unordered_map<TASKID, RPCTaskWrapper<TTask>> m_tasks;
 		public:
 			
 		};

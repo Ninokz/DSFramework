@@ -50,7 +50,7 @@
     <ClInclude Include="Dispatcher.h">
       <Filter>头文件\Component</Filter>
     </ClInclude>
-    <ClInclude Include="RPCTask.h">
+    <ClInclude Include="RPCTaskWrapper.h">
       <Filter>头文件\Server</Filter>
     </ClInclude>
     <ClInclude Include="RPCTaskManager.h">
