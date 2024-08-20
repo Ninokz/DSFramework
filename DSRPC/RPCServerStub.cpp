@@ -2,10 +2,12 @@
 
 namespace DSFramework {
 	namespace DSRPC {
-		RPCServerStub::RPCServerStub() :
-			m_RequestDispatcher(std::make_shared<RequestDispatcher>()), 
-			m_ResponseDispatcher(std::make_shared<ResponseDispatcher>()), 
-			m_taskManager(std::make_shared<RPCTaskManager>())
+		RPCServerStub::RPCServerStub(std::string serverid, size_t maxWaitedDispatch) :
+			m_maxWaitedDispatch(maxWaitedDispatch),
+			m_requestDispatcher(std::make_shared<RequestDispatcher>(maxWaitedDispatch)),
+			m_responseDispatcher(std::make_shared<ResponseDispatcher>(maxWaitedDispatch)),
+			m_taskManager(std::make_shared<RPCTaskManager>()),
+			m_serveruid(serverid)
 		{
 
 		}
@@ -22,8 +24,8 @@ namespace DSFramework {
 			bool checkResult = RPCPacketSerializer::CheckPacket(packet);
 			if (deserializeResult && checkResult)
 			{
-				std::string taskid = m_taskManager->AddTask(packet);
-				bool postResult = m_RequestDispatcher->PostRequestToQueue(packet);
+				auto taskId = m_taskManager->AddTask(packet);
+				bool postResult = m_requestDispatcher->PostRequestToQueue(packet);
 				if (postResult)
 				{
 					LOG_DEBUG_CONSOLE("Post success: " + msg->PrintStringFormat());
@@ -32,7 +34,7 @@ namespace DSFramework {
 				else
 				{
 					LOG_DEBUG_CONSOLE("Post failed: " + msg->PrintStringFormat());
-					this->m_taskManager->RemoveTask(taskid);
+					m_taskManager->RemoveTask(taskId);
 					HandlePostFailed(sender);
 				}
 			}
@@ -49,7 +51,7 @@ namespace DSFramework {
 			std::shared_ptr<Packet::RPCPacket> responsePacket = std::make_shared<Packet::RPCPacket>();
 			responsePacket->set_pkt_type(Packet::RPCPacketType::RPC_TASK_RESPONSE);
 			responsePacket->set_pkt_error(Packet::RPCPacketError::PKT_DESERIALIZATION_ERROR);
-			responsePacket->set_from(m_ServerUid);
+			responsePacket->set_from(m_serveruid);
 			responsePacket->set_to(sender->GetUUID());
 			responsePacket->clear_task();
 
@@ -72,7 +74,7 @@ namespace DSFramework {
 			std::shared_ptr<Packet::RPCPacket> responsePacket = std::make_shared<Packet::RPCPacket>();
 			responsePacket->set_pkt_type(Packet::RPCPacketType::RPC_TASK_RESPONSE);
 			responsePacket->set_pkt_error(Packet::RPCPacketError::PKT_POST_FAILED);
-			responsePacket->set_from(m_ServerUid);
+			responsePacket->set_from(m_serveruid);
 			responsePacket->set_to(sender->GetUUID());
 			responsePacket->clear_task();
 

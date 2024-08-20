@@ -22,8 +22,8 @@ namespace DSFramework {
 			task->mutable_task()->set_task_uid(taskId);
 			std::string timestamp = boost::posix_time::to_simple_string(boost::posix_time::second_clock::local_time());
 			task->mutable_task()->set_created_time(timestamp);
-			task->mutable_task()->set_commited_time(boost::posix_time::not_a_date_time);
-			task->mutable_task()->set_completed_time(boost::posix_time::not_a_date_time);
+			task->mutable_task()->set_commited_time("");
+			task->mutable_task()->set_completed_time("");
 			task->mutable_task()->set_task_status(Packet::RPCTaskStatus::WAITING);
 
 			this->m_taskMap.insert(std::make_pair(taskId, task));

@@ -21,12 +21,13 @@ namespace DSFramework {
 		class RPCServerStub : public IDataEventHandler
 		{
 		private:
-			std::string m_ServerUid;
-			std::shared_ptr<RequestDispatcher> m_RequestDispatcher;
-			std::shared_ptr<ResponseDispatcher> m_ResponseDispatcher;
+			std::string m_serveruid;
+			size_t m_maxWaitedDispatch;
+			std::shared_ptr<RequestDispatcher> m_requestDispatcher;
+			std::shared_ptr<ResponseDispatcher> m_responseDispatcher;
 			std::shared_ptr<RPCTaskManager> m_taskManager;
 		public:
-			RPCServerStub();
+			RPCServerStub(std::string serverid,size_t maxWaitedDispatch);
 			virtual ~RPCServerStub();
 			virtual void OnData(std::shared_ptr<Session> sender, std::shared_ptr<DSCRecvPacket> msg) override;
 		private:

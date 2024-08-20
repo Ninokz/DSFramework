@@ -17,7 +17,7 @@ using DSFramework::DSCommunication::SessionManager;
 
 int main()
 {
-	std::shared_ptr<RPCServerStub> rpcServerStub = std::make_shared<RPCServerStub>();
+	std::shared_ptr<RPCServerStub> rpcServerStub = std::make_shared<RPCServerStub>("ServerID", 100);
 	std::shared_ptr<SessionManager> sessionManager = std::make_shared<SessionManager>(100);
 
 	AsyncTcpServer server(9000);

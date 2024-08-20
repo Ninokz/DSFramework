@@ -21,7 +21,9 @@ namespace DSFramework {
 			std::thread m_dispatcherThread;
 			bool isStopped;
 		public:
-			Dispatcher(size_t maxWaitedDispatch) : isStopped(false), m_maxWaitedDispatch(maxWaitedDispatch)
+			Dispatcher(size_t maxWaitedDispatch) : 
+				isStopped(false), 
+				m_maxWaitedDispatch(maxWaitedDispatch)
 			{
 				m_requestQueue = std::make_shared<ConcurrentQueue<std::shared_ptr<TDispatchItem>>>();
 			}
