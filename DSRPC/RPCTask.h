@@ -7,9 +7,7 @@
 
 namespace DSFramework {
 	namespace DSRPC {
-		template<class TTask>
-		class RPCTaskWrapper
-		{
+		class RPCTask {
 		public:
 			enum class RPCTaskStatus
 			{
@@ -25,17 +23,6 @@ namespace DSFramework {
 			boost::posix_time::ptime m_completedTime;
 			RPCTaskStatus m_status;
 			std::string m_submitterID;	// SessionID
-
-			std::shared_ptr<TTask> m_task;
-		public:
-			RPCTaskWrapper(const std::string& submitterID) :
-				m_taskID(boost::uuids::to_string(boost::uuids::random_generator()())),
-				m_createdTime(boost::posix_time::second_clock::local_time()), 
-				m_status(RPCTaskStatus::TaskWaiting),
-				m_submitterID(submitterID)
-			{}
-
-			virtual ~RPCTaskWrapper() {}
 		};
 	}
 }

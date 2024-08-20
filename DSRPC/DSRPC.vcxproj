@@ -141,9 +141,10 @@
     <ClInclude Include="Dispatcher.h" />
     <ClInclude Include="RequestDispatcher.h" />
     <ClInclude Include="ResponseDispatcher.h" />
-    <ClInclude Include="RPCTaskWrapper.h" />
+    <ClInclude Include="RPCTask.h" />
     <ClInclude Include="RPCServerStub.h" />
     <ClInclude Include="RPCTaskManager.h" />
+    <ClInclude Include="RPCTaskSerializer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
