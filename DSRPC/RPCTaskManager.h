@@ -13,7 +13,7 @@ namespace DSFramework {
 			using TASKID = std::string;
 		private:
 			std::shared_mutex m_mutex;
-			std::unordered_map<TASKID, RPCTask> m_tasks;
+			std::unordered_map<TASKID, RPCTask<TTask>> m_tasks;
 		public:
 			
 		};

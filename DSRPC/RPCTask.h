@@ -26,7 +26,7 @@ namespace DSFramework {
 			RPCTaskStatus m_status;
 			std::string m_submitterID;	// SessionID
 
-			TTask m_task;
+			std::shared_ptr<TTask> m_task;
 		public:
 			RPCTask(const std::string& submitterID) :
 				m_taskID(boost::uuids::to_string(boost::uuids::random_generator()())),
