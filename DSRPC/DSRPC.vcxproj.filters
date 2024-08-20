@@ -62,8 +62,5 @@
     <ClInclude Include="RPCTaskManager.h">
       <Filter>头文件\Component</Filter>
     </ClInclude>
-    <ClInclude Include="RPCTask.h">
-      <Filter>头文件\Component</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

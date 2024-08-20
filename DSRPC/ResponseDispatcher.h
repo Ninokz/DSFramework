@@ -1,13 +1,11 @@
 #pragma once
 
-#include "RPCTaskWrapper.h"
 #include "Dispatcher.h"
 
 namespace DSFramework {
 	namespace DSRPC {
 
-		template<class TTask>
-		class ResponseDispatcher : public Dispatcher<RPCTaskWrapper<TTask>>
+		class ResponseDispatcher
 		{
 		private:
 
