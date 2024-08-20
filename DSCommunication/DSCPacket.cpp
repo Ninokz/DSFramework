@@ -22,10 +22,14 @@ namespace DSFramework {
 			m_dataSize = 0;
 		}
 
-		void DSCPacket::PrintStringFormat() {
-			std::string str = std::string(m_data, m_dataSize);
-			std::cout << "Data size is " << m_dataSize << std::endl;
-			std::cout << "String Data is " << str << std::endl;
+		std::string DSCPacket::PrintStringFormat() {
+			std::string str;
+			str.append("DataSize: ");
+			str.append(std::to_string(m_dataSize));
+			std::string data = std::string(m_data, m_dataSize);
+			str.append("\nData: ");
+			str.append(data);
+			return str;
 		}
 
 		DSCPacket::DSCPacket(const DSCPacket& other)

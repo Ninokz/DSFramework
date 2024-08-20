@@ -39,7 +39,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DSRPCmain.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="RPCServerStub.cpp">
@@ -79,9 +79,6 @@
       <Filter>源文件\Ref</Filter>
     </ClCompile>
     <ClCompile Include="..\DSCommunication\Logger.cpp">
-      <Filter>源文件\Ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DSCommunication\main.cpp">
       <Filter>源文件\Ref</Filter>
     </ClCompile>
     <ClCompile Include="..\DSCommunication\Session.cpp">

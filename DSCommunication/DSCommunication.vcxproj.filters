@@ -69,7 +69,7 @@
     <ClCompile Include="AsyncClient.cpp">
       <Filter>源文件\Client</Filter>
     </ClCompile>
-    <ClCompile Include="DSCmain.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

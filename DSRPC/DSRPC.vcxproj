@@ -108,6 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_WIN32_WINNT=0x0601;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,11 +139,10 @@
     <ClCompile Include="..\DSCommunication\EventHandler.cpp" />
     <ClCompile Include="..\DSCommunication\IOServicePool.cpp" />
     <ClCompile Include="..\DSCommunication\Logger.cpp" />
-    <ClCompile Include="..\DSCommunication\main.cpp" />
     <ClCompile Include="..\DSCommunication\Session.cpp" />
     <ClCompile Include="..\DSCommunication\SessionManager.cpp" />
     <ClCompile Include="..\DSCommunication\ThreadPool.cpp" />
-    <ClCompile Include="DSRPCmain.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="RequestDispatcher.cpp" />
     <ClCompile Include="ResponseDispatcher.cpp" />
     <ClCompile Include="RPCPacket.pb.cc" />

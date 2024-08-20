@@ -100,12 +100,7 @@ namespace DSFramework {
 			try {
 				if (!ec) {
 					/// ≤‚ ‘
-					std::cout << "============================" << std::endl;
-					std::cout << "Session Layer" << std::endl;
-					m_cached_BodyRecvPacket->PrintStringFormat();
-					std::cout << "============================" << std::endl;
-					/// ∑¢ÀÕªÿ»•
-					this->Send(m_cached_BodyRecvPacket->m_data, m_cached_BodyRecvPacket->m_dataSize);
+					LOG_DEBUG_CONSOLE("Session Layer Data received: " + m_cached_BodyRecvPacket->PrintStringFormat());
 					/// ≤‚ ‘
 
 					//// Deep copy

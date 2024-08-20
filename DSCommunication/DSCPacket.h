@@ -24,7 +24,7 @@ namespace DSFramework {
 
 			virtual ~DSCPacket();
 			void Clear();
-			void PrintStringFormat();
+			std::string PrintStringFormat();
 		};
 
 		class DSCRecvPacket : public DSCPacket
