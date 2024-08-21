@@ -145,6 +145,7 @@
     <ClCompile Include="..\DSCommunication\SessionManager.cpp" />
     <ClCompile Include="..\DSCommunication\ThreadPool.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RequestDispatcher.cpp" />
     <ClCompile Include="RPCPacket.pb.cc" />
     <ClCompile Include="RPCPacketManager.cpp" />
     <ClCompile Include="RPCServerStub.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="..\DSCommunication\Singleton.h" />
     <ClInclude Include="..\DSCommunication\ThreadPool.h" />
     <ClInclude Include="Dispatcher.h" />
+    <ClInclude Include="RequestDispatcher.h" />
     <ClInclude Include="RPCPacket.pb.h" />
     <ClInclude Include="RPCPacketFactory.h" />
     <ClInclude Include="RPCPacketManager.h" />

@@ -8,12 +8,11 @@
 
 #include "RPCPacketFactory.h"
 #include "RPCPacketManager.h"
+#include "RequestDispatcher.h"
 
 using DSFramework::DSCommunication::Session;
 using DSFramework::DSCommunication::DSCRecvPacket;
 using DSFramework::DSCommunication::IDataEventHandler;
-using DSFramework::DSRPC::RPCPacketFactory;
-using DSFramework::DSRPC::RPCPacketManager;
 using DSFramework::DSRPC::Packet::RPCPacket;
 
 namespace DSFramework {
@@ -23,6 +22,7 @@ namespace DSFramework {
 		private:
 			std::string m_serverid;
 			std::shared_ptr<RPCPacketManager> m_packetManager;
+
 		public:
 			RPCServerStub();
 			virtual ~RPCServerStub();
