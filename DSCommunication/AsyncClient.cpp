@@ -6,6 +6,7 @@ namespace DSFramework {
 			m_ioc(),
 			m_running(false)
 		{
+			m_eventHandlerPtr = std::make_shared<EventHandler>();
 			m_session = std::make_shared<Session>(m_ioc, m_eventHandlerPtr, SEND_QUEUE_MAX_SIZE);
 		}
 
