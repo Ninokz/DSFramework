@@ -14,6 +14,7 @@ using DSFramework::DSCommunication::DSCRecvPacket;
 using DSFramework::DSCommunication::IDataEventHandler;
 using DSFramework::DSRPC::Packet::RPCPacketFactory;
 using DSFramework::DSRPC::RPCPacketManager;
+using DSFramework::DSRPC::Packet::RPCPacket;
 
 namespace DSFramework {
 	namespace DSRPC {
@@ -27,7 +28,7 @@ namespace DSFramework {
 			virtual ~RPCServerStub();
 			virtual void OnData(std::shared_ptr<Session> sender, std::shared_ptr<DSCRecvPacket> msg) override;
 		private:
-
+			void Send(std::shared_ptr<Session> sender, std::shared_ptr<Packet::RPCPacket> packet);
 		};
 	}
 }

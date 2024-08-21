@@ -21,30 +21,45 @@ namespace DSFramework {
 			{
 				LOG_DEBUG_CONSOLE("Packet deserialized:" + packet->DebugString());
 				std::string requestid = m_packetManager->AddRequest(packet);
+
+				/// todo 完成dispatcher的实现
+				/// ex: m_dispatcher->Dispatch(packet);
 				if (true)
 				{
-					m_packetManager->RemoveRequest(requestid);
+					LOG_DEBUG_CONSOLE("Request dispatched success");
+					auto response = RPCPacketFactory::CreateResponseFromOrign(packet, Packet::RPCPacketStatus::WAITING, Packet::RPCPacketError::PKT_NO_ERROR, sender->GetUUID());
+					Send(sender, response);
 				}
 				else
 				{
+					LOG_DEBUG_CONSOLE("Request dispatched failed");
 					m_packetManager->RemoveRequest(requestid);
+					auto response = RPCPacketFactory::CreateResponseFromOrign(packet, Packet::RPCPacketStatus::WAITING, Packet::RPCPacketError::SERVICE_BUSY, sender->GetUUID());
+					Send(sender, response);
 				}
+				/// todo 完成dispatcher的实现
 			}
 			else
 			{
+				packet.reset();
 				packet = RPCPacketFactory::CreateErrorResponse(m_serverid, sender->GetUUID(), Packet::RPCPacketStatus::WAITING, Packet::RPCPacketError::PKT_DESERIALIZATION_ERROR, sender->GetUUID());
-				const char* data = nullptr;
-				size_t size = 0;
-				if (RPCPacketFactory::Serialize(packet, &data, &size))
-				{
-					sender->Send(data, size);
-					delete[] data;
-					data = nullptr;
-				}
-				else
-				{
-					LOG_ERROR_CONSOLE("Failed to serialize error response packet");
-				}
+				Send(sender, packet);
+			}
+		}
+
+		void RPCServerStub::Send(std::shared_ptr<Session> sender, std::shared_ptr<Packet::RPCPacket> packet)
+		{
+			const char* data = nullptr;
+			size_t size = 0;
+			if (RPCPacketFactory::Serialize(packet, &data, &size))
+			{
+				sender->Send(data, size);
+				delete[] data;
+				data = nullptr;
+			}
+			else
+			{
+				LOG_ERROR_CONSOLE("Failed to serialize error response packet");
 			}
 		}
 	}
