@@ -141,11 +141,11 @@ const char descriptor_table_protodef_RPCPacket_2eproto[] PROTOBUF_SECTION_VARIAB
     "_ERROR\020\002\022\035\n\031PKT_DESERIALIZATION_ERROR\020\003\022"
     "\020\n\014SERVICE_BUSY\020\004\022\025\n\021SERVICE_NOT_FOUND\020\005"
     "\022\035\n\031SERVICE_IVAILD_PARAMETERS\020\006\022\021\n\rSERVI"
-    "CE_ERROR\020\007*[\n\rRPCPacketType\022\020\n\014TASK_REQU"
-    "EST\020\000\022\021\n\rTASK_RESPONSE\020\001\022\021\n\rQUERY_REQUES"
-    "T\020\002\022\022\n\016QUERY_RESPONSE\020\003*;\n\017RPCPacketStat"
-    "us\022\013\n\007WAITING\020\000\022\014\n\010COMMITED\020\001\022\r\n\tCOMPLET"
-    "ED\020\002b\006proto3"
+    "CE_ERROR\020\007*q\n\rRPCPacketType\022\024\n\020DEFAULT_R"
+    "ESPONSE\020\000\022\020\n\014TASK_REQUEST\020\001\022\021\n\rTASK_RESP"
+    "ONSE\020\002\022\021\n\rQUERY_REQUEST\020\003\022\022\n\016QUERY_RESPO"
+    "NSE\020\004*;\n\017RPCPacketStatus\022\013\n\007WAITING\020\000\022\014\n"
+    "\010COMMITED\020\001\022\r\n\tCOMPLETED\020\002b\006proto3"
 };
 static const ::_pbi::DescriptorTable* const descriptor_table_RPCPacket_2eproto_deps[1] =
     {
@@ -155,7 +155,7 @@ static ::absl::once_flag descriptor_table_RPCPacket_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_RPCPacket_2eproto = {
     false,
     false,
-    852,
+    874,
     descriptor_table_protodef_RPCPacket_2eproto,
     "RPCPacket.proto",
     &descriptor_table_RPCPacket_2eproto_once,
@@ -204,9 +204,9 @@ const ::google::protobuf::EnumDescriptor* RPCPacketType_descriptor() {
   return file_level_enum_descriptors_RPCPacket_2eproto[1];
 }
 PROTOBUF_CONSTINIT const uint32_t RPCPacketType_internal_data_[] = {
-    262144u, 0u, };
+    327680u, 0u, };
 bool RPCPacketType_IsValid(int value) {
-  return 0 <= value && value <= 3;
+  return 0 <= value && value <= 4;
 }
 const ::google::protobuf::EnumDescriptor* RPCPacketStatus_descriptor() {
   ::google::protobuf::internal::AssignDescriptors(&descriptor_table_RPCPacket_2eproto);

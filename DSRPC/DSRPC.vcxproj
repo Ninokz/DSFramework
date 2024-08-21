@@ -146,7 +146,6 @@
     <ClCompile Include="..\DSCommunication\ThreadPool.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RPCPacket.pb.cc" />
-    <ClCompile Include="RPCPacketFactory.cpp" />
     <ClCompile Include="RPCPacketManager.cpp" />
     <ClCompile Include="RPCServerStub.cpp" />
     <ClCompile Include="RPCTaskManager.cpp" />

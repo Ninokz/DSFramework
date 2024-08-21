@@ -99,10 +99,6 @@ namespace DSFramework {
 
 			try {
 				if (!ec) {
-					/// ≤‚ ‘
-					LOG_DEBUG_CONSOLE("Session Layer Data received: " + m_cached_BodyRecvPacket->PrintStringFormat());
-					/// ≤‚ ‘
-
 					//// Deep copy
 					auto recvPacketShawdow = std::make_shared<DSCRecvPacket>(*m_cached_BodyRecvPacket);
 

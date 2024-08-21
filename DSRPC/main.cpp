@@ -8,7 +8,7 @@
 #include "RPCPacketFactory.h"
 
 using DSFramework::DSRPC::RPCServerStub;
-using DSFramework::DSRPC::Packet::RPCPacketFactory;
+using DSFramework::DSRPC::RPCPacketFactory;
 
 using DSFramework::DSCommunication::Session;
 using DSFramework::DSCommunication::DSCRecvPacket;

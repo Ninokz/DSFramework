@@ -114,10 +114,11 @@ inline bool RPCPacketError_Parse(absl::string_view name, RPCPacketError* value) 
       RPCPacketError_descriptor(), name, value);
 }
 enum RPCPacketType : int {
-  TASK_REQUEST = 0,
-  TASK_RESPONSE = 1,
-  QUERY_REQUEST = 2,
-  QUERY_RESPONSE = 3,
+  DEFAULT_RESPONSE = 0,
+  TASK_REQUEST = 1,
+  TASK_RESPONSE = 2,
+  QUERY_REQUEST = 3,
+  QUERY_RESPONSE = 4,
   RPCPacketType_INT_MIN_SENTINEL_DO_NOT_USE_ =
       std::numeric_limits<::int32_t>::min(),
   RPCPacketType_INT_MAX_SENTINEL_DO_NOT_USE_ =
@@ -127,8 +128,8 @@ enum RPCPacketType : int {
 bool RPCPacketType_IsValid(int value);
 extern const uint32_t RPCPacketType_internal_data_[];
 constexpr RPCPacketType RPCPacketType_MIN = static_cast<RPCPacketType>(0);
-constexpr RPCPacketType RPCPacketType_MAX = static_cast<RPCPacketType>(3);
-constexpr int RPCPacketType_ARRAYSIZE = 3 + 1;
+constexpr RPCPacketType RPCPacketType_MAX = static_cast<RPCPacketType>(4);
+constexpr int RPCPacketType_ARRAYSIZE = 4 + 1;
 const ::google::protobuf::EnumDescriptor*
 RPCPacketType_descriptor();
 template <typename T>
@@ -141,7 +142,7 @@ const std::string& RPCPacketType_Name(T value) {
 template <>
 inline const std::string& RPCPacketType_Name(RPCPacketType value) {
   return ::google::protobuf::internal::NameOfDenseEnum<RPCPacketType_descriptor,
-                                                 0, 3>(
+                                                 0, 4>(
       static_cast<int>(value));
 }
 inline bool RPCPacketType_Parse(absl::string_view name, RPCPacketType* value) {

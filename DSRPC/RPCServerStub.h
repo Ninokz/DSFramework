@@ -12,7 +12,7 @@
 using DSFramework::DSCommunication::Session;
 using DSFramework::DSCommunication::DSCRecvPacket;
 using DSFramework::DSCommunication::IDataEventHandler;
-using DSFramework::DSRPC::Packet::RPCPacketFactory;
+using DSFramework::DSRPC::RPCPacketFactory;
 using DSFramework::DSRPC::RPCPacketManager;
 using DSFramework::DSRPC::Packet::RPCPacket;
 
@@ -29,6 +29,9 @@ namespace DSFramework {
 			virtual void OnData(std::shared_ptr<Session> sender, std::shared_ptr<DSCRecvPacket> msg) override;
 		private:
 			void Send(std::shared_ptr<Session> sender, std::shared_ptr<Packet::RPCPacket> packet);
+
+			inline std::shared_ptr<RPCPacket> Deserialize(const char* data, size_t datalength, bool* serializeResult);
+			inline bool Serialize(const std::shared_ptr<RPCPacket> packet, const char** data, size_t* size);
 		};
 	}
 }

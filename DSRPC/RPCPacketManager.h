@@ -26,11 +26,15 @@ namespace DSFramework {
 			using REQUEST_ID = std::string;
 
 			RPCPacketManager();
+
 			virtual ~RPCPacketManager();
 
 			REQUEST_ID AddRequest(std::shared_ptr<Packet::RPCPacket> request);
+
 			void RemoveRequest(REQUEST_ID& requestID);
+
 			void UpdateRequestStatus(REQUEST_ID& requestID, Packet::RPCPacketStatus status);
+
 			std::shared_ptr<Packet::RPCPacket> QueryRequest(REQUEST_ID& requestID, bool* queryResult);
 		};
 	}
