@@ -15,17 +15,15 @@ namespace DSFramework {
 			static inline std::string CurrentTime() { return boost::posix_time::to_simple_string(boost::posix_time::second_clock::local_time()); }
 		public:
 			static std::shared_ptr<RPCPacket> CreateErrorResponse(std::string from, std::string to, Packet::RPCPacketError error, std::string innerID) {
-				{
-					std::shared_ptr<RPCPacket> response = std::make_shared<RPCPacket>();
-					response->set_type(Packet::DEFAULT_RESPONSE);
-					response->set_error(error);
-					response->set_status(Packet::RPCPacketStatus::WAITING);
-					response->set_inner_id(innerID);
+				std::shared_ptr<RPCPacket> response = std::make_shared<RPCPacket>();
+				response->set_type(Packet::DEFAULT_RESPONSE);
+				response->set_error(error);
+				response->set_status(Packet::RPCPacketStatus::WAITING);
+				response->set_inner_id(innerID);
 
-					response->set_from(from);
-					response->set_to(to);
-					return response;
-				}
+				response->set_from(from);
+				response->set_to(to);
+				return response;
 			}
 
 			static inline std::shared_ptr<RPCPacket> CreateResponse(std::shared_ptr<RPCPacket> request)
