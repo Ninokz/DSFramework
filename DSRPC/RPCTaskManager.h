@@ -12,8 +12,7 @@ namespace DSFramework {
 		class RPCTaskManager
 		{
 		public:
-			using TASKID = std::string;
-			using SESSIONID = std::string;
+
 		public:
 			RPCTaskManager();
 			virtual ~RPCTaskManager();
