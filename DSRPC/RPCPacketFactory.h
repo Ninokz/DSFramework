@@ -12,7 +12,7 @@ namespace DSFramework {
 			class RPCPacketFactory
 			{
 			private:
-				static inline std::string GetCurrentTime() {
+				static inline std::string CurrentTime() {
 					return boost::posix_time::to_simple_string(boost::posix_time::second_clock::local_time());
 				}
 			public:
@@ -61,17 +61,17 @@ namespace DSFramework {
 					if ((status & Packet::RPCPacketStatus::COMMITED) == Packet::RPCPacketStatus::COMMITED)
 					{
 						packet->set_status(Packet::RPCPacketStatus::COMMITED);
-						packet->set_commited_time(GetCurrentTime());
+						packet->set_commited_time(CurrentTime());
 					}
 					else if ((status & Packet::RPCPacketStatus::COMPLETED) == Packet::RPCPacketStatus::COMPLETED)
 					{
 						packet->set_status(Packet::RPCPacketStatus::COMPLETED);
-						packet->set_completed_time(GetCurrentTime());
+						packet->set_completed_time(CurrentTime());
 					}
 					else if ((status & Packet::RPCPacketStatus::WAITING) == Packet::RPCPacketStatus::WAITING)
 					{
 						packet->set_status(Packet::RPCPacketStatus::WAITING);
-						packet->set_created_time(GetCurrentTime());
+						packet->set_created_time(CurrentTime());
 					}
 				}
 

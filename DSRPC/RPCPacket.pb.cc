@@ -136,15 +136,16 @@ const char descriptor_table_protodef_RPCPacket_2eproto[] PROTOBUF_SECTION_VARIAB
     "me\030\t \001(\t\022\022\n\nrequest_id\030\n \001(\t\022\017\n\007service\030"
     "\013 \001(\t\022(\n\nparameters\030\014 \001(\0132\024.google.proto"
     "buf.Any\022$\n\006result\030\r \001(\0132\024.google.protobu"
-    "f.Any*\272\001\n\016RPCPacketError\022\013\n\007UNKNOWN\020\000\022\014\n"
-    "\010NO_ERROR\020\001\022\027\n\023SERIALIZATION_ERROR\020\002\022\031\n\025"
-    "DESERIALIZATION_ERROR\020\003\022\020\n\014SERVICE_BUSY\020"
-    "\004\022\025\n\021SERVICE_NOT_FOUND\020\005\022\035\n\031SERVICE_IVAI"
-    "LD_PARAMETERS\020\006\022\021\n\rSERVICE_ERROR\020\007*[\n\rRP"
-    "CPacketType\022\020\n\014TASK_REQUEST\020\000\022\021\n\rTASK_RE"
-    "SPONSE\020\001\022\021\n\rQUERY_REQUEST\020\002\022\022\n\016QUERY_RES"
-    "PONSE\020\003*;\n\017RPCPacketStatus\022\013\n\007WAITING\020\000\022"
-    "\014\n\010COMMITED\020\001\022\r\n\tCOMPLETED\020\002b\006proto3"
+    "f.Any*\312\001\n\016RPCPacketError\022\017\n\013PKT_UNKNOWN\020"
+    "\000\022\020\n\014PKT_NO_ERROR\020\001\022\033\n\027PKT_SERIALIZATION"
+    "_ERROR\020\002\022\035\n\031PKT_DESERIALIZATION_ERROR\020\003\022"
+    "\020\n\014SERVICE_BUSY\020\004\022\025\n\021SERVICE_NOT_FOUND\020\005"
+    "\022\035\n\031SERVICE_IVAILD_PARAMETERS\020\006\022\021\n\rSERVI"
+    "CE_ERROR\020\007*[\n\rRPCPacketType\022\020\n\014TASK_REQU"
+    "EST\020\000\022\021\n\rTASK_RESPONSE\020\001\022\021\n\rQUERY_REQUES"
+    "T\020\002\022\022\n\016QUERY_RESPONSE\020\003*;\n\017RPCPacketStat"
+    "us\022\013\n\007WAITING\020\000\022\014\n\010COMMITED\020\001\022\r\n\tCOMPLET"
+    "ED\020\002b\006proto3"
 };
 static const ::_pbi::DescriptorTable* const descriptor_table_RPCPacket_2eproto_deps[1] =
     {
@@ -154,7 +155,7 @@ static ::absl::once_flag descriptor_table_RPCPacket_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_RPCPacket_2eproto = {
     false,
     false,
-    836,
+    852,
     descriptor_table_protodef_RPCPacket_2eproto,
     "RPCPacket.proto",
     &descriptor_table_RPCPacket_2eproto_once,
