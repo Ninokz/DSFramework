@@ -78,6 +78,12 @@
     <ClCompile Include="..\DSCommunication\ThreadPool.cpp">
       <Filter>源文件\Ref</Filter>
     </ClCompile>
+    <ClCompile Include="RPCPacket.pb.cc">
+      <Filter>源文件\Packet</Filter>
+    </ClCompile>
+    <ClCompile Include="RPCPacketFactory.cpp">
+      <Filter>源文件\Packet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RPCServerStub.h">
@@ -124,6 +130,12 @@
     </ClInclude>
     <ClInclude Include="..\DSCommunication\ThreadPool.h">
       <Filter>头文件\Ref</Filter>
+    </ClInclude>
+    <ClInclude Include="RPCPacket.pb.h">
+      <Filter>头文件\Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="RPCPacketFactory.h">
+      <Filter>头文件\Packet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

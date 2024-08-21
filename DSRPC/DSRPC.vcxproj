@@ -80,6 +80,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>4251;4018;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -109,6 +110,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_WIN32_WINNT=0x0601;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <DisableSpecificWarnings>4251;4018;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,6 +145,8 @@
     <ClCompile Include="..\DSCommunication\SessionManager.cpp" />
     <ClCompile Include="..\DSCommunication\ThreadPool.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RPCPacket.pb.cc" />
+    <ClCompile Include="RPCPacketFactory.cpp" />
     <ClCompile Include="RPCServerStub.cpp" />
     <ClCompile Include="RPCTaskManager.cpp" />
   </ItemGroup>
@@ -160,6 +164,8 @@
     <ClInclude Include="..\DSCommunication\Singleton.h" />
     <ClInclude Include="..\DSCommunication\ThreadPool.h" />
     <ClInclude Include="Dispatcher.h" />
+    <ClInclude Include="RPCPacket.pb.h" />
+    <ClInclude Include="RPCPacketFactory.h" />
     <ClInclude Include="RPCServerStub.h" />
     <ClInclude Include="RPCTaskManager.h" />
   </ItemGroup>
