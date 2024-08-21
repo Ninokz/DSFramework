@@ -17,6 +17,8 @@ namespace DSFramework {
 			auto pkt = RPCPacketFactory::Deserialize(msg->m_data, msg->m_dataSize, &res);
 			if (res)
 				LOG_DEBUG_CONSOLE("Stub Layer Data deserialize: " + pkt->DebugString());
+			else
+				LOG_DEBUG_CONSOLE("Stub Layer Data deserialize failed");
 		}
 	}
 }

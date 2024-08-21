@@ -26,6 +26,7 @@ int main()
 	AsyncTcpServer server(9000);
 	server.AddConnectEventHandler(std::static_pointer_cast<IConnectEventHandler>(sessionManager));
 	server.AddCloseEventHandler(std::static_pointer_cast<ICloseEventHandler>(sessionManager));
+	server.AddDataEventHandler(std::static_pointer_cast<IDataEventHandler>(rpcServerStub));
 	server.Start();
 
 	return 0;
