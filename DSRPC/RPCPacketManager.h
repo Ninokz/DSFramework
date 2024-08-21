@@ -8,8 +8,12 @@
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 
+#include "../DSCommunication/Logger.h"
+
 #include "RPCPacket.pb.h"
 
+using DSFramework::DSComponent::Logger;
+using DSFramework::DSComponent::Log;
 using DSFramework::DSRPC::Packet::RPCPacket;
 namespace DSFramework {
 	namespace DSRPC {

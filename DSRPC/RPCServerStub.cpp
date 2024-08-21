@@ -16,11 +16,19 @@ namespace DSFramework {
 			LOG_DEBUG_CONSOLE("Stub Layer Data received: " + msg->PrintStringFormat());
 			bool deserializeResult = false;
 			std::shared_ptr<Packet::RPCPacket> packet = RPCPacketFactory::Deserialize(msg->m_data, msg->m_dataSize, &deserializeResult);
-
+			RPCPacketFactory::UpdateRPCPacketStatus(packet, Packet::RPCPacketStatus::WAITING);
 			if (deserializeResult)
 			{
 				LOG_DEBUG_CONSOLE("Packet deserialized:" + packet->DebugString());
-
+				std::string requestid = m_packetManager->AddRequest(packet);
+				if (true)
+				{
+					m_packetManager->RemoveRequest(requestid);
+				}
+				else
+				{
+					m_packetManager->RemoveRequest(requestid);
+				}
 			}
 			else
 			{
