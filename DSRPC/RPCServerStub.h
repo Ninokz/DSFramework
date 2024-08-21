@@ -20,7 +20,8 @@ namespace DSFramework {
 		class RPCServerStub : public IDataEventHandler
 		{
 		private:
-
+			std::string m_serverid;
+			std::shared_ptr<RPCPacketManager> m_packetManager;
 		public:
 			RPCServerStub();
 			virtual ~RPCServerStub();

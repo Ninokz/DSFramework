@@ -16,12 +16,16 @@ namespace DSFramework {
 					return boost::posix_time::to_simple_string(boost::posix_time::second_clock::local_time());
 				}
 			public:
-				static std::shared_ptr<RPCPacket> CreateErrorResponse(Packet::RPCPacketStatus status, Packet::RPCPacketError error, std::string innerID)
+				static std::shared_ptr<RPCPacket> CreateErrorResponse(std::string from, std::string to, Packet::RPCPacketStatus status, Packet::RPCPacketError error, std::string innerID)
 				{
 					std::shared_ptr<RPCPacket> response = std::make_shared<RPCPacket>();
+					response->clear_type();
 					response->set_error(error);
 					response->set_status(status);
 					response->set_inner_id(innerID);
+
+					response->set_from(from);
+					response->set_to(to);
 
 					response->clear_created_time();
 					response->clear_commited_time();
