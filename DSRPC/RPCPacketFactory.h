@@ -13,12 +13,12 @@ namespace DSFramework {
 		private:
 			static inline std::string CurrentTime() { return boost::posix_time::to_simple_string(boost::posix_time::second_clock::local_time()); }
 		public:
-			static std::shared_ptr<RPCPacket> CreateErrorResponse(std::string from, std::string to, Packet::RPCPacketStatus status, Packet::RPCPacketError error, std::string innerID) {
+			static std::shared_ptr<RPCPacket> CreateErrorResponse(std::string from, std::string to, Packet::RPCPacketError error, std::string innerID) {
 				{
 					std::shared_ptr<RPCPacket> response = std::make_shared<RPCPacket>();
 					response->set_type(Packet::DEFAULT_RESPONSE);
 					response->set_error(error);
-					response->set_status(status);
+					response->set_status(Packet::RPCPacketStatus::WAITING);
 					response->set_inner_id(innerID);
 
 					response->set_from(from);
@@ -27,44 +27,47 @@ namespace DSFramework {
 				}
 			}
 
-			static std::shared_ptr<RPCPacket> CreateResponseFromOrign(std::shared_ptr<RPCPacket> orign, Packet::RPCPacketStatus status, Packet::RPCPacketError error, std::string innerID) {
-				///deep copy from orign
+			static inline std::shared_ptr<RPCPacket> CreateResponse(std::shared_ptr<RPCPacket> request)
+			{
+				/// deep copy request to response
 				std::shared_ptr<RPCPacket> response = std::make_shared<RPCPacket>();
-				response->CopyFrom(*orign);
-
-				if ((orign->type() & Packet::RPCPacketType::TASK_REQUEST) == Packet::RPCPacketType::TASK_REQUEST)
-					response->set_type(Packet::RPCPacketType::TASK_RESPONSE);
-				else if ((orign->type() & Packet::RPCPacketType::QUERY_REQUEST) == Packet::RPCPacketType::QUERY_REQUEST)
-					response->set_type(Packet::RPCPacketType::QUERY_RESPONSE);
-
-				response->set_error(error);
-				response->set_status(status);
-				response->set_inner_id(innerID);
-
-				std::string or_from = orign->from();
-				std::string or_to = orign->to();
-				response->set_from(or_to);
-				response->set_to(or_from);
-
+				response->CopyFrom(*request);
 				return response;
 			}
 
-			static void UpdateRPCPacketStatus(std::shared_ptr<RPCPacket> packet, Packet::RPCPacketStatus status) {
-				if ((status & Packet::RPCPacketStatus::COMMITED) == Packet::RPCPacketStatus::COMMITED)
-				{
-					packet->set_status(Packet::RPCPacketStatus::COMMITED);
-					packet->set_commited_time(CurrentTime());
-				}
-				else if ((status & Packet::RPCPacketStatus::COMPLETED) == Packet::RPCPacketStatus::COMPLETED)
-				{
-					packet->set_status(Packet::RPCPacketStatus::COMPLETED);
-					packet->set_completed_time(CurrentTime());
-				}
-				else if ((status & Packet::RPCPacketStatus::WAITING) == Packet::RPCPacketStatus::WAITING)
-				{
-					packet->set_status(Packet::RPCPacketStatus::WAITING);
-					packet->set_created_time(CurrentTime());
-				}
+			static inline void ChangeTypeToResponse(std::shared_ptr<RPCPacket> packet)
+			{
+				if((packet->type() & Packet::RPCPacketType::TASK_REQUEST) == Packet::RPCPacketType::TASK_REQUEST)
+					packet->set_type(Packet::RPCPacketType::TASK_RESPONSE);
+				else if ((packet->type() & Packet::RPCPacketType::TASK_RESPONSE) == Packet::RPCPacketType::TASK_RESPONSE)
+					packet->set_type(Packet::RPCPacketType::TASK_REQUEST);
+				else
+					packet->set_type(Packet::DEFAULT_RESPONSE);
+			}
+
+			static inline void SetErrorCode(std::shared_ptr<RPCPacket> packet, Packet::RPCPacketError error)
+			{
+				packet->set_error(error);
+			}
+
+			static inline void ChangeRecvSend(std::shared_ptr<RPCPacket> packet)
+			{
+				std::string temp = packet->from();
+				packet->set_from(packet->to());
+				packet->set_to(temp);
+			}
+
+			static inline std::string InitRPCPacket(std::shared_ptr<RPCPacket> packet, std::string innerID)
+			{
+				std::string uid = boost::uuids::to_string(boost::uuids::random_generator()());
+				packet->set_request_id(uid);
+				packet->set_status(Packet::RPCPacketStatus::WAITING);
+				packet->set_error(Packet::RPCPacketError::PKT_NO_ERROR);
+				packet->set_inner_id(innerID);
+				packet->set_created_time(CurrentTime());
+				packet->set_commited_time("");
+				packet->set_completed_time("");
+				return uid;
 			}
 		};
 	}

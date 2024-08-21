@@ -45,9 +45,6 @@
     <ClCompile Include="RPCServerStub.cpp">
       <Filter>源文件\Server</Filter>
     </ClCompile>
-    <ClCompile Include="RPCTaskManager.cpp">
-      <Filter>源文件\Server</Filter>
-    </ClCompile>
     <ClCompile Include="..\DSCommunication\AsyncClient.cpp">
       <Filter>源文件\Ref</Filter>
     </ClCompile>
@@ -85,6 +82,12 @@
       <Filter>源文件\Packet</Filter>
     </ClCompile>
     <ClCompile Include="RequestDispatcher.cpp">
+      <Filter>源文件\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="RPCServer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="RPCEventHandler.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -94,9 +97,6 @@
     </ClInclude>
     <ClInclude Include="Dispatcher.h">
       <Filter>头文件\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="RPCTaskManager.h">
-      <Filter>头文件\Server</Filter>
     </ClInclude>
     <ClInclude Include="..\DSCommunication\AsyncTcpClient.h">
       <Filter>头文件\Ref</Filter>
@@ -144,6 +144,15 @@
       <Filter>头文件\Packet</Filter>
     </ClInclude>
     <ClInclude Include="RequestDispatcher.h">
+      <Filter>头文件\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="RPCServer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="RPCEventHandler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="RPCProcedure.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -146,10 +146,11 @@
     <ClCompile Include="..\DSCommunication\ThreadPool.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RequestDispatcher.cpp" />
+    <ClCompile Include="RPCEventHandler.cpp" />
     <ClCompile Include="RPCPacket.pb.cc" />
     <ClCompile Include="RPCPacketManager.cpp" />
+    <ClCompile Include="RPCServer.cpp" />
     <ClCompile Include="RPCServerStub.cpp" />
-    <ClCompile Include="RPCTaskManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DSCommunication\AsyncTcpClient.h" />
@@ -166,11 +167,13 @@
     <ClInclude Include="..\DSCommunication\ThreadPool.h" />
     <ClInclude Include="Dispatcher.h" />
     <ClInclude Include="RequestDispatcher.h" />
+    <ClInclude Include="RPCEventHandler.h" />
     <ClInclude Include="RPCPacket.pb.h" />
     <ClInclude Include="RPCPacketFactory.h" />
     <ClInclude Include="RPCPacketManager.h" />
+    <ClInclude Include="RPCProcedure.h" />
+    <ClInclude Include="RPCServer.h" />
     <ClInclude Include="RPCServerStub.h" />
-    <ClInclude Include="RPCTaskManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -6,9 +6,13 @@
 
 #include "RPCServerStub.h"
 #include "RPCPacketFactory.h"
+#include "RPCEventHandler.h"
+#include "RPCPacketManager.h"
 
 using DSFramework::DSRPC::RPCServerStub;
 using DSFramework::DSRPC::RPCPacketFactory;
+using DSFramework::DSRPC::RPCEventHandler;
+using DSFramework::DSRPC::RPCPacketManager;
 
 using DSFramework::DSCommunication::Session;
 using DSFramework::DSCommunication::DSCRecvPacket;
@@ -18,10 +22,15 @@ using DSFramework::DSCommunication::IConnectEventHandler;
 using DSFramework::DSCommunication::AsyncTcpServer;
 using DSFramework::DSCommunication::SessionManager;
 
-
 int main()
 {
-	std::shared_ptr<RPCServerStub> rpcServerStub = std::make_shared<RPCServerStub>();
+	std::shared_ptr<RPCPacketManager> rpcPacketManager = std::make_shared<RPCPacketManager>();
+
+	std::shared_ptr<RPCEventHandler> rpcEventHandler = std::make_shared<RPCEventHandler>();
+	rpcEventHandler->AddDeserializedEventHandler(std::static_pointer_cast<IDeserializedEventHandler>(rpcPacketManager));
+	rpcEventHandler->AddDispatchEventHandler(std::static_pointer_cast<IDispatchEventHandler>(rpcPacketManager));
+
+	std::shared_ptr<RPCServerStub> rpcServerStub = std::make_shared<RPCServerStub>(rpcEventHandler);
 	std::shared_ptr<SessionManager> sessionManager = std::make_shared<SessionManager>(100);
 	AsyncTcpServer server(9000);
 	server.AddConnectEventHandler(std::static_pointer_cast<IConnectEventHandler>(sessionManager));
