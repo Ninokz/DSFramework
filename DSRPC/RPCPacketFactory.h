@@ -76,6 +76,8 @@ namespace DSFramework {
 					{
 						packet->set_status(Packet::RPCPacketStatus::WAITING);
 						packet->set_created_time(CurrentTime());
+						packet->set_commited_time("");
+						packet->set_completed_time("");
 					}
 				}
 
