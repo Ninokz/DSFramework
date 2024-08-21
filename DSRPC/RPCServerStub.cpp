@@ -26,13 +26,16 @@ namespace DSFramework {
 				/// ex: m_dispatcher->Dispatch(packet);
 				if (true)
 				{
+					/// 若成功分发请求则执行以下代码
 					LOG_DEBUG_CONSOLE("Request dispatched success");
 					auto response = RPCPacketFactory::CreateResponseFromOrign(packet, Packet::RPCPacketStatus::WAITING, Packet::RPCPacketError::PKT_NO_ERROR, sender->GetUUID());
 					Send(sender, response);
 				}
 				else
 				{
+					/// 若分发请求失败则执行以下代码
 					LOG_DEBUG_CONSOLE("Request dispatched failed");
+					/// 从请求管理器中移除请求
 					m_packetManager->RemoveRequest(requestid);
 					auto response = RPCPacketFactory::CreateResponseFromOrign(packet, Packet::RPCPacketStatus::WAITING, Packet::RPCPacketError::SERVICE_BUSY, sender->GetUUID());
 					Send(sender, response);
