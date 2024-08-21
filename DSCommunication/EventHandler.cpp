@@ -3,6 +3,13 @@
 
 namespace DSFramework {
 	namespace DSCommunication {
+		EventHandler::EventHandler()
+		{
+			m_closeEventHandlers = std::vector<std::shared_ptr<ICloseEventHandler>>();
+			m_connectEventHandlers = std::vector<std::shared_ptr<IConnectEventHandler>>();
+			m_dataEventHandlers = std::vector<std::shared_ptr<IDataEventHandler>>();
+		}
+
 		EventHandler::~EventHandler()
 		{
 			m_closeEventHandlers.clear();

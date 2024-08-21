@@ -31,7 +31,7 @@ namespace DSFramework {
 			std::vector<std::shared_ptr<IConnectEventHandler>> m_connectEventHandlers;
 			std::vector<std::shared_ptr<IDataEventHandler>> m_dataEventHandlers;
 		public:
-			EventHandler() = default;
+			EventHandler();
 			virtual ~EventHandler();
 
 			void AddCloseEventHandler(std::shared_ptr<ICloseEventHandler> handler);
