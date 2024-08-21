@@ -18,10 +18,12 @@ namespace DSFramework {
 		class RPCProcedure : public std::enable_shared_from_this<RPCProcedure>
 		{
 		public:
+			std::string m_procedureId;
 			std::atomic<bool> m_isRunning;
 			std::string m_requestID;
 			std::string m_sessionID;
 			std::shared_ptr<RPCPacket> m_request;
+		private:
 			std::shared_ptr<RPCEventHandler> m_rpcEventHandler;
 		public:
 			RPCProcedure(std::shared_ptr<RPCPacket> request, std::shared_ptr<RPCEventHandler> rpcEventHandler):
