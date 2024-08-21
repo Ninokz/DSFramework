@@ -28,7 +28,8 @@ namespace DSFramework {
 				std::string requestid = m_packetManager->AddRequest(packet);
 
 				/// todo 完成dispatcher的实现
-				/// ex: m_dispatcher->Dispatch(packet);
+				/// ex: res = m_dispatcher->Dispatch(packet);
+				/// if(res) ...
 				if (true)
 				{
 					/// 若成功分发请求则执行以下代码
@@ -61,9 +62,18 @@ namespace DSFramework {
 			size_t size = 0;
 			if (this->Serialize(packet, &data, &size))
 			{
-				sender->Send(data, size);
-				delete[] data;
-				data = nullptr;
+				if (size > INT32_MAX) {
+					LOG_ERROR_CONSOLE("Data size is too large");
+					delete[] data;
+					data = nullptr;
+					return;
+				}
+				else
+				{
+					sender->Send(data, (int)size);
+					delete[] data;
+					data = nullptr;
+				}	
 			}
 			else
 			{
@@ -71,7 +81,7 @@ namespace DSFramework {
 			}
 		}
 
-		inline std::shared_ptr<RPCPacket> RPCServerStub::Deserialize(const char* data, size_t datalength, bool* serializeResult)
+		inline std::shared_ptr<RPCPacket> RPCServerStub::Deserialize(const char* data, int datalength, bool* serializeResult)
 		{
 			std::shared_ptr<RPCPacket> packet = std::make_shared<RPCPacket>();
 			*serializeResult = packet->ParseFromArray(data, datalength);
@@ -80,20 +90,31 @@ namespace DSFramework {
 
 		inline bool RPCServerStub::Serialize(const std::shared_ptr<RPCPacket> packet, const char** data, size_t* size)
 		{
-			if (!packet) {
+			if (!packet || !data || !size) {
 				return false;
 			}
 
-			std::string serialized_data;
-			if (!packet->SerializeToString(&serialized_data)) {
+			*size = packet->ByteSizeLong();
+
+			*data = new char[*size];
+			if (!*data) {
 				return false;
 			}
 
-			char* buffer = new char[serialized_data.size()];
-			memcpy(buffer, serialized_data.data(), serialized_data.size());
+			if (*size > INT32_MAX)
+			{
+				delete[] * data;
+				*data = nullptr;
+				*size = 0;
+				return false;
+			}
 
-			*data = buffer;
-			*size = serialized_data.size();
+			if (!packet->SerializeToArray(const_cast<char*>(*data), (int)*size)) {
+				delete[] * data;
+				*data = nullptr;
+				*size = 0;
+				return false;
+			}
 			return true;
 		}
 	}

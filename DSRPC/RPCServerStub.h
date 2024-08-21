@@ -30,7 +30,7 @@ namespace DSFramework {
 		private:
 			void Send(std::shared_ptr<Session> sender, std::shared_ptr<Packet::RPCPacket> packet);
 
-			inline std::shared_ptr<RPCPacket> Deserialize(const char* data, size_t datalength, bool* serializeResult);
+			inline std::shared_ptr<RPCPacket> Deserialize(const char* data, int datalength, bool* serializeResult);
 			inline bool Serialize(const std::shared_ptr<RPCPacket> packet, const char** data, size_t* size);
 		};
 	}
