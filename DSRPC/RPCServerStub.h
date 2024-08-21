@@ -6,12 +6,12 @@
 #include "../DSCommunication/DSCPacket.h"
 #include "../DSCommunication/EventHandler.h"
 
-#include "RPCTaskManager.h"
+#include "RPCPacketFactory.h"
 
 using DSFramework::DSCommunication::Session;
 using DSFramework::DSCommunication::DSCRecvPacket;
 using DSFramework::DSCommunication::IDataEventHandler;
-using DSFramework::DSRPC::RPCTaskManager;
+using DSFramework::DSRPC::Packet::RPCPacketFactory;
 
 namespace DSFramework {
 	namespace DSRPC {
