@@ -149,7 +149,7 @@
     <ClInclude Include="RPCServer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="RPCProcedure.h">
+    <ClInclude Include="RPCServiceProcedure.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="RPCEventHandler.h">

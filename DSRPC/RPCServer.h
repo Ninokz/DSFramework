@@ -3,6 +3,7 @@
 #include <memory>
 #include <atomic>
 #include <vector>
+#include <unordered_map>
 
 #include "../DSCommunication/ThreadPool.h"
 
