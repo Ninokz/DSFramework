@@ -16,6 +16,45 @@ namespace DSFramework {
 					return boost::posix_time::to_simple_string(boost::posix_time::second_clock::local_time());
 				}
 			public:
+				static std::shared_ptr<RPCPacket> CreateErrorResponse(Packet::RPCPacketStatus status, Packet::RPCPacketError error, std::string innerID)
+				{
+					std::shared_ptr<RPCPacket> response = std::make_shared<RPCPacket>();
+					response->set_error(error);
+					response->set_status(status);
+					response->set_inner_id(innerID);
+
+					response->clear_created_time();
+					response->clear_commited_time();
+					response->clear_completed_time();
+					response->clear_service();
+					response->clear_request_id();
+					response->clear_parameters();
+					response->clear_result();
+					return response;
+				}
+
+				static std::shared_ptr<RPCPacket> CreateResponseFromOrign(std::shared_ptr<RPCPacket> orign, Packet::RPCPacketStatus status, Packet::RPCPacketError error,
+					std::string innerID)
+				{
+					///deep copy from orign
+					std::shared_ptr<RPCPacket> response = std::make_shared<RPCPacket>();
+					response->CopyFrom(*orign);
+					if ((orign->type() & Packet::RPCPacketType::TASK_REQUEST) == Packet::RPCPacketType::TASK_REQUEST)
+						response->set_type(Packet::RPCPacketType::TASK_RESPONSE);
+					else if ((orign->type() & Packet::RPCPacketType::QUERY_REQUEST) == Packet::RPCPacketType::QUERY_REQUEST)
+						response->set_type(Packet::RPCPacketType::QUERY_RESPONSE);
+
+					response->set_error(error);
+					response->set_status(status);
+					response->set_inner_id(innerID);
+
+					std::string or_from = orign->from();
+					std::string or_to = orign->to();
+					response->set_from(or_to);
+					response->set_to(or_from);
+
+					return response;
+				}
 				
 				static void UpdateRPCPacketStatus(std::shared_ptr<RPCPacket> packet, Packet::RPCPacketStatus status) {
 
@@ -60,8 +99,7 @@ namespace DSFramework {
 					*data = buffer;
 					*size = serialized_data.size();
 					return true;
-				}
-				
+				}				
 			};
 		}
 	}
