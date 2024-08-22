@@ -18,7 +18,6 @@ using DSFramework::DSRPC::Packet::RPCPacket;
 using DSFramework::DSRPC::RPCEventHandler;
 namespace DSFramework {
 	namespace DSRPC {
-
 		class ServiceProcedure : public std::enable_shared_from_this<ServiceProcedure>
 		{
 		public:
@@ -28,8 +27,6 @@ namespace DSFramework {
 			const std::string m_serviceName;
 			const std::vector<std::string> m_parameterTypeList;
 			const std::string m_resultType;
-
-			std::atomic<int> m_useCount = 0;
 		private:
 			template<typename T>
 			std::string getTypeName() const {
@@ -48,7 +45,6 @@ namespace DSFramework {
 			}
 		public:
 			std::string GetServiceName() const { return m_serviceName; }
-			int GetUseCount() const { return m_useCount.load(); }
 			const std::vector<std::string>& GetParameterTypeList() const { return m_parameterTypeList; }
 		public:
 			template<typename ReturnType = void, typename... Types>
@@ -56,8 +52,10 @@ namespace DSFramework {
 				m_serviceName(serviceName),
 				m_resultType(getTypeName<ReturnType>()),
 				m_parameterTypeList{ getTypeName<Types>()... } {}
-
 			virtual ~ServiceProcedure() = default;
+		public:
+			virtual bool Invoke(std::shared_ptr<RPCPacket> packet) = 0;
+			virtual bool CheckParameters(std::shared_ptr<RPCPacket> packet) = 0;
 		};
 	}
 }

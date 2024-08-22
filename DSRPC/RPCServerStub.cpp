@@ -34,6 +34,8 @@ namespace DSFramework {
 				m_rpcEventHandler->OnDeserialized(requestid, sender->GetUUID(), packet);
 				/// 3. dispatcher分发请求 todo 完成dispatcher的实现
 				LOG_DEBUG_CONSOLE("Packet deserialized:\n" + packet->DebugString());
+
+
 			}
 			else
 			{

@@ -34,7 +34,6 @@ namespace DSFramework {
 			inline void AddDispatchEventHandler(std::shared_ptr<IDispatchEventHandler> handler);
 			inline void AddCommitedEventHandler(std::shared_ptr<ICommitedEventHandler> handler);
 			inline void AddProcessedHandler(std::shared_ptr<IProcessedHandler> handler);
-
 		private:
 			void Send(std::shared_ptr<Session> sender, std::shared_ptr<Packet::RPCPacket> packet);
 
