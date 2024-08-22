@@ -79,7 +79,7 @@ namespace DSFramework {
 				return;
 			}
 			/// 交付给m_serviceProvider处理
-
+			m_rpcServer.Execute(dispatchItem->service(), dispatchItem, this->m_rpcEventHandler, sender);
 			///
 			HandleCommited(sender, dispatchItem);
 		}
