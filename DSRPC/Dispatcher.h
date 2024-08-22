@@ -12,23 +12,23 @@ using DSFramework::DSComponent::ConcurrentQueue;
 namespace DSFramework {
 	namespace DSRPC {
 
-		template<class TDispatchItem>
+		template<class TSender,class TDispatchItem>
 		class Dispatcher
 		{
+		public:
+			using SenderPtr = std::shared_ptr<TSender>;
+			using DispatchItemPtr = std::shared_ptr<TDispatchItem>;
 		protected:
-			std::shared_ptr<ConcurrentQueue<std::shared_ptr<TDispatchItem>>> m_requestQueue;
-
+			std::shared_ptr<ConcurrentQueue<std::pair<SenderPtr, DispatchItemPtr>>> m_requestQueue;
 			size_t m_maxWaitedDispatch;
-
 			std::thread m_dispatcherThread;
-
 			bool isStopped;
 		public:
 			Dispatcher(size_t maxWaitedDispatch) : 
 				isStopped(false), 
 				m_maxWaitedDispatch(maxWaitedDispatch)
 			{
-				m_requestQueue = std::make_shared<ConcurrentQueue<std::shared_ptr<TDispatchItem>>>();
+				m_requestQueue = std::make_shared<ConcurrentQueue<std::pair<SenderPtr, DispatchItemPtr>>>();
 			}
 
 			virtual ~Dispatcher()
@@ -47,7 +47,7 @@ namespace DSFramework {
 							isStopped = false;
 							break;
 						}
-						DispatchDSCMessage(*(requset));
+						DispatchDSCMessage(requset->first, requset->second);
 					}
 				});
 				LOG_INFO_CONSOLE("Dispatcher started");
@@ -56,7 +56,10 @@ namespace DSFramework {
 			void Stop() 
 			{
 				isStopped = true;
-				std::shared_ptr<TDispatchItem> quit_msg = nullptr;
+				SenderPtr quit_1 = nullptr;
+				DispatchItemPtr quit_2 = nullptr;
+				std::pair<SenderPtr, DispatchItemPtr> quit_msg(quit_1, quit_2);
+				
 				this->m_requestQueue->Push(quit_msg);
 				if (m_dispatcherThread.joinable())
 				{
@@ -65,9 +68,9 @@ namespace DSFramework {
 				LOG_INFO_CONSOLE("Dispatcher stopped");
 			}
 
-			virtual bool PostRequestToQueue(std::shared_ptr<TDispatchItem> request) = 0;
+			virtual bool PostRequestToQueue(SenderPtr sender, DispatchItemPtr dispatchItem) = 0;
 
-			virtual bool DispatchDSCMessage(std::shared_ptr<TDispatchItem> request) = 0;
+			virtual void DispatchDSCMessage(SenderPtr sender, DispatchItemPtr dispatchItem) = 0;
 		};
 	}
 }

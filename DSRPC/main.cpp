@@ -1,4 +1,6 @@
 #include <iostream>
+#include <memory>
+#include <string>
 
 #include "../DSCommunication/AsyncTcpServer.h"
 #include "../DSCommunication/SessionManager.h"
@@ -8,6 +10,7 @@
 #include "RPCPacketFactory.h"
 #include "RPCEventHandler.h"
 #include "RPCPacketManager.h"
+#include "RPCServiceProcedure.h"
 
 using DSFramework::DSRPC::RPCServerStub;
 using DSFramework::DSRPC::RPCPacketFactory;
@@ -37,6 +40,5 @@ int main()
 	server.AddCloseEventHandler(std::static_pointer_cast<ICloseEventHandler>(sessionManager));
 	server.AddDataEventHandler(std::static_pointer_cast<IDataEventHandler>(rpcServerStub));
 	server.Start();
-
 	return 0;
 }

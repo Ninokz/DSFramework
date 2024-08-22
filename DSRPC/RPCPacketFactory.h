@@ -26,7 +26,7 @@ namespace DSFramework {
 				return response;
 			}
 
-			static inline std::shared_ptr<RPCPacket> CreateResponse(std::shared_ptr<RPCPacket> request)
+			static inline std::shared_ptr<RPCPacket> CreateCopy(std::shared_ptr<RPCPacket> request)
 			{
 				/// deep copy request to response
 				std::shared_ptr<RPCPacket> response = std::make_shared<RPCPacket>();

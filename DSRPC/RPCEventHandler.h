@@ -24,7 +24,6 @@ namespace DSFramework {
 			virtual void OnDispatchFailed(const std::string& requestID) = 0;
 		};
 
-
 		class RPCEventHandler : public std::enable_shared_from_this<RPCEventHandler>
 		{
 		protected:

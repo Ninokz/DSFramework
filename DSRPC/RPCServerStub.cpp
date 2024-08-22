@@ -2,7 +2,8 @@
 
 namespace DSFramework {
 	namespace DSRPC {
-		RPCServerStub::RPCServerStub(std::shared_ptr<RPCEventHandler> rpcEventHandler) : m_rpcEventHandler(rpcEventHandler)
+		RPCServerStub::RPCServerStub(std::shared_ptr<RPCEventHandler> rpcEventHandler) :
+			m_rpcEventHandler(rpcEventHandler)
 		{
 
 		}
@@ -28,45 +29,12 @@ namespace DSFramework {
 					Send(sender, packet);
 					return;
 				}
-
 				/// 1. 初始化包并生成请求ID
 				std::string requestid = RPCPacketFactory::InitRPCPacket(packet,sender->GetUUID());
 				/// 2. 将请求ID和RPCPacket交给EventHandler处理: 目前只有RPCPacketManager实现了IDeserializedEventHandler, 会将请求ID和RPCPacket保存到m_requests中, 处于OnDeserialized事件调用链第一位
 				m_rpcEventHandler->OnDeserialized(requestid, sender->GetUUID(), packet);
 				/// 3. dispatcher分发请求 todo 完成dispatcher的实现
-				/// todo 完成dispatcher的实现
-				if (false)
-				{
-					/// 若成功分发请求则执行以下代码
-					LOG_DEBUG_CONSOLE("Request dispatched success");
-					/// 4. 通知EventHandler请求已经分发: 目前只有RPCPacketManager实现了IDispatchEventHandler, 会将请求ID的RPCPacket的状态设置为COMMITED, 处于OnDispatched事件调用链第一位
-					m_rpcEventHandler->OnDispatched(requestid);
-					/// 5. 使用 RPCPacketFactory 生成对应响应包, 深拷贝
-					std::shared_ptr<Packet::RPCPacket> response = RPCPacketFactory::CreateResponse(packet);
-					/// 5. 设置响应类型
-					RPCPacketFactory::ChangeTypeToResponse(packet);
-					/// 6. 设置错误码
-					RPCPacketFactory::SetErrorCode(response, Packet::RPCPacketError::PKT_NO_ERROR);
-					/// 7. 转换收发方(因为该包没有保存至manager)
-					RPCPacketFactory::ChangeRecvSend(response);
-					/// 8. 发送响应包
-					this->Send(sender, response);
-				}
-				else
-				{
-					/// 若分发请求失败则执行以下代码
-					LOG_DEBUG_CONSOLE("Request dispatched failed");
-					/// 4. 通知EventHandler请求分发失败: 目前只有RPCPacketManager实现了IDispatchEventHandler, 会将请求ID的RPCPacket的状态设置为COMPLETED,并且移除这个包 处于OnDispatchFailed事件调用链第一位
-					m_rpcEventHandler->OnDispatchFailed(requestid);
-					/// 5. 设置响应类型
-					RPCPacketFactory::ChangeTypeToResponse(packet);
-					/// 6. 设置错误码
-					RPCPacketFactory::SetErrorCode(packet, Packet::RPCPacketError::SERVICE_BUSY);
-					/// 7. 转换收发方(因为该包没有保存至manager)
-					RPCPacketFactory::ChangeRecvSend(packet);
-					/// 8. 发送响应包
-					this->Send(sender, packet);
-				}
+				
 			}
 			else
 			{

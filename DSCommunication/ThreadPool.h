@@ -55,8 +55,8 @@ namespace DSFramework {
 			auto Commit(F&& f, Args&&... args) ->
 				/// 返回值类型推断, 原样转发f和args,因为f可能是右值引用, args也可能是右值
 				std::future<decltype(std::forward<F>(f)(std::forward<Args>(args)...))> {
-				using ReturnType = decltype(std::forward<F>(f)(std::forward<Args>(args)...));
 
+				using ReturnType = decltype(std::forward<F>(f)(std::forward<Args>(args)...));
 				if (m_stop.load())
 					return std::future<ReturnType>();
 
