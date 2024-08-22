@@ -4,12 +4,11 @@
 
 #include "../DSCommunication/Session.h"
 
-#include "RPCServer.h"
 #include "Dispatcher.h"
 #include "RPCPacket.pb.h"
 #include "RPCPacketFactory.h"
 
-
+using DSFramework::DSRPC::RPCPacketFactory;
 using DSFramework::DSCommunication::Session;
 using DSFramework::DSRPC::Packet::RPCPacket;
 namespace DSFramework {
