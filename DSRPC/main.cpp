@@ -29,8 +29,8 @@ using DSFramework::DSComponent::ThreadPool;
 
 int main()
 {
-	std::shared_ptr<RPCPacketManager> rpcPacketManager = std::make_shared<RPCPacketManager>();
 	std::shared_ptr<RPCServerStub> rpcServerStub = std::make_shared<RPCServerStub>();
+	std::shared_ptr<RPCPacketManager> rpcPacketManager = std::make_shared<RPCPacketManager>();
 	//rpcServerStub->AddDeserializedEventHandler(std::static_pointer_cast<IDeserializedEventHandler>(rpcPacketManager));
 	//rpcServerStub->AddDispatchEventHandler(std::static_pointer_cast<IDispatchEventHandler>(rpcPacketManager));
 	//rpcServerStub->AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(rpcPacketManager));
