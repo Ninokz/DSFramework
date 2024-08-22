@@ -2,8 +2,8 @@
 
 namespace DSFramework {
 	namespace DSRPC {
-		RPCServerStub::RPCServerStub() :
-			m_rpcEventHandler(std::make_shared<RPCEventHandler>())
+		RPCServerStub::RPCServerStub(RPCEventHandler& rpcEventHandler) :
+			m_rpcEventHandler(rpcEventHandler)
 		{
 
 		}
@@ -31,11 +31,9 @@ namespace DSFramework {
 				/// 1. 初始化包并生成请求ID
 				std::string requestid = RPCPacketFactory::InitRPCPacket(packet,sender->GetUUID());
 				/// 2. 将请求ID和RPCPacket交给EventHandler处理: 目前只有RPCPacketManager实现了IDeserializedEventHandler, 会将请求ID和RPCPacket保存到m_requests中, 处于OnDeserialized事件调用链第一位
-				m_rpcEventHandler->OnDeserialized(requestid, sender->GetUUID(), packet);
+				m_rpcEventHandler.OnDeserialized(requestid, sender->GetUUID(), packet);
 				/// 3. dispatcher分发请求 todo 完成dispatcher的实现
 				LOG_DEBUG_CONSOLE("Packet deserialized:\n" + packet->DebugString());
-
-
 			}
 			else
 			{
@@ -43,26 +41,6 @@ namespace DSFramework {
 				packet = RPCPacketFactory::CreateErrorResponse(m_serverid, sender->GetUUID(), Packet::RPCPacketError::PKT_DESERIALIZATION_ERROR, sender->GetUUID());
 				Send(sender, packet);
 			}
-		}
-
-		inline void RPCServerStub::AddDeserializedEventHandler(std::shared_ptr<IDeserializedEventHandler> handler)
-		{
-			m_rpcEventHandler->AddDeserializedEventHandler(handler);
-		}
-
-		inline void RPCServerStub::AddDispatchEventHandler(std::shared_ptr<IDispatchEventHandler> handler)
-		{
-			m_rpcEventHandler->AddDispatchEventHandler(handler);
-		}
-
-		inline void RPCServerStub::AddCommitedEventHandler(std::shared_ptr<ICommitedEventHandler> handler)
-		{
-			m_rpcEventHandler->AddCommitedEventHandler(handler);
-		}
-
-		inline void RPCServerStub::AddProcessedHandler(std::shared_ptr<IProcessedHandler> handler)
-		{
-			m_rpcEventHandler->AddProcessedHandler(handler);
 		}
 
 		void RPCServerStub::Send(std::shared_ptr<Session> sender, std::shared_ptr<Packet::RPCPacket> packet)

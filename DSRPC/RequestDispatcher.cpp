@@ -3,7 +3,7 @@
 
 namespace DSFramework {
 	namespace DSRPC {
-		RequestDispatcher::RequestDispatcher(size_t maxWaitedDispatch, std::shared_ptr<RPCEventHandler> rpcEventHandler) :
+		RequestDispatcher::RequestDispatcher(size_t maxWaitedDispatch, RPCEventHandler& rpcEventHandler) :
 			Dispatcher(maxWaitedDispatch),
 			m_rpcEventHandler(rpcEventHandler)
 		{
@@ -40,7 +40,7 @@ namespace DSFramework {
 			/// 若成功分发请求则执行以下代码
 			LOG_DEBUG_CONSOLE("Request dispatched success");
 			/// 4. 通知EventHandler请求已经分发: 目前只有RPCPacketManager实现了IDispatchEventHandler, 会将请求ID的RPCPacket的状态设置为COMMITED, 处于OnDispatched事件调用链第一位
-			m_rpcEventHandler->OnDispatched(dispatchItem->request_id());
+			m_rpcEventHandler.OnDispatched(dispatchItem->request_id());
 			/// 5. 使用 RPCPacketFactory 生成对应响应包, 深拷贝
 			std::shared_ptr<Packet::RPCPacket> response = RPCPacketFactory::CreateCopy(dispatchItem);
 			/// 5. 设置响应类型
@@ -58,7 +58,7 @@ namespace DSFramework {
 			/// 若分发请求失败则执行以下代码
 			LOG_DEBUG_CONSOLE("Request dispatched failed");
 			/// 4. 通知EventHandler请求分发失败: 目前只有RPCPacketManager实现了IDispatchEventHandler, 会将请求ID的RPCPacket的状态设置为COMPLETED,并且移除这个包 处于OnDispatchFailed事件调用链第一位
-			m_rpcEventHandler->OnDispatchFailed(dispatchItem->request_id());
+			m_rpcEventHandler.OnDispatchFailed(dispatchItem->request_id());
 			/// 5. 设置响应类型
 			RPCPacketFactory::ChangeTypeToResponse(dispatchItem);
 			/// 6. 设置错误码
@@ -72,7 +72,7 @@ namespace DSFramework {
 		void RequestDispatcher::HandleServiceNotFound(SenderPtr sender, DispatchItemPtr dispatchItem)
 		{
 			LOG_DEBUG_CONSOLE("Request Service Not found");
-			m_rpcEventHandler->OnServiceNotFound(dispatchItem->request_id());
+			m_rpcEventHandler.OnServiceNotFound(dispatchItem->request_id());
 			/// 5. 设置响应类型
 			RPCPacketFactory::ChangeTypeToResponse(dispatchItem);
 			/// 6. 设置错误码
@@ -86,7 +86,7 @@ namespace DSFramework {
 		void RequestDispatcher::HandleServiceParameterInvalid(SenderPtr sender, DispatchItemPtr dispatchItem)
 		{
 			LOG_DEBUG_CONSOLE("Request Service Parameter invalid");
-			m_rpcEventHandler->OnServiceParameterInvalid(dispatchItem->request_id());
+			m_rpcEventHandler.OnServiceParameterInvalid(dispatchItem->request_id());
 			/// 5. 设置响应类型
 			RPCPacketFactory::ChangeTypeToResponse(dispatchItem);
 			/// 6. 设置错误码

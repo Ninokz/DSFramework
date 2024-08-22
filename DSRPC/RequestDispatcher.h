@@ -18,9 +18,9 @@ namespace DSFramework {
 		class RequestDispatcher : public Dispatcher<Session, RPCPacket>
 		{
 		private:
-			std::shared_ptr<RPCEventHandler> m_rpcEventHandler;
+			RPCEventHandler& m_rpcEventHandler;
 		public:
-			RequestDispatcher(size_t maxWaitedDispatch,std::shared_ptr<RPCEventHandler> rpcEventHandler);
+			RequestDispatcher(size_t maxWaitedDispatch, RPCEventHandler& rpcEventHandler);
 			virtual ~RequestDispatcher();
 
 			virtual bool PostRequestToQueue(SenderPtr sender, DispatchItemPtr dispatchItem) override ;
