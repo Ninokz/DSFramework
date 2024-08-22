@@ -10,17 +10,16 @@
 #include "RPCPacketFactory.h"
 
 using DSFramework::DSCommunication::Session;
-using DSFramework::DSRPC::RPCEventHandler;
-using DSFramework::DSRPC::RPCPacketFactory;
 using DSFramework::DSRPC::Packet::RPCPacket;
 namespace DSFramework {
 	namespace DSRPC {
 		class RequestDispatcher : public Dispatcher<Session, RPCPacket>
 		{
 		private:
+			IRPCServer& m_rpcServer;
 			RPCEventHandler& m_rpcEventHandler;
 		public:
-			RequestDispatcher(size_t maxWaitedDispatch, RPCEventHandler& rpcEventHandler);
+			RequestDispatcher(size_t maxWaitedDispatch, RPCEventHandler& rpcEventHandler, IRPCServer& rpcServer);
 			virtual ~RequestDispatcher();
 
 			virtual bool PostRequestToQueue(SenderPtr sender, DispatchItemPtr dispatchItem) override ;
@@ -30,6 +29,8 @@ namespace DSFramework {
 			void HandlePostSuccess(SenderPtr sender, DispatchItemPtr dispatchItem);
 
 			void HandlePostFaile(SenderPtr sender, DispatchItemPtr dispatchItem);
+
+			void HandleCommited(SenderPtr sender, DispatchItemPtr dispatchItem);
 
 			void HandleServiceNotFound(SenderPtr sender, DispatchItemPtr dispatchItem);
 

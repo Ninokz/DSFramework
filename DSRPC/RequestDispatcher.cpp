@@ -3,10 +3,12 @@
 
 namespace DSFramework {
 	namespace DSRPC {
-		RequestDispatcher::RequestDispatcher(size_t maxWaitedDispatch, RPCEventHandler& rpcEventHandler) :
+		RequestDispatcher::RequestDispatcher(size_t maxWaitedDispatch, RPCEventHandler& rpcEventHandler, IRPCServer& rpcServer) :
 			Dispatcher(maxWaitedDispatch),
-			m_rpcEventHandler(rpcEventHandler)
+			m_rpcEventHandler(rpcEventHandler),
+			m_rpcServer(rpcServer)
 		{
+
 		}
 
 		RequestDispatcher::~RequestDispatcher()
@@ -26,13 +28,6 @@ namespace DSFramework {
 				HandlePostFaile(sender, dispatchItem);
 				return false;
 			}
-		}
-
-		void RequestDispatcher::DispatchDSCMessage(SenderPtr sender, DispatchItemPtr dispatchItem)
-		{
-			/// 搜索服务
-			/// 检查参数
-			/// 交付给m_serviceProvider处理
 		}
 
 		void RequestDispatcher::HandlePostSuccess(SenderPtr sender, DispatchItemPtr dispatchItem)
@@ -67,6 +62,43 @@ namespace DSFramework {
 			RPCPacketFactory::ChangeRecvSend(dispatchItem);
 			/// 8. 发送响应包
 			this->Send(sender, dispatchItem);
+		}
+
+		void RequestDispatcher::DispatchDSCMessage(SenderPtr sender, DispatchItemPtr dispatchItem)
+		{
+			/// 搜索服务
+			if (!m_rpcServer.SearchService(dispatchItem->service()))
+			{
+				HandleServiceNotFound(sender, dispatchItem);
+				return;
+			}
+			/// 检查参数
+			if (!m_rpcServer.CheckServiceParameter(dispatchItem->service(), dispatchItem))
+			{
+				HandleServiceParameterInvalid(sender, dispatchItem);
+				return;
+			}
+			/// 交付给m_serviceProvider处理
+
+			///
+			HandleCommited(sender, dispatchItem);
+		}
+
+		void RequestDispatcher::HandleCommited(SenderPtr sender, DispatchItemPtr dispatchItem)
+		{
+			LOG_DEBUG_CONSOLE("Request commited");
+			/// 4. 通知EventHandler请求已经提交: 目前只有RPCPacketManager实现了IDispatchEventHandler, 会将请求ID的RPCPacket的状态设置为COMMITED, 处于OnCommited事件调用链第一位
+			m_rpcEventHandler.OnCommited(dispatchItem->request_id());
+			/// 5. 使用 RPCPacketFactory 生成对应响应包, 深拷贝
+			std::shared_ptr<Packet::RPCPacket> response = RPCPacketFactory::CreateCopy(dispatchItem);
+			/// 5. 设置响应类型
+			RPCPacketFactory::ChangeTypeToResponse(response);
+			/// 6. 设置错误码
+			RPCPacketFactory::SetErrorCode(response, Packet::RPCPacketError::PKT_NO_ERROR);
+			/// 7. 转换收发方(因为该包没有保存至manager)
+			RPCPacketFactory::ChangeRecvSend(response);
+			/// 8. 发送响应包
+			this->Send(sender, response);
 		}
 
 		void RequestDispatcher::HandleServiceNotFound(SenderPtr sender, DispatchItemPtr dispatchItem)

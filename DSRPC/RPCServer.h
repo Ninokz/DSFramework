@@ -22,7 +22,7 @@ namespace DSFramework {
 		public:
 			virtual bool SearchService(std::string serviceName) = 0;
 			virtual bool CheckServiceParameter(std::string serviceName, std::shared_ptr<RPCPacket> packet) = 0;
-			virtual void Execute(std::string serviceName, std::shared_ptr<RPCPacket> packet, std::shared_ptr<RPCEventHandler> eventHandler) = 0;
+			virtual void Execute(std::string serviceName, std::shared_ptr<RPCPacket> packet, RPCEventHandler& eventHandler) = 0;
 		};
 
 		class RPCServer : public IRPCServer
@@ -35,7 +35,7 @@ namespace DSFramework {
 		public:
 			virtual bool SearchService(std::string serviceName) override;
 			virtual bool CheckServiceParameter(std::string serviceName, std::shared_ptr<RPCPacket> packet) override;
-			virtual void Execute(std::string serviceName, std::shared_ptr<RPCPacket> packet, std::shared_ptr<RPCEventHandler> eventHandler) override;
+			virtual void Execute(std::string serviceName, std::shared_ptr<RPCPacket> packet, RPCEventHandler& eventHandler) override;
 		};
 	}
 }
