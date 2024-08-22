@@ -35,18 +35,18 @@ using DSFramework::DSComponent::ThreadPool;
 
 int main()
 {
+	ResponseDispatcher responseDispatcher(100);
+	RPCServer rpcServer(responseDispatcher);
+
 	RPCEventHandler rpcEventHandler;
 	std::shared_ptr<RPCPacketManager> rpcPacketManager = std::make_shared<RPCPacketManager>();
 	rpcEventHandler.AddDeserializedEventHandler(std::static_pointer_cast<IDeserializedEventHandler>(rpcPacketManager));
 	rpcEventHandler.AddDispatchEventHandler(std::static_pointer_cast<IDispatchEventHandler>(rpcPacketManager));
 	rpcEventHandler.AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(rpcPacketManager));
 	rpcEventHandler.AddProcessedHandler(std::static_pointer_cast<IProcessedHandler>(rpcPacketManager));
-
-	ResponseDispatcher responseDispatcher(100);
-	RPCServer rpcServer(responseDispatcher);
 	RequestDispatcher requestDispatcher(100, rpcEventHandler, rpcServer);
-
 	std::shared_ptr<RPCServerStub> rpcServerStub = std::make_shared<RPCServerStub>(rpcEventHandler, requestDispatcher);
+
 	std::shared_ptr<SessionManager> sessionManager = std::make_shared<SessionManager>(100);
 	AsyncTcpServer server(9000);
 	server.AddConnectEventHandler(std::static_pointer_cast<IConnectEventHandler>(sessionManager));
