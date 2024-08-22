@@ -146,6 +146,7 @@
     <ClCompile Include="..\DSCommunication\ThreadPool.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RequestDispatcher.cpp" />
+    <ClCompile Include="ResponseDispatcher.cpp" />
     <ClCompile Include="RPCEventHandler.cpp" />
     <ClCompile Include="RPCPacket.pb.cc" />
     <ClCompile Include="RPCPacketManager.cpp" />
@@ -168,11 +169,11 @@
     <ClInclude Include="..\DSCommunication\ThreadPool.h" />
     <ClInclude Include="Dispatcher.h" />
     <ClInclude Include="RequestDispatcher.h" />
+    <ClInclude Include="ResponseDispatcher.h" />
     <ClInclude Include="RPCEventHandler.h" />
     <ClInclude Include="RPCPacket.pb.h" />
     <ClInclude Include="RPCPacketFactory.h" />
     <ClInclude Include="RPCPacketManager.h" />
-    <ClInclude Include="ServiceProcedure.h" />
     <ClInclude Include="RPCServer.h" />
     <ClInclude Include="RPCServerStub.h" />
   </ItemGroup>

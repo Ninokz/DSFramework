@@ -86,5 +86,17 @@ namespace DSFramework {
 			UpdateRequestStatus(requestID, Packet::RPCPacketStatus::FAILED);
 			RemoveRequest(requestID);
 		}
+
+		void RPCPacketManager::OnCompleted(const std::string& requestID)
+		{
+			UpdateRequestStatus(requestID, Packet::RPCPacketStatus::COMPLETED);
+			RemoveRequest(requestID);
+		}
+
+		void RPCPacketManager::OnFailed(const std::string& requestID)
+		{
+			UpdateRequestStatus(requestID, Packet::RPCPacketStatus::FAILED);
+			RemoveRequest(requestID);
+		}
 	}
 }

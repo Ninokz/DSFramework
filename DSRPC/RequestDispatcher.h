@@ -16,10 +16,10 @@ namespace DSFramework {
 		class RequestDispatcher : public Dispatcher<Session, RPCPacket>
 		{
 		private:
-			IRPCServer& m_rpcServer;
+			RPCServer& m_rpcServer;
 			RPCEventHandler& m_rpcEventHandler;
 		public:
-			RequestDispatcher(size_t maxWaitedDispatch, RPCEventHandler& rpcEventHandler, IRPCServer& rpcServer);
+			RequestDispatcher(size_t maxWaitedDispatch, RPCEventHandler& rpcEventHandler, RPCServer& rpcServer);
 			virtual ~RequestDispatcher();
 
 			virtual bool PostRequestToQueue(SenderPtr sender, DispatchItemPtr dispatchItem) override ;

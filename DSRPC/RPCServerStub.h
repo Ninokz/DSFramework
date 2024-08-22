@@ -14,6 +14,7 @@
 using DSFramework::DSCommunication::Session;
 using DSFramework::DSCommunication::DSCRecvPacket;
 using DSFramework::DSCommunication::IDataEventHandler;
+using DSFramework::DSRPC::RequestDispatcher;
 using DSFramework::DSRPC::Packet::RPCPacket;
 
 namespace DSFramework {
@@ -23,8 +24,12 @@ namespace DSFramework {
 		private:
 			std::string m_serverid;
 			RPCEventHandler& m_rpcEventHandler;
+			RequestDispatcher& m_requestDispatcher;
+		private:
+			RPCServerStub(const RPCServerStub& other) = delete;
+			RPCServerStub& operator=(const RPCServerStub& other) = delete;
 		public:
-			RPCServerStub(RPCEventHandler& rpcEventHandler);
+			RPCServerStub(RPCEventHandler& rpcEventHandler, RequestDispatcher& requestDispatcher);
 			virtual ~RPCServerStub();
 			virtual void OnData(std::shared_ptr<Session> sender, std::shared_ptr<DSCRecvPacket> msg) override;
 		private:

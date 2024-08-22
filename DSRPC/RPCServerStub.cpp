@@ -2,8 +2,9 @@
 
 namespace DSFramework {
 	namespace DSRPC {
-		RPCServerStub::RPCServerStub(RPCEventHandler& rpcEventHandler) :
-			m_rpcEventHandler(rpcEventHandler)
+		RPCServerStub::RPCServerStub(RPCEventHandler& rpcEventHandler, RequestDispatcher& requestDispatcher) :
+			m_rpcEventHandler(rpcEventHandler),
+			m_requestDispatcher(requestDispatcher)
 		{
 
 		}
@@ -44,6 +45,8 @@ namespace DSFramework {
 			m_rpcEventHandler.OnDeserialized(requestid, sender->GetUUID(), packet);
 			/// 3. dispatcher分发请求 todo 完成dispatcher的实现
 			LOG_DEBUG_CONSOLE("Packet deserialized:\n" + packet->DebugString());
+
+			m_requestDispatcher.PostRequestToQueue(sender, packet);
 		}
 
 		void RPCServerStub::HandleDeserializedFailed(std::shared_ptr<Session> sender, std::shared_ptr<RPCPacket> packet)

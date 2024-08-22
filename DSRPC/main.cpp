@@ -11,12 +11,18 @@
 #include "RPCPacketFactory.h"
 #include "RPCEventHandler.h"
 #include "RPCPacketManager.h"
-#include "ServiceProcedure.h"
+#include "RPCServer.h"
+#include "RequestDispatcher.h"
+#include "ResponseDispatcher.h"
+
 
 using DSFramework::DSRPC::RPCServerStub;
 using DSFramework::DSRPC::RPCPacketFactory;
 using DSFramework::DSRPC::RPCEventHandler;
 using DSFramework::DSRPC::RPCPacketManager;
+using DSFramework::DSRPC::RPCServer;
+using DSFramework::DSRPC::RequestDispatcher;
+using DSFramework::DSRPC::ResponseDispatcher;
 
 using DSFramework::DSCommunication::Session;
 using DSFramework::DSCommunication::DSCRecvPacket;
@@ -30,13 +36,17 @@ using DSFramework::DSComponent::ThreadPool;
 int main()
 {
 	RPCEventHandler rpcEventHandler;
-	//std::shared_ptr<RPCPacketManager> rpcPacketManager = std::make_shared<RPCPacketManager>();
-	//rpcEventHandler.AddDeserializedEventHandler(std::static_pointer_cast<IDeserializedEventHandler>(rpcPacketManager));
-	//rpcEventHandler.AddDispatchEventHandler(std::static_pointer_cast<IDispatchEventHandler>(rpcPacketManager));
-	//rpcEventHandler.AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(rpcPacketManager));
+	std::shared_ptr<RPCPacketManager> rpcPacketManager = std::make_shared<RPCPacketManager>();
+	rpcEventHandler.AddDeserializedEventHandler(std::static_pointer_cast<IDeserializedEventHandler>(rpcPacketManager));
+	rpcEventHandler.AddDispatchEventHandler(std::static_pointer_cast<IDispatchEventHandler>(rpcPacketManager));
+	rpcEventHandler.AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(rpcPacketManager));
+	rpcEventHandler.AddProcessedHandler(std::static_pointer_cast<IProcessedHandler>(rpcPacketManager));
 
+	ResponseDispatcher responseDispatcher(100);
+	RPCServer rpcServer(responseDispatcher);
+	RequestDispatcher requestDispatcher(100, rpcEventHandler, rpcServer);
 
-	std::shared_ptr<RPCServerStub> rpcServerStub = std::make_shared<RPCServerStub>(rpcEventHandler);
+	std::shared_ptr<RPCServerStub> rpcServerStub = std::make_shared<RPCServerStub>(rpcEventHandler, requestDispatcher);
 	std::shared_ptr<SessionManager> sessionManager = std::make_shared<SessionManager>(100);
 	AsyncTcpServer server(9000);
 	server.AddConnectEventHandler(std::static_pointer_cast<IConnectEventHandler>(sessionManager));
