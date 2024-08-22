@@ -39,10 +39,16 @@ inline constexpr RPCPacket::Impl_::Impl_(
         created_time_(
             &::google::protobuf::internal::fixed_address_empty_string,
             ::_pbi::ConstantInitialized()),
+        post_time_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
         commited_time_(
             &::google::protobuf::internal::fixed_address_empty_string,
             ::_pbi::ConstantInitialized()),
         completed_time_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        failed_time_(
             &::google::protobuf::internal::fixed_address_empty_string,
             ::_pbi::ConstantInitialized()),
         request_id_(
@@ -94,12 +100,16 @@ const ::uint32_t TableStruct_RPCPacket_2eproto::offsets[] PROTOBUF_SECTION_VARIA
     PROTOBUF_FIELD_OFFSET(::DSFramework::DSRPC::Packet::RPCPacket, _impl_.to_),
     PROTOBUF_FIELD_OFFSET(::DSFramework::DSRPC::Packet::RPCPacket, _impl_.inner_id_),
     PROTOBUF_FIELD_OFFSET(::DSFramework::DSRPC::Packet::RPCPacket, _impl_.created_time_),
+    PROTOBUF_FIELD_OFFSET(::DSFramework::DSRPC::Packet::RPCPacket, _impl_.post_time_),
     PROTOBUF_FIELD_OFFSET(::DSFramework::DSRPC::Packet::RPCPacket, _impl_.commited_time_),
     PROTOBUF_FIELD_OFFSET(::DSFramework::DSRPC::Packet::RPCPacket, _impl_.completed_time_),
+    PROTOBUF_FIELD_OFFSET(::DSFramework::DSRPC::Packet::RPCPacket, _impl_.failed_time_),
     PROTOBUF_FIELD_OFFSET(::DSFramework::DSRPC::Packet::RPCPacket, _impl_.request_id_),
     PROTOBUF_FIELD_OFFSET(::DSFramework::DSRPC::Packet::RPCPacket, _impl_.service_),
     PROTOBUF_FIELD_OFFSET(::DSFramework::DSRPC::Packet::RPCPacket, _impl_.parameters_),
     PROTOBUF_FIELD_OFFSET(::DSFramework::DSRPC::Packet::RPCPacket, _impl_.result_),
+    ~0u,
+    ~0u,
     ~0u,
     ~0u,
     ~0u,
@@ -117,7 +127,7 @@ const ::uint32_t TableStruct_RPCPacket_2eproto::offsets[] PROTOBUF_SECTION_VARIA
 
 static const ::_pbi::MigrationSchema
     schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-        {0, 21, -1, sizeof(::DSFramework::DSRPC::Packet::RPCPacket)},
+        {0, 23, -1, sizeof(::DSFramework::DSRPC::Packet::RPCPacket)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -125,17 +135,18 @@ static const ::_pb::Message* const file_default_instances[] = {
 };
 const char descriptor_table_protodef_RPCPacket_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
     "\n\017RPCPacket.proto\022\030DSFramework.DSRPC.Pac"
-    "ket\032\031google/protobuf/any.proto\"\234\003\n\tRPCPa"
+    "ket\032\031google/protobuf/any.proto\"\304\003\n\tRPCPa"
     "cket\0225\n\004type\030\001 \001(\0162\'.DSFramework.DSRPC.P"
     "acket.RPCPacketType\0227\n\005error\030\002 \001(\0162(.DSF"
     "ramework.DSRPC.Packet.RPCPacketError\0229\n\006"
     "status\030\003 \001(\0162).DSFramework.DSRPC.Packet."
     "RPCPacketStatus\022\014\n\004from\030\004 \001(\t\022\n\n\002to\030\005 \001("
     "\t\022\020\n\010inner_id\030\006 \001(\t\022\024\n\014created_time\030\007 \001("
-    "\t\022\025\n\rcommited_time\030\010 \001(\t\022\026\n\016completed_ti"
-    "me\030\t \001(\t\022\022\n\nrequest_id\030\n \001(\t\022\017\n\007service\030"
-    "\013 \001(\t\022(\n\nparameters\030\014 \001(\0132\024.google.proto"
-    "buf.Any\022$\n\006result\030\r \001(\0132\024.google.protobu"
+    "\t\022\021\n\tpost_time\030\010 \001(\t\022\025\n\rcommited_time\030\t "
+    "\001(\t\022\026\n\016completed_time\030\n \001(\t\022\023\n\013failed_ti"
+    "me\030\013 \001(\t\022\022\n\nrequest_id\030\014 \001(\t\022\017\n\007service\030"
+    "\r \001(\t\022(\n\nparameters\030\016 \001(\0132\024.google.proto"
+    "buf.Any\022$\n\006result\030\017 \001(\0132\024.google.protobu"
     "f.Any*\341\001\n\016RPCPacketError\022\017\n\013PKT_UNKNOWN\020"
     "\000\022\020\n\014PKT_NO_ERROR\020\001\022\033\n\027PKT_SERIALIZATION"
     "_ERROR\020\002\022\035\n\031PKT_DESERIALIZATION_ERROR\020\003\022"
@@ -144,9 +155,10 @@ const char descriptor_table_protodef_RPCPacket_2eproto[] PROTOBUF_SECTION_VARIAB
     "D_PARAMETERS\020\007\022\021\n\rSERVICE_ERROR\020\010*q\n\rRPC"
     "PacketType\022\024\n\020DEFAULT_RESPONSE\020\000\022\020\n\014TASK"
     "_REQUEST\020\001\022\021\n\rTASK_RESPONSE\020\002\022\021\n\rQUERY_R"
-    "EQUEST\020\003\022\022\n\016QUERY_RESPONSE\020\004*;\n\017RPCPacke"
-    "tStatus\022\013\n\007WAITING\020\000\022\014\n\010COMMITED\020\001\022\r\n\tCO"
-    "MPLETED\020\002b\006proto3"
+    "EQUEST\020\003\022\022\n\016QUERY_RESPONSE\020\004*V\n\017RPCPacke"
+    "tStatus\022\r\n\tSUBMITTED\020\000\022\013\n\007WAITING\020\001\022\014\n\010C"
+    "OMMITED\020\002\022\r\n\tCOMPLETED\020\003\022\n\n\006FAILED\020\004b\006pr"
+    "oto3"
 };
 static const ::_pbi::DescriptorTable* const descriptor_table_RPCPacket_2eproto_deps[1] =
     {
@@ -156,7 +168,7 @@ static ::absl::once_flag descriptor_table_RPCPacket_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_RPCPacket_2eproto = {
     false,
     false,
-    897,
+    964,
     descriptor_table_protodef_RPCPacket_2eproto,
     "RPCPacket.proto",
     &descriptor_table_RPCPacket_2eproto_once,
@@ -214,9 +226,9 @@ const ::google::protobuf::EnumDescriptor* RPCPacketStatus_descriptor() {
   return file_level_enum_descriptors_RPCPacket_2eproto[2];
 }
 PROTOBUF_CONSTINIT const uint32_t RPCPacketStatus_internal_data_[] = {
-    196608u, 0u, };
+    327680u, 0u, };
 bool RPCPacketStatus_IsValid(int value) {
-  return 0 <= value && value <= 2;
+  return 0 <= value && value <= 4;
 }
 // ===================================================================
 
@@ -265,8 +277,10 @@ inline PROTOBUF_NDEBUG_INLINE RPCPacket::Impl_::Impl_(
         to_(arena, from.to_),
         inner_id_(arena, from.inner_id_),
         created_time_(arena, from.created_time_),
+        post_time_(arena, from.post_time_),
         commited_time_(arena, from.commited_time_),
         completed_time_(arena, from.completed_time_),
+        failed_time_(arena, from.failed_time_),
         request_id_(arena, from.request_id_),
         service_(arena, from.service_) {}
 
@@ -304,8 +318,10 @@ inline PROTOBUF_NDEBUG_INLINE RPCPacket::Impl_::Impl_(
         to_(arena),
         inner_id_(arena),
         created_time_(arena),
+        post_time_(arena),
         commited_time_(arena),
         completed_time_(arena),
+        failed_time_(arena),
         request_id_(arena),
         service_(arena) {}
 
@@ -329,8 +345,10 @@ inline void RPCPacket::SharedDtor() {
   _impl_.to_.Destroy();
   _impl_.inner_id_.Destroy();
   _impl_.created_time_.Destroy();
+  _impl_.post_time_.Destroy();
   _impl_.commited_time_.Destroy();
   _impl_.completed_time_.Destroy();
+  _impl_.failed_time_.Destroy();
   _impl_.request_id_.Destroy();
   _impl_.service_.Destroy();
   delete _impl_.parameters_;
@@ -349,8 +367,10 @@ PROTOBUF_NOINLINE void RPCPacket::Clear() {
   _impl_.to_.ClearToEmpty();
   _impl_.inner_id_.ClearToEmpty();
   _impl_.created_time_.ClearToEmpty();
+  _impl_.post_time_.ClearToEmpty();
   _impl_.commited_time_.ClearToEmpty();
   _impl_.completed_time_.ClearToEmpty();
+  _impl_.failed_time_.ClearToEmpty();
   _impl_.request_id_.ClearToEmpty();
   _impl_.service_.ClearToEmpty();
   cached_has_bits = _impl_._has_bits_[0];
@@ -379,15 +399,15 @@ const char* RPCPacket::_InternalParse(
 
 
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<4, 13, 2, 121, 2> RPCPacket::_table_ = {
+const ::_pbi::TcParseTable<4, 15, 2, 141, 2> RPCPacket::_table_ = {
   {
     PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_._has_bits_),
     0, // no _extensions_
-    13, 120,  // max_field_number, fast_idx_mask
+    15, 120,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294959104,  // skipmap
+    4294934528,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    13,  // num_field_entries
+    15,  // num_field_entries
     2,  // num_aux_entries
     offsetof(decltype(_table_), aux_entries),
     &_RPCPacket_default_instance_._instance,
@@ -415,26 +435,30 @@ const ::_pbi::TcParseTable<4, 13, 2, 121, 2> RPCPacket::_table_ = {
     // string created_time = 7;
     {::_pbi::TcParser::FastUS1,
      {58, 63, 0, PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.created_time_)}},
-    // string commited_time = 8;
+    // string post_time = 8;
     {::_pbi::TcParser::FastUS1,
-     {66, 63, 0, PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.commited_time_)}},
-    // string completed_time = 9;
+     {66, 63, 0, PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.post_time_)}},
+    // string commited_time = 9;
     {::_pbi::TcParser::FastUS1,
-     {74, 63, 0, PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.completed_time_)}},
-    // string request_id = 10;
+     {74, 63, 0, PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.commited_time_)}},
+    // string completed_time = 10;
     {::_pbi::TcParser::FastUS1,
-     {82, 63, 0, PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.request_id_)}},
-    // string service = 11;
+     {82, 63, 0, PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.completed_time_)}},
+    // string failed_time = 11;
     {::_pbi::TcParser::FastUS1,
-     {90, 63, 0, PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.service_)}},
-    // .google.protobuf.Any parameters = 12;
+     {90, 63, 0, PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.failed_time_)}},
+    // string request_id = 12;
+    {::_pbi::TcParser::FastUS1,
+     {98, 63, 0, PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.request_id_)}},
+    // string service = 13;
+    {::_pbi::TcParser::FastUS1,
+     {106, 63, 0, PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.service_)}},
+    // .google.protobuf.Any parameters = 14;
     {::_pbi::TcParser::FastMtS1,
-     {98, 0, 0, PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.parameters_)}},
-    // .google.protobuf.Any result = 13;
+     {114, 0, 0, PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.parameters_)}},
+    // .google.protobuf.Any result = 15;
     {::_pbi::TcParser::FastMtS1,
-     {106, 1, 1, PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.result_)}},
-    {::_pbi::TcParser::MiniParse, {}},
-    {::_pbi::TcParser::MiniParse, {}},
+     {122, 1, 1, PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.result_)}},
   }}, {{
     65535, 65535
   }}, {{
@@ -459,36 +483,44 @@ const ::_pbi::TcParseTable<4, 13, 2, 121, 2> RPCPacket::_table_ = {
     // string created_time = 7;
     {PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.created_time_), -1, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-    // string commited_time = 8;
+    // string post_time = 8;
+    {PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.post_time_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // string commited_time = 9;
     {PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.commited_time_), -1, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-    // string completed_time = 9;
+    // string completed_time = 10;
     {PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.completed_time_), -1, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-    // string request_id = 10;
+    // string failed_time = 11;
+    {PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.failed_time_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // string request_id = 12;
     {PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.request_id_), -1, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-    // string service = 11;
+    // string service = 13;
     {PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.service_), -1, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-    // .google.protobuf.Any parameters = 12;
+    // .google.protobuf.Any parameters = 14;
     {PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.parameters_), _Internal::kHasBitsOffset + 0, 0,
     (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
-    // .google.protobuf.Any result = 13;
+    // .google.protobuf.Any result = 15;
     {PROTOBUF_FIELD_OFFSET(RPCPacket, _impl_.result_), _Internal::kHasBitsOffset + 1, 1,
     (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
   }}, {{
     {::_pbi::TcParser::GetTable<::google::protobuf::Any>()},
     {::_pbi::TcParser::GetTable<::google::protobuf::Any>()},
   }}, {{
-    "\42\0\0\0\4\2\10\14\15\16\12\7\0\0\0\0"
+    "\42\0\0\0\4\2\10\14\11\15\16\13\12\7\0\0"
     "DSFramework.DSRPC.Packet.RPCPacket"
     "from"
     "to"
     "inner_id"
     "created_time"
+    "post_time"
     "commited_time"
     "completed_time"
+    "failed_time"
     "request_id"
     "service"
   }},
@@ -554,50 +586,66 @@ const ::_pbi::TcParseTable<4, 13, 2, 121, 2> RPCPacket::_table_ = {
     target = stream->WriteStringMaybeAliased(7, _s, target);
   }
 
-  // string commited_time = 8;
+  // string post_time = 8;
+  if (!this->_internal_post_time().empty()) {
+    const std::string& _s = this->_internal_post_time();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "DSFramework.DSRPC.Packet.RPCPacket.post_time");
+    target = stream->WriteStringMaybeAliased(8, _s, target);
+  }
+
+  // string commited_time = 9;
   if (!this->_internal_commited_time().empty()) {
     const std::string& _s = this->_internal_commited_time();
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
         _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "DSFramework.DSRPC.Packet.RPCPacket.commited_time");
-    target = stream->WriteStringMaybeAliased(8, _s, target);
+    target = stream->WriteStringMaybeAliased(9, _s, target);
   }
 
-  // string completed_time = 9;
+  // string completed_time = 10;
   if (!this->_internal_completed_time().empty()) {
     const std::string& _s = this->_internal_completed_time();
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
         _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "DSFramework.DSRPC.Packet.RPCPacket.completed_time");
-    target = stream->WriteStringMaybeAliased(9, _s, target);
+    target = stream->WriteStringMaybeAliased(10, _s, target);
   }
 
-  // string request_id = 10;
+  // string failed_time = 11;
+  if (!this->_internal_failed_time().empty()) {
+    const std::string& _s = this->_internal_failed_time();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "DSFramework.DSRPC.Packet.RPCPacket.failed_time");
+    target = stream->WriteStringMaybeAliased(11, _s, target);
+  }
+
+  // string request_id = 12;
   if (!this->_internal_request_id().empty()) {
     const std::string& _s = this->_internal_request_id();
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
         _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "DSFramework.DSRPC.Packet.RPCPacket.request_id");
-    target = stream->WriteStringMaybeAliased(10, _s, target);
+    target = stream->WriteStringMaybeAliased(12, _s, target);
   }
 
-  // string service = 11;
+  // string service = 13;
   if (!this->_internal_service().empty()) {
     const std::string& _s = this->_internal_service();
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
         _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "DSFramework.DSRPC.Packet.RPCPacket.service");
-    target = stream->WriteStringMaybeAliased(11, _s, target);
+    target = stream->WriteStringMaybeAliased(13, _s, target);
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .google.protobuf.Any parameters = 12;
+  // .google.protobuf.Any parameters = 14;
   if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-        12, _Internal::parameters(this),
+        14, _Internal::parameters(this),
         _Internal::parameters(this).GetCachedSize(), target, stream);
   }
 
-  // .google.protobuf.Any result = 13;
+  // .google.protobuf.Any result = 15;
   if (cached_has_bits & 0x00000002u) {
     target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-        13, _Internal::result(this),
+        15, _Internal::result(this),
         _Internal::result(this).GetCachedSize(), target, stream);
   }
 
@@ -642,25 +690,37 @@ const ::_pbi::TcParseTable<4, 13, 2, 121, 2> RPCPacket::_table_ = {
                                     this->_internal_created_time());
   }
 
-  // string commited_time = 8;
+  // string post_time = 8;
+  if (!this->_internal_post_time().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_post_time());
+  }
+
+  // string commited_time = 9;
   if (!this->_internal_commited_time().empty()) {
     total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
                                     this->_internal_commited_time());
   }
 
-  // string completed_time = 9;
+  // string completed_time = 10;
   if (!this->_internal_completed_time().empty()) {
     total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
                                     this->_internal_completed_time());
   }
 
-  // string request_id = 10;
+  // string failed_time = 11;
+  if (!this->_internal_failed_time().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_failed_time());
+  }
+
+  // string request_id = 12;
   if (!this->_internal_request_id().empty()) {
     total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
                                     this->_internal_request_id());
   }
 
-  // string service = 11;
+  // string service = 13;
   if (!this->_internal_service().empty()) {
     total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
                                     this->_internal_service());
@@ -668,13 +728,13 @@ const ::_pbi::TcParseTable<4, 13, 2, 121, 2> RPCPacket::_table_ = {
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    // .google.protobuf.Any parameters = 12;
+    // .google.protobuf.Any parameters = 14;
     if (cached_has_bits & 0x00000001u) {
       total_size +=
           1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.parameters_);
     }
 
-    // .google.protobuf.Any result = 13;
+    // .google.protobuf.Any result = 15;
     if (cached_has_bits & 0x00000002u) {
       total_size +=
           1 + ::google::protobuf::internal::WireFormatLite::MessageSize(*_impl_.result_);
@@ -730,11 +790,17 @@ void RPCPacket::MergeImpl(::google::protobuf::Message& to_msg, const ::google::p
   if (!from._internal_created_time().empty()) {
     _this->_internal_set_created_time(from._internal_created_time());
   }
+  if (!from._internal_post_time().empty()) {
+    _this->_internal_set_post_time(from._internal_post_time());
+  }
   if (!from._internal_commited_time().empty()) {
     _this->_internal_set_commited_time(from._internal_commited_time());
   }
   if (!from._internal_completed_time().empty()) {
     _this->_internal_set_completed_time(from._internal_completed_time());
+  }
+  if (!from._internal_failed_time().empty()) {
+    _this->_internal_set_failed_time(from._internal_failed_time());
   }
   if (!from._internal_request_id().empty()) {
     _this->_internal_set_request_id(from._internal_request_id());
@@ -789,8 +855,10 @@ void RPCPacket::InternalSwap(RPCPacket* PROTOBUF_RESTRICT other) {
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.to_, &other->_impl_.to_, arena);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.inner_id_, &other->_impl_.inner_id_, arena);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.created_time_, &other->_impl_.created_time_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.post_time_, &other->_impl_.post_time_, arena);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.commited_time_, &other->_impl_.commited_time_, arena);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.completed_time_, &other->_impl_.completed_time_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.failed_time_, &other->_impl_.failed_time_, arena);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.request_id_, &other->_impl_.request_id_, arena);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.service_, &other->_impl_.service_, arena);
   ::google::protobuf::internal::memswap<

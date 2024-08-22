@@ -11,17 +11,16 @@
 
 using DSFramework::DSCommunication::Session;
 using DSFramework::DSRPC::RPCEventHandler;
-
+using DSFramework::DSRPC::RPCPacketFactory;
 using DSFramework::DSRPC::Packet::RPCPacket;
 namespace DSFramework {
 	namespace DSRPC {
 		class RequestDispatcher : public Dispatcher<Session, RPCPacket>
 		{
 		private:
-			IServiceProvider& m_serviceProvider;
 			std::shared_ptr<RPCEventHandler> m_rpcEventHandler;
 		public:
-			RequestDispatcher(size_t maxWaitedDispatch,IServiceProvider& serviceProvider, std::shared_ptr<RPCEventHandler> rpcEventHandler);
+			RequestDispatcher(size_t maxWaitedDispatch,std::shared_ptr<RPCEventHandler> rpcEventHandler);
 			virtual ~RequestDispatcher();
 
 			virtual bool PostRequestToQueue(SenderPtr sender, DispatchItemPtr dispatchItem) override ;

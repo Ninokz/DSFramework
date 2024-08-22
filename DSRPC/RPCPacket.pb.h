@@ -151,9 +151,11 @@ inline bool RPCPacketType_Parse(absl::string_view name, RPCPacketType* value) {
       RPCPacketType_descriptor(), name, value);
 }
 enum RPCPacketStatus : int {
-  WAITING = 0,
-  COMMITED = 1,
-  COMPLETED = 2,
+  SUBMITTED = 0,
+  WAITING = 1,
+  COMMITED = 2,
+  COMPLETED = 3,
+  FAILED = 4,
   RPCPacketStatus_INT_MIN_SENTINEL_DO_NOT_USE_ =
       std::numeric_limits<::int32_t>::min(),
   RPCPacketStatus_INT_MAX_SENTINEL_DO_NOT_USE_ =
@@ -163,8 +165,8 @@ enum RPCPacketStatus : int {
 bool RPCPacketStatus_IsValid(int value);
 extern const uint32_t RPCPacketStatus_internal_data_[];
 constexpr RPCPacketStatus RPCPacketStatus_MIN = static_cast<RPCPacketStatus>(0);
-constexpr RPCPacketStatus RPCPacketStatus_MAX = static_cast<RPCPacketStatus>(2);
-constexpr int RPCPacketStatus_ARRAYSIZE = 2 + 1;
+constexpr RPCPacketStatus RPCPacketStatus_MAX = static_cast<RPCPacketStatus>(4);
+constexpr int RPCPacketStatus_ARRAYSIZE = 4 + 1;
 const ::google::protobuf::EnumDescriptor*
 RPCPacketStatus_descriptor();
 template <typename T>
@@ -177,7 +179,7 @@ const std::string& RPCPacketStatus_Name(T value) {
 template <>
 inline const std::string& RPCPacketStatus_Name(RPCPacketStatus value) {
   return ::google::protobuf::internal::NameOfDenseEnum<RPCPacketStatus_descriptor,
-                                                 0, 2>(
+                                                 0, 4>(
       static_cast<int>(value));
 }
 inline bool RPCPacketStatus_Parse(absl::string_view name, RPCPacketStatus* value) {
@@ -326,12 +328,14 @@ class RPCPacket final :
     kToFieldNumber = 5,
     kInnerIdFieldNumber = 6,
     kCreatedTimeFieldNumber = 7,
-    kCommitedTimeFieldNumber = 8,
-    kCompletedTimeFieldNumber = 9,
-    kRequestIdFieldNumber = 10,
-    kServiceFieldNumber = 11,
-    kParametersFieldNumber = 12,
-    kResultFieldNumber = 13,
+    kPostTimeFieldNumber = 8,
+    kCommitedTimeFieldNumber = 9,
+    kCompletedTimeFieldNumber = 10,
+    kFailedTimeFieldNumber = 11,
+    kRequestIdFieldNumber = 12,
+    kServiceFieldNumber = 13,
+    kParametersFieldNumber = 14,
+    kResultFieldNumber = 15,
     kTypeFieldNumber = 1,
     kErrorFieldNumber = 2,
     kStatusFieldNumber = 3,
@@ -400,7 +404,23 @@ class RPCPacket final :
   std::string* _internal_mutable_created_time();
 
   public:
-  // string commited_time = 8;
+  // string post_time = 8;
+  void clear_post_time() ;
+  const std::string& post_time() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_post_time(Arg_&& arg, Args_... args);
+  std::string* mutable_post_time();
+  PROTOBUF_NODISCARD std::string* release_post_time();
+  void set_allocated_post_time(std::string* value);
+
+  private:
+  const std::string& _internal_post_time() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_post_time(
+      const std::string& value);
+  std::string* _internal_mutable_post_time();
+
+  public:
+  // string commited_time = 9;
   void clear_commited_time() ;
   const std::string& commited_time() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -416,7 +436,7 @@ class RPCPacket final :
   std::string* _internal_mutable_commited_time();
 
   public:
-  // string completed_time = 9;
+  // string completed_time = 10;
   void clear_completed_time() ;
   const std::string& completed_time() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -432,7 +452,23 @@ class RPCPacket final :
   std::string* _internal_mutable_completed_time();
 
   public:
-  // string request_id = 10;
+  // string failed_time = 11;
+  void clear_failed_time() ;
+  const std::string& failed_time() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_failed_time(Arg_&& arg, Args_... args);
+  std::string* mutable_failed_time();
+  PROTOBUF_NODISCARD std::string* release_failed_time();
+  void set_allocated_failed_time(std::string* value);
+
+  private:
+  const std::string& _internal_failed_time() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_failed_time(
+      const std::string& value);
+  std::string* _internal_mutable_failed_time();
+
+  public:
+  // string request_id = 12;
   void clear_request_id() ;
   const std::string& request_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -448,7 +484,7 @@ class RPCPacket final :
   std::string* _internal_mutable_request_id();
 
   public:
-  // string service = 11;
+  // string service = 13;
   void clear_service() ;
   const std::string& service() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -464,7 +500,7 @@ class RPCPacket final :
   std::string* _internal_mutable_service();
 
   public:
-  // .google.protobuf.Any parameters = 12;
+  // .google.protobuf.Any parameters = 14;
   bool has_parameters() const;
   void clear_parameters() ;
   const ::google::protobuf::Any& parameters() const;
@@ -479,7 +515,7 @@ class RPCPacket final :
   ::google::protobuf::Any* _internal_mutable_parameters();
 
   public:
-  // .google.protobuf.Any result = 13;
+  // .google.protobuf.Any result = 15;
   bool has_result() const;
   void clear_result() ;
   const ::google::protobuf::Any& result() const;
@@ -530,8 +566,8 @@ class RPCPacket final :
 
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      4, 13, 2,
-      121, 2>
+      4, 15, 2,
+      141, 2>
       _table_;
   friend class ::google::protobuf::MessageLite;
   friend class ::google::protobuf::Arena;
@@ -553,8 +589,10 @@ class RPCPacket final :
     ::google::protobuf::internal::ArenaStringPtr to_;
     ::google::protobuf::internal::ArenaStringPtr inner_id_;
     ::google::protobuf::internal::ArenaStringPtr created_time_;
+    ::google::protobuf::internal::ArenaStringPtr post_time_;
     ::google::protobuf::internal::ArenaStringPtr commited_time_;
     ::google::protobuf::internal::ArenaStringPtr completed_time_;
+    ::google::protobuf::internal::ArenaStringPtr failed_time_;
     ::google::protobuf::internal::ArenaStringPtr request_id_;
     ::google::protobuf::internal::ArenaStringPtr service_;
     ::google::protobuf::Any* parameters_;
@@ -865,7 +903,60 @@ inline void RPCPacket::set_allocated_created_time(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:DSFramework.DSRPC.Packet.RPCPacket.created_time)
 }
 
-// string commited_time = 8;
+// string post_time = 8;
+inline void RPCPacket::clear_post_time() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.post_time_.ClearToEmpty();
+}
+inline const std::string& RPCPacket::post_time() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:DSFramework.DSRPC.Packet.RPCPacket.post_time)
+  return _internal_post_time();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void RPCPacket::set_post_time(Arg_&& arg,
+                                                     Args_... args) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.post_time_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:DSFramework.DSRPC.Packet.RPCPacket.post_time)
+}
+inline std::string* RPCPacket::mutable_post_time() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_post_time();
+  // @@protoc_insertion_point(field_mutable:DSFramework.DSRPC.Packet.RPCPacket.post_time)
+  return _s;
+}
+inline const std::string& RPCPacket::_internal_post_time() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.post_time_.Get();
+}
+inline void RPCPacket::_internal_set_post_time(const std::string& value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.post_time_.Set(value, GetArena());
+}
+inline std::string* RPCPacket::_internal_mutable_post_time() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  return _impl_.post_time_.Mutable( GetArena());
+}
+inline std::string* RPCPacket::release_post_time() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:DSFramework.DSRPC.Packet.RPCPacket.post_time)
+  return _impl_.post_time_.Release();
+}
+inline void RPCPacket::set_allocated_post_time(std::string* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.post_time_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.post_time_.IsDefault()) {
+          _impl_.post_time_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:DSFramework.DSRPC.Packet.RPCPacket.post_time)
+}
+
+// string commited_time = 9;
 inline void RPCPacket::clear_commited_time() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.commited_time_.ClearToEmpty();
@@ -918,7 +1009,7 @@ inline void RPCPacket::set_allocated_commited_time(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:DSFramework.DSRPC.Packet.RPCPacket.commited_time)
 }
 
-// string completed_time = 9;
+// string completed_time = 10;
 inline void RPCPacket::clear_completed_time() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.completed_time_.ClearToEmpty();
@@ -971,7 +1062,60 @@ inline void RPCPacket::set_allocated_completed_time(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:DSFramework.DSRPC.Packet.RPCPacket.completed_time)
 }
 
-// string request_id = 10;
+// string failed_time = 11;
+inline void RPCPacket::clear_failed_time() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.failed_time_.ClearToEmpty();
+}
+inline const std::string& RPCPacket::failed_time() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:DSFramework.DSRPC.Packet.RPCPacket.failed_time)
+  return _internal_failed_time();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void RPCPacket::set_failed_time(Arg_&& arg,
+                                                     Args_... args) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.failed_time_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:DSFramework.DSRPC.Packet.RPCPacket.failed_time)
+}
+inline std::string* RPCPacket::mutable_failed_time() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_failed_time();
+  // @@protoc_insertion_point(field_mutable:DSFramework.DSRPC.Packet.RPCPacket.failed_time)
+  return _s;
+}
+inline const std::string& RPCPacket::_internal_failed_time() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.failed_time_.Get();
+}
+inline void RPCPacket::_internal_set_failed_time(const std::string& value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.failed_time_.Set(value, GetArena());
+}
+inline std::string* RPCPacket::_internal_mutable_failed_time() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  return _impl_.failed_time_.Mutable( GetArena());
+}
+inline std::string* RPCPacket::release_failed_time() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:DSFramework.DSRPC.Packet.RPCPacket.failed_time)
+  return _impl_.failed_time_.Release();
+}
+inline void RPCPacket::set_allocated_failed_time(std::string* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.failed_time_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.failed_time_.IsDefault()) {
+          _impl_.failed_time_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:DSFramework.DSRPC.Packet.RPCPacket.failed_time)
+}
+
+// string request_id = 12;
 inline void RPCPacket::clear_request_id() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.request_id_.ClearToEmpty();
@@ -1024,7 +1168,7 @@ inline void RPCPacket::set_allocated_request_id(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:DSFramework.DSRPC.Packet.RPCPacket.request_id)
 }
 
-// string service = 11;
+// string service = 13;
 inline void RPCPacket::clear_service() {
   PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
   _impl_.service_.ClearToEmpty();
@@ -1077,7 +1221,7 @@ inline void RPCPacket::set_allocated_service(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:DSFramework.DSRPC.Packet.RPCPacket.service)
 }
 
-// .google.protobuf.Any parameters = 12;
+// .google.protobuf.Any parameters = 14;
 inline bool RPCPacket::has_parameters() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.parameters_ != nullptr);
@@ -1168,7 +1312,7 @@ inline void RPCPacket::set_allocated_parameters(::google::protobuf::Any* value) 
   // @@protoc_insertion_point(field_set_allocated:DSFramework.DSRPC.Packet.RPCPacket.parameters)
 }
 
-// .google.protobuf.Any result = 13;
+// .google.protobuf.Any result = 15;
 inline bool RPCPacket::has_result() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.result_ != nullptr);

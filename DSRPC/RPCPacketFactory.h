@@ -18,7 +18,7 @@ namespace DSFramework {
 				std::shared_ptr<RPCPacket> response = std::make_shared<RPCPacket>();
 				response->set_type(Packet::DEFAULT_RESPONSE);
 				response->set_error(error);
-				response->set_status(Packet::RPCPacketStatus::WAITING);
+				response->set_status(Packet::RPCPacketStatus::FAILED);
 				response->set_inner_id(innerID);
 
 				response->set_from(from);
@@ -60,7 +60,7 @@ namespace DSFramework {
 			{
 				std::string uid = boost::uuids::to_string(boost::uuids::random_generator()());
 				packet->set_request_id(uid);
-				packet->set_status(Packet::RPCPacketStatus::WAITING);
+				packet->set_status(Packet::RPCPacketStatus::SUBMITTED);
 				packet->set_error(Packet::RPCPacketError::PKT_NO_ERROR);
 				packet->set_inner_id(innerID);
 				packet->set_created_time(CurrentTime());

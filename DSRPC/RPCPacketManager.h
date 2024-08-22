@@ -13,15 +13,17 @@
 #include "RPCPacket.pb.h"
 #include "RPCEventHandler.h"
 
+using DSFramework::DSComponent::Log;
+using DSFramework::DSComponent::Logger;
+
+using DSFramework::DSRPC::ICommitedEventHandler;
 using DSFramework::DSRPC::IDeserializedEventHandler;
 using DSFramework::DSRPC::IDispatchEventHandler;
-
-using DSFramework::DSComponent::Logger;
-using DSFramework::DSComponent::Log;
 using DSFramework::DSRPC::Packet::RPCPacket;
+
 namespace DSFramework {
 	namespace DSRPC {
-		class RPCPacketManager : public IDeserializedEventHandler, public IDispatchEventHandler
+		class RPCPacketManager : public IDeserializedEventHandler, public IDispatchEventHandler, public ICommitedEventHandler
 		{
 		private:
 			using REQUEST_ID = std::string;
@@ -46,6 +48,10 @@ namespace DSFramework {
 			void OnDeserialized(const std::string requestID, const std::string sessionID, std::shared_ptr<RPCPacket> request) override;
 			void OnDispatched(const std::string& requestID) override;
 			void OnDispatchFailed(const std::string& requestID) override;
+
+			void OnCommited(const std::string& requestID) override;
+			void OnServiceNotFound(const std::string& requestID) override;
+			void OnServiceParameterInvalid(const std::string& requestID) override;
 		};
 	}
 }

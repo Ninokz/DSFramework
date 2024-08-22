@@ -29,10 +29,15 @@ namespace DSFramework {
 			if (it != m_requests.end())
 			{
 				it->second.second->set_status(status);
-				if ((status & Packet::RPCPacketStatus::COMMITED) == Packet::RPCPacketStatus::COMMITED)
+
+				if ((status & Packet::RPCPacketStatus::WAITING) == Packet::RPCPacketStatus::WAITING)
+					it->second.second->set_post_time(CurrentTime());
+				else if ((status & Packet::RPCPacketStatus::COMMITED) == Packet::RPCPacketStatus::COMMITED)
 					it->second.second->set_commited_time(CurrentTime());
 				else if ((status & Packet::RPCPacketStatus::COMPLETED) == Packet::RPCPacketStatus::COMPLETED)
 					it->second.second->set_completed_time(CurrentTime());
+				else if ((status & Packet::RPCPacketStatus::FAILED) == Packet::RPCPacketStatus::FAILED)
+					it->second.second->set_failed_time(CurrentTime());
 			}
 		}
 
@@ -56,12 +61,29 @@ namespace DSFramework {
 
 		void RPCPacketManager::OnDispatched(const std::string& requestID)
 		{
-			UpdateRequestStatus(requestID, Packet::RPCPacketStatus::COMMITED);
+			UpdateRequestStatus(requestID, Packet::RPCPacketStatus::WAITING);
 		}
 
 		void RPCPacketManager::OnDispatchFailed(const std::string& requestID)
 		{
-			UpdateRequestStatus(requestID, Packet::RPCPacketStatus::COMPLETED);
+			UpdateRequestStatus(requestID, Packet::RPCPacketStatus::FAILED);
+			RemoveRequest(requestID);
+		}
+
+		void RPCPacketManager::OnCommited(const std::string& requestID)
+		{
+			UpdateRequestStatus(requestID, Packet::RPCPacketStatus::COMMITED);
+		}
+
+		void RPCPacketManager::OnServiceNotFound(const std::string& requestID)
+		{
+			UpdateRequestStatus(requestID, Packet::RPCPacketStatus::FAILED);
+			RemoveRequest(requestID);
+		}
+
+		void RPCPacketManager::OnServiceParameterInvalid(const std::string& requestID)
+		{
+			UpdateRequestStatus(requestID, Packet::RPCPacketStatus::FAILED);
 			RemoveRequest(requestID);
 		}
 	}

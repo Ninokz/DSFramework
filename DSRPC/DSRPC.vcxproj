@@ -171,7 +171,7 @@
     <ClInclude Include="RPCPacket.pb.h" />
     <ClInclude Include="RPCPacketFactory.h" />
     <ClInclude Include="RPCPacketManager.h" />
-    <ClInclude Include="RPCServiceProcedure.h" />
+    <ClInclude Include="ServiceProcedure.h" />
     <ClInclude Include="RPCServer.h" />
     <ClInclude Include="RPCServerStub.h" />
   </ItemGroup>

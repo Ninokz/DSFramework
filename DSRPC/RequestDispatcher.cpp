@@ -3,9 +3,8 @@
 
 namespace DSFramework {
 	namespace DSRPC {
-		RequestDispatcher::RequestDispatcher(size_t maxWaitedDispatch, IServiceProvider& serviceProvider, std::shared_ptr<RPCEventHandler> rpcEventHandler) :
+		RequestDispatcher::RequestDispatcher(size_t maxWaitedDispatch, std::shared_ptr<RPCEventHandler> rpcEventHandler) :
 			Dispatcher(maxWaitedDispatch),
-			m_serviceProvider(serviceProvider),
 			m_rpcEventHandler(rpcEventHandler)
 		{
 		}
@@ -31,17 +30,9 @@ namespace DSFramework {
 
 		void RequestDispatcher::DispatchDSCMessage(SenderPtr sender, DispatchItemPtr dispatchItem)
 		{
-			if (!this->m_serviceProvider.SearchService(dispatchItem->service()))
-			{
-				HandleServiceNotFound(sender, dispatchItem);
-				return;
-			}
-			if (!this->m_serviceProvider.CheckParams(dispatchItem))
-			{
-				HandleServiceParameterInvalid(sender, dispatchItem);
-				return;
-			}
-			
+			/// 搜索服务
+			/// 检查参数
+			/// 交付给m_serviceProvider处理
 		}
 
 		void RequestDispatcher::HandlePostSuccess(SenderPtr sender, DispatchItemPtr dispatchItem)
@@ -81,11 +72,29 @@ namespace DSFramework {
 		void RequestDispatcher::HandleServiceNotFound(SenderPtr sender, DispatchItemPtr dispatchItem)
 		{
 			LOG_DEBUG_CONSOLE("Request Service Not found");
+			m_rpcEventHandler->OnServiceNotFound(dispatchItem->request_id());
+			/// 5. 设置响应类型
+			RPCPacketFactory::ChangeTypeToResponse(dispatchItem);
+			/// 6. 设置错误码
+			RPCPacketFactory::SetErrorCode(dispatchItem, Packet::RPCPacketError::SERVICE_NOT_FOUND);
+			/// 7. 转换收发方(因为该包没有保存至manager)
+			RPCPacketFactory::ChangeRecvSend(dispatchItem);
+			/// 8. 发送响应包
+			this->Send(sender, dispatchItem);
 		}
 
 		void RequestDispatcher::HandleServiceParameterInvalid(SenderPtr sender, DispatchItemPtr dispatchItem)
 		{
 			LOG_DEBUG_CONSOLE("Request Service Parameter invalid");
+			m_rpcEventHandler->OnServiceParameterInvalid(dispatchItem->request_id());
+			/// 5. 设置响应类型
+			RPCPacketFactory::ChangeTypeToResponse(dispatchItem);
+			/// 6. 设置错误码
+			RPCPacketFactory::SetErrorCode(dispatchItem, Packet::RPCPacketError::SERVICE_IVAILD_PARAMETERS);
+			/// 7. 转换收发方(因为该包没有保存至manager)
+			RPCPacketFactory::ChangeRecvSend(dispatchItem);
+			/// 8. 发送响应包
+			this->Send(sender, dispatchItem);
 		}
 
 		void RequestDispatcher::Send(std::shared_ptr<Session> sender, std::shared_ptr<Packet::RPCPacket> packet)

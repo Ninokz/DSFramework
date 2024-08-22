@@ -78,9 +78,6 @@
     <ClCompile Include="RPCPacketManager.cpp">
       <Filter>源文件\Server</Filter>
     </ClCompile>
-    <ClCompile Include="RPCPacket.pb.cc">
-      <Filter>源文件\Packet</Filter>
-    </ClCompile>
     <ClCompile Include="RequestDispatcher.cpp">
       <Filter>源文件\Server</Filter>
     </ClCompile>
@@ -89,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="RPCEventHandler.cpp">
       <Filter>源文件\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="RPCPacket.pb.cc">
+      <Filter>源文件\Packet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,20 +140,20 @@
     <ClInclude Include="RPCPacketManager.h">
       <Filter>头文件\Server</Filter>
     </ClInclude>
-    <ClInclude Include="RPCPacket.pb.h">
-      <Filter>头文件\Packet</Filter>
-    </ClInclude>
     <ClInclude Include="RequestDispatcher.h">
       <Filter>头文件\Server</Filter>
     </ClInclude>
     <ClInclude Include="RPCServer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="RPCServiceProcedure.h">
+    <ClInclude Include="ServiceProcedure.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="RPCEventHandler.h">
       <Filter>头文件\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="RPCPacket.pb.h">
+      <Filter>头文件\Packet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

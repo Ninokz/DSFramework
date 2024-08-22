@@ -19,7 +19,7 @@ using DSFramework::DSRPC::RPCEventHandler;
 namespace DSFramework {
 	namespace DSRPC {
 
-		class RPCServiceProcedure : public std::enable_shared_from_this<RPCServiceProcedure>
+		class ServiceProcedure : public std::enable_shared_from_this<ServiceProcedure>
 		{
 		public:
 			template<typename T>
@@ -28,7 +28,7 @@ namespace DSFramework {
 			const std::string m_serviceName;
 			const std::vector<std::string> m_parameterTypeList;
 			const std::string m_resultType;
-			std::atomic<bool> m_isProcedureRunning = false;
+
 			std::atomic<int> m_useCount = 0;
 		private:
 			template<typename T>
@@ -49,38 +49,15 @@ namespace DSFramework {
 		public:
 			std::string GetServiceName() const { return m_serviceName; }
 			int GetUseCount() const { return m_useCount.load(); }
-			bool isProcedureRunning() const { return m_isProcedureRunning.load(); }
 			const std::vector<std::string>& GetParameterTypeList() const { return m_parameterTypeList; }
 		public:
 			template<typename ReturnType = void, typename... Types>
-			RPCServiceProcedure(std::string serviceName, TypeWrapper<ReturnType> result, TypeWrapper<Types>... paramstype) :
+			ServiceProcedure(std::string serviceName, TypeWrapper<ReturnType> result, TypeWrapper<Types>... paramstype) :
 				m_serviceName(serviceName),
 				m_resultType(getTypeName<ReturnType>()),
 				m_parameterTypeList{ getTypeName<Types>()... } {}
 
-			void PrintTypes() const {
-				std::cout << "Result Type: " << m_resultType << std::endl;
-				std::cout << "Parameter Types:" << std::endl;
-				for (const auto& type : m_parameterTypeList) {
-					std::cout << type << std::endl;
-				}
-			}
-
-			virtual ~RPCServiceProcedure() = default;
-
-			void Execute(std::shared_ptr<RPCPacket> packet) {
-				if (CheckParams(packet))
-				{
-					Procedure(packet);
-				}
-				else
-				{
-
-				}
-			}
-		protected:
-			virtual bool CheckParams(std::shared_ptr<RPCPacket> packet) = 0;
-			virtual void Procedure(std::shared_ptr<RPCPacket> packet) = 0;
+			virtual ~ServiceProcedure() = default;
 		};
 	}
 }

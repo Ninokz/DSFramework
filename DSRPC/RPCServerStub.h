@@ -26,13 +26,20 @@ namespace DSFramework {
 			std::string m_serverid;
 			std::shared_ptr<RPCEventHandler> m_rpcEventHandler;
 		public:
-			RPCServerStub(std::shared_ptr<RPCEventHandler> rpcEventHandler);
+			RPCServerStub();
 			virtual ~RPCServerStub();
 			virtual void OnData(std::shared_ptr<Session> sender, std::shared_ptr<DSCRecvPacket> msg) override;
+
+			inline void AddDeserializedEventHandler(std::shared_ptr<IDeserializedEventHandler> handler);
+			inline void AddDispatchEventHandler(std::shared_ptr<IDispatchEventHandler> handler);
+			inline void AddCommitedEventHandler(std::shared_ptr<ICommitedEventHandler> handler);
+			inline void AddProcessedHandler(std::shared_ptr<IProcessedHandler> handler);
+
 		private:
 			void Send(std::shared_ptr<Session> sender, std::shared_ptr<Packet::RPCPacket> packet);
 
 			inline std::shared_ptr<RPCPacket> Deserialize(const char* data, int datalength, bool* serializeResult);
+
 			inline bool Serialize(const std::shared_ptr<RPCPacket> packet, const char** data, size_t* size);
 		};
 	}
