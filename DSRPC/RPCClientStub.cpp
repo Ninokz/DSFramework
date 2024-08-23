@@ -18,7 +18,8 @@ namespace DSFramework {
 			LOG_DEBUG_CONSOLE("Stub Layer Data received: " + packet->PrintStringFormat());
 			bool deserializeResult = false;
 			std::shared_ptr<Packet::RPCPacket> response = this->Deserialize(packet->m_data, packet->m_dataSize, &deserializeResult);
-			if (deserializeResult)
+			auto ec = response->error();
+			if (deserializeResult && ((ec & DSRPC::Packet::PKT_NO_ERROR) == DSRPC::Packet::PKT_NO_ERROR))
 			{
 
 			}
