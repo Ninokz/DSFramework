@@ -11,7 +11,6 @@ namespace DSFramework {
 			m_maxSendPaddingQueueCount(maxSendPadding),
 			m_server(port, m_maxSendPaddingQueueCount)
 		{
-			rpcEventHandler = RPCEventHandler();
 			ComponentInitialize();
 			EventHandlerInitialize();
 		}
@@ -27,37 +26,38 @@ namespace DSFramework {
 
 		void RPCServer::ComponentInitialize()
 		{
-			rpcWorkers = std::make_shared<RPCProcessor>();
-			rpcRequestDispatcher = std::make_shared<RequestDispatcher>(m_maxRequestPaddingCount, rpcEventHandler);
-			rpcResponseDispatcher = std::make_shared<ResponseDispatcher>(m_maxResponsePaddingCount);
-			rpcRequestManager = std::make_shared<RPCPacketManager>();
-			rpcServerStub = std::make_shared<RPCServerStub>(rpcEventHandler);
+			m_rpcWorkers = std::make_shared<RPCProcessor>(m_rpcEventHandler);
+			m_rpcResponseDispatcher = std::make_shared<ResponseDispatcher>(m_maxResponsePaddingCount);
+			m_rpcRequestDispatcher = std::make_shared<RequestDispatcher>(m_maxRequestPaddingCount, m_rpcEventHandler);
+
+			m_rpcRequestManager = std::make_shared<RPCPacketManager>();
+			m_rpcServerStub = std::make_shared<RPCServerStub>(m_rpcEventHandler);
 		}
 
 		void RPCServer::EventHandlerInitialize()
 		{
-			rpcEventHandler.AddDeserializedEventHandler(std::static_pointer_cast<IDeserializedEventHandler>(rpcRequestDispatcher));
-			rpcEventHandler.AddDispatchEventHandler(std::static_pointer_cast<IDispatchEventHandler>(rpcRequestManager));
+			m_rpcEventHandler.AddDeserializedEventHandler(std::static_pointer_cast<IDeserializedEventHandler>(m_rpcRequestDispatcher));
+			m_rpcEventHandler.AddDispatchEventHandler(std::static_pointer_cast<IDispatchEventHandler>(m_rpcRequestManager));
 
-			rpcEventHandler.AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(rpcRequestManager));
-			rpcEventHandler.AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(rpcWorkers));
+			m_rpcEventHandler.AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(m_rpcRequestManager));
+			m_rpcEventHandler.AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(m_rpcWorkers));
 
-			rpcEventHandler.AddServiceEventHandler(std::static_pointer_cast<IServiceEventHandler>(rpcRequestManager));
-			rpcEventHandler.AddProcessedEventHandler(std::static_pointer_cast<IProcessedEventHandler>(rpcRequestManager));
+			m_rpcEventHandler.AddServiceEventHandler(std::static_pointer_cast<IServiceEventHandler>(m_rpcRequestManager));
+			m_rpcEventHandler.AddProcessedEventHandler(std::static_pointer_cast<IProcessedEventHandler>(m_rpcRequestManager));
 
-			rpcEventHandler.AddDeserializedEventHandler(std::static_pointer_cast<IDeserializedEventHandler>(rpcResponseDispatcher));
-			rpcEventHandler.AddDeserializedFailedEventHandler(std::static_pointer_cast<IDeserializedFailedEventHandler>(rpcResponseDispatcher));
-			rpcEventHandler.AddDispatchEventHandler(std::static_pointer_cast<IDispatchEventHandler>(rpcResponseDispatcher));
-			rpcEventHandler.AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(rpcResponseDispatcher));
-			rpcEventHandler.AddServiceEventHandler(std::static_pointer_cast<IServiceEventHandler>(rpcResponseDispatcher));
-			rpcEventHandler.AddProcessedEventHandler(std::static_pointer_cast<IProcessedEventHandler>(rpcResponseDispatcher));
+			m_rpcEventHandler.AddDeserializedEventHandler(std::static_pointer_cast<IDeserializedEventHandler>(m_rpcResponseDispatcher));
+			m_rpcEventHandler.AddDeserializedFailedEventHandler(std::static_pointer_cast<IDeserializedFailedEventHandler>(m_rpcResponseDispatcher));
+			m_rpcEventHandler.AddDispatchEventHandler(std::static_pointer_cast<IDispatchEventHandler>(m_rpcResponseDispatcher));
+			m_rpcEventHandler.AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(m_rpcResponseDispatcher));
+			m_rpcEventHandler.AddServiceEventHandler(std::static_pointer_cast<IServiceEventHandler>(m_rpcResponseDispatcher));
+			m_rpcEventHandler.AddProcessedEventHandler(std::static_pointer_cast<IProcessedEventHandler>(m_rpcResponseDispatcher));
 
-			m_server.AddDataEventHandler(std::static_pointer_cast<IDataEventHandler>(rpcServerStub));
+			m_server.AddDataEventHandler(std::static_pointer_cast<IDataEventHandler>(m_rpcServerStub));
 		}
 
 		void RPCServer::RegisterService(std::string serviceName, ParamsCheck check, Func func)
 		{
-			rpcWorkers->RegisterService(serviceName, check, func);
+			m_rpcWorkers->RegisterService(serviceName, check, func);
 		}
 	}
 }

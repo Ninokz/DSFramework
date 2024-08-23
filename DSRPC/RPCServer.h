@@ -33,13 +33,13 @@ namespace DSFramework {
 			size_t m_maxSendPaddingQueueCount;
 			short m_port;
 
-			RPCEventHandler rpcEventHandler;
+			RPCEventHandler m_rpcEventHandler;
 
-			RPCWorkersPtr rpcWorkers;
-			RPCRequestDispatcherPtr rpcRequestDispatcher;
-			RPCResponseDispatcherPtr rpcResponseDispatcher;
-			RPCRequestManagerPtr rpcRequestManager;
-			RPCServerStubPtr rpcServerStub;
+			RPCWorkersPtr m_rpcWorkers;
+			RPCRequestDispatcherPtr m_rpcRequestDispatcher;
+			RPCResponseDispatcherPtr m_rpcResponseDispatcher;
+			RPCRequestManagerPtr m_rpcRequestManager;
+			RPCServerStubPtr m_rpcServerStub;
 
 			DSFramework::DSCommunication::AsyncTcpServer m_server;
 		private:

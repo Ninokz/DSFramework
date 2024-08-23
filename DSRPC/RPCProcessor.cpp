@@ -2,7 +2,7 @@
 
 namespace DSFramework {
 	namespace DSRPC {
-		RPCProcessor::RPCProcessor(RPCEventHandler& rpcEventHandler) : m_rpcEventHandler(rpcEventHandler)
+		RPCProcessor::RPCProcessor(RPCEventHandler& m_rpcEventHandler) : m_rpcEventHandler(m_rpcEventHandler)
 		{
 
 		}

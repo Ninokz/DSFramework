@@ -31,7 +31,7 @@ namespace DSFramework {
 			std::unordered_map<std::string, std::pair<CheckFunction, ExecuteFunction>> m_serviceProcedures;
 			RPCEventHandler& m_rpcEventHandler;
 		public:
-			RPCProcessor(RPCEventHandler& rpcEventHandler);
+			RPCProcessor(RPCEventHandler& m_rpcEventHandler);
 			virtual ~RPCProcessor() = default;
 			void RegisterService(std::string serviceName, CheckFunction checkFunction, ExecuteFunction executeFunction);
 			virtual void OnCommited(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;

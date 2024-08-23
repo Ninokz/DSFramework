@@ -20,7 +20,7 @@ namespace DSFramework {
 		private:
 			RPCEventHandler& m_rpcEventHandler;
 		public:
-			RequestDispatcher(size_t maxWaitedDispatch, RPCEventHandler& rpcEventHandler);
+			RequestDispatcher(size_t maxWaitedDispatch, RPCEventHandler& m_rpcEventHandler);
 			virtual ~RequestDispatcher();
 		private:
 			virtual bool PostRequestToQueue(SenderPtr sender, DispatchItemPtr dispatchItem) override ;

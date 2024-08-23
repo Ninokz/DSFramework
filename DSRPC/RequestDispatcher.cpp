@@ -3,8 +3,8 @@
 
 namespace DSFramework {
 	namespace DSRPC {
-		RequestDispatcher::RequestDispatcher(size_t maxWaitedDispatch, RPCEventHandler& rpcEventHandler) :
-			Dispatcher(maxWaitedDispatch), m_rpcEventHandler(rpcEventHandler){}
+		RequestDispatcher::RequestDispatcher(size_t maxWaitedDispatch, RPCEventHandler& m_rpcEventHandler) :
+			Dispatcher(maxWaitedDispatch), m_rpcEventHandler(m_rpcEventHandler){}
 
 		RequestDispatcher::~RequestDispatcher(){}
 
