@@ -39,27 +39,27 @@ public:
 		auto name = parameters.name();
 		auto msg = parameters.message();
 		LOG_DEBUG_CONSOLE("HelloWorldService: " + name + " " + msg);
+
 		HelloWorldServiceResult result;
 		result.set_message("Hello " + name + " " + msg);
-		google::protobuf::Any result_any;
-		result_any.PackFrom(result);
-		packet->mutable_result()->CopyFrom(result_any);
+
+		google::protobuf::Any* result_any = packet->mutable_result();
+		result_any->PackFrom(result);
 	}
 public:
 	static std::shared_ptr<RPCPacket> CreateHelloWorldServiceRequestPacket(std::string name, std::string msg, std::string from, std::string to)
 	{
+		std::shared_ptr<RPCPacket> packet;
+		packet->set_service("HelloWorldService");
+
 		HelloWorldServiceParameters parameters;
 		parameters.set_name(name);
 		parameters.set_message(msg);
-		std::shared_ptr<RPCPacket> packet;
-		packet->set_service("HelloWorldService");
-		google::protobuf::Any parameters_any;
-		parameters_any.PackFrom(parameters);
-		packet->mutable_parameters()->CopyFrom(parameters_any);
+		google::protobuf::Any* parameters_any = packet->mutable_parameters();
+		parameters_any->PackFrom(parameters);
 
 		packet->set_from(from);
 		packet->set_to(to);
-
 		packet->set_type(DSFramework::DSRPC::Packet::TASK_REQUEST);
 		return packet;
 	}
