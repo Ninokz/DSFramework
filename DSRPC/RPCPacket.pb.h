@@ -60,6 +60,12 @@ extern const ::google::protobuf::internal::DescriptorTable
 namespace DSFramework {
 namespace DSRPC {
 namespace Packet {
+class HelloWorldServiceParameters;
+struct HelloWorldServiceParametersDefaultTypeInternal;
+extern HelloWorldServiceParametersDefaultTypeInternal _HelloWorldServiceParameters_default_instance_;
+class HelloWorldServiceResult;
+struct HelloWorldServiceResultDefaultTypeInternal;
+extern HelloWorldServiceResultDefaultTypeInternal _HelloWorldServiceResult_default_instance_;
 class RPCPacket;
 struct RPCPacketDefaultTypeInternal;
 extern RPCPacketDefaultTypeInternal _RPCPacket_default_instance_;
@@ -191,6 +197,386 @@ inline bool RPCPacketStatus_Parse(absl::string_view name, RPCPacketStatus* value
 
 // -------------------------------------------------------------------
 
+class HelloWorldServiceResult final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:DSFramework.DSRPC.Packet.HelloWorldServiceResult) */ {
+ public:
+  inline HelloWorldServiceResult() : HelloWorldServiceResult(nullptr) {}
+  ~HelloWorldServiceResult() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR HelloWorldServiceResult(::google::protobuf::internal::ConstantInitialized);
+
+  inline HelloWorldServiceResult(const HelloWorldServiceResult& from)
+      : HelloWorldServiceResult(nullptr, from) {}
+  HelloWorldServiceResult(HelloWorldServiceResult&& from) noexcept
+    : HelloWorldServiceResult() {
+    *this = ::std::move(from);
+  }
+
+  inline HelloWorldServiceResult& operator=(const HelloWorldServiceResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline HelloWorldServiceResult& operator=(HelloWorldServiceResult&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetArena() == from.GetArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const HelloWorldServiceResult& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const HelloWorldServiceResult* internal_default_instance() {
+    return reinterpret_cast<const HelloWorldServiceResult*>(
+               &_HelloWorldServiceResult_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(HelloWorldServiceResult& a, HelloWorldServiceResult& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(HelloWorldServiceResult* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() != nullptr &&
+        GetArena() == other->GetArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() == other->GetArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(HelloWorldServiceResult* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  HelloWorldServiceResult* New(::google::protobuf::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<HelloWorldServiceResult>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const HelloWorldServiceResult& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom( const HelloWorldServiceResult& from) {
+    HelloWorldServiceResult::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::google::protobuf::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  ::google::protobuf::internal::CachedSize* AccessCachedSize() const final;
+  void SharedCtor(::google::protobuf::Arena* arena);
+  void SharedDtor();
+  void InternalSwap(HelloWorldServiceResult* other);
+
+  private:
+  friend class ::google::protobuf::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "DSFramework.DSRPC.Packet.HelloWorldServiceResult";
+  }
+  protected:
+  explicit HelloWorldServiceResult(::google::protobuf::Arena* arena);
+  HelloWorldServiceResult(::google::protobuf::Arena* arena, const HelloWorldServiceResult& from);
+  public:
+
+  static const ClassData _class_data_;
+  const ::google::protobuf::Message::ClassData*GetClassData() const final;
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMessageFieldNumber = 1,
+  };
+  // string message = 1;
+  void clear_message() ;
+  const std::string& message() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_message(Arg_&& arg, Args_... args);
+  std::string* mutable_message();
+  PROTOBUF_NODISCARD std::string* release_message();
+  void set_allocated_message(std::string* value);
+
+  private:
+  const std::string& _internal_message() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_message(
+      const std::string& value);
+  std::string* _internal_mutable_message();
+
+  public:
+  // @@protoc_insertion_point(class_scope:DSFramework.DSRPC.Packet.HelloWorldServiceResult)
+ private:
+  class _Internal;
+
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      0, 1, 0,
+      64, 2>
+      _table_;
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+
+        inline explicit constexpr Impl_(
+            ::google::protobuf::internal::ConstantInitialized) noexcept;
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena);
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena, const Impl_& from);
+    ::google::protobuf::internal::ArenaStringPtr message_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_RPCPacket_2eproto;
+};// -------------------------------------------------------------------
+
+class HelloWorldServiceParameters final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:DSFramework.DSRPC.Packet.HelloWorldServiceParameters) */ {
+ public:
+  inline HelloWorldServiceParameters() : HelloWorldServiceParameters(nullptr) {}
+  ~HelloWorldServiceParameters() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR HelloWorldServiceParameters(::google::protobuf::internal::ConstantInitialized);
+
+  inline HelloWorldServiceParameters(const HelloWorldServiceParameters& from)
+      : HelloWorldServiceParameters(nullptr, from) {}
+  HelloWorldServiceParameters(HelloWorldServiceParameters&& from) noexcept
+    : HelloWorldServiceParameters() {
+    *this = ::std::move(from);
+  }
+
+  inline HelloWorldServiceParameters& operator=(const HelloWorldServiceParameters& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline HelloWorldServiceParameters& operator=(HelloWorldServiceParameters&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetArena() == from.GetArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const HelloWorldServiceParameters& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const HelloWorldServiceParameters* internal_default_instance() {
+    return reinterpret_cast<const HelloWorldServiceParameters*>(
+               &_HelloWorldServiceParameters_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  friend void swap(HelloWorldServiceParameters& a, HelloWorldServiceParameters& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(HelloWorldServiceParameters* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() != nullptr &&
+        GetArena() == other->GetArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetArena() == other->GetArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(HelloWorldServiceParameters* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  HelloWorldServiceParameters* New(::google::protobuf::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<HelloWorldServiceParameters>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const HelloWorldServiceParameters& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom( const HelloWorldServiceParameters& from) {
+    HelloWorldServiceParameters::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::google::protobuf::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  ::google::protobuf::internal::CachedSize* AccessCachedSize() const final;
+  void SharedCtor(::google::protobuf::Arena* arena);
+  void SharedDtor();
+  void InternalSwap(HelloWorldServiceParameters* other);
+
+  private:
+  friend class ::google::protobuf::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "DSFramework.DSRPC.Packet.HelloWorldServiceParameters";
+  }
+  protected:
+  explicit HelloWorldServiceParameters(::google::protobuf::Arena* arena);
+  HelloWorldServiceParameters(::google::protobuf::Arena* arena, const HelloWorldServiceParameters& from);
+  public:
+
+  static const ClassData _class_data_;
+  const ::google::protobuf::Message::ClassData*GetClassData() const final;
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kMessageFieldNumber = 2,
+  };
+  // string name = 1;
+  void clear_name() ;
+  const std::string& name() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_name(Arg_&& arg, Args_... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* value);
+
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(
+      const std::string& value);
+  std::string* _internal_mutable_name();
+
+  public:
+  // string message = 2;
+  void clear_message() ;
+  const std::string& message() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_message(Arg_&& arg, Args_... args);
+  std::string* mutable_message();
+  PROTOBUF_NODISCARD std::string* release_message();
+  void set_allocated_message(std::string* value);
+
+  private:
+  const std::string& _internal_message() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_message(
+      const std::string& value);
+  std::string* _internal_mutable_message();
+
+  public:
+  // @@protoc_insertion_point(class_scope:DSFramework.DSRPC.Packet.HelloWorldServiceParameters)
+ private:
+  class _Internal;
+
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      1, 2, 0,
+      72, 2>
+      _table_;
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+
+        inline explicit constexpr Impl_(
+            ::google::protobuf::internal::ConstantInitialized) noexcept;
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena);
+        inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                              ::google::protobuf::Arena* arena, const Impl_& from);
+    ::google::protobuf::internal::ArenaStringPtr name_;
+    ::google::protobuf::internal::ArenaStringPtr message_;
+    mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_RPCPacket_2eproto;
+};// -------------------------------------------------------------------
+
 class RPCPacket final :
     public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:DSFramework.DSRPC.Packet.RPCPacket) */ {
  public:
@@ -250,7 +636,7 @@ class RPCPacket final :
                &_RPCPacket_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    2;
 
   friend void swap(RPCPacket& a, RPCPacket& b) {
     a.Swap(&b);
@@ -617,6 +1003,173 @@ class RPCPacket final :
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// HelloWorldServiceParameters
+
+// string name = 1;
+inline void HelloWorldServiceParameters::clear_name() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.name_.ClearToEmpty();
+}
+inline const std::string& HelloWorldServiceParameters::name() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:DSFramework.DSRPC.Packet.HelloWorldServiceParameters.name)
+  return _internal_name();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void HelloWorldServiceParameters::set_name(Arg_&& arg,
+                                                     Args_... args) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.name_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:DSFramework.DSRPC.Packet.HelloWorldServiceParameters.name)
+}
+inline std::string* HelloWorldServiceParameters::mutable_name() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:DSFramework.DSRPC.Packet.HelloWorldServiceParameters.name)
+  return _s;
+}
+inline const std::string& HelloWorldServiceParameters::_internal_name() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.name_.Get();
+}
+inline void HelloWorldServiceParameters::_internal_set_name(const std::string& value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.name_.Set(value, GetArena());
+}
+inline std::string* HelloWorldServiceParameters::_internal_mutable_name() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  return _impl_.name_.Mutable( GetArena());
+}
+inline std::string* HelloWorldServiceParameters::release_name() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:DSFramework.DSRPC.Packet.HelloWorldServiceParameters.name)
+  return _impl_.name_.Release();
+}
+inline void HelloWorldServiceParameters::set_allocated_name(std::string* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.name_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.name_.IsDefault()) {
+          _impl_.name_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:DSFramework.DSRPC.Packet.HelloWorldServiceParameters.name)
+}
+
+// string message = 2;
+inline void HelloWorldServiceParameters::clear_message() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.message_.ClearToEmpty();
+}
+inline const std::string& HelloWorldServiceParameters::message() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:DSFramework.DSRPC.Packet.HelloWorldServiceParameters.message)
+  return _internal_message();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void HelloWorldServiceParameters::set_message(Arg_&& arg,
+                                                     Args_... args) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.message_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:DSFramework.DSRPC.Packet.HelloWorldServiceParameters.message)
+}
+inline std::string* HelloWorldServiceParameters::mutable_message() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_message();
+  // @@protoc_insertion_point(field_mutable:DSFramework.DSRPC.Packet.HelloWorldServiceParameters.message)
+  return _s;
+}
+inline const std::string& HelloWorldServiceParameters::_internal_message() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.message_.Get();
+}
+inline void HelloWorldServiceParameters::_internal_set_message(const std::string& value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.message_.Set(value, GetArena());
+}
+inline std::string* HelloWorldServiceParameters::_internal_mutable_message() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  return _impl_.message_.Mutable( GetArena());
+}
+inline std::string* HelloWorldServiceParameters::release_message() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:DSFramework.DSRPC.Packet.HelloWorldServiceParameters.message)
+  return _impl_.message_.Release();
+}
+inline void HelloWorldServiceParameters::set_allocated_message(std::string* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.message_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.message_.IsDefault()) {
+          _impl_.message_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:DSFramework.DSRPC.Packet.HelloWorldServiceParameters.message)
+}
+
+// -------------------------------------------------------------------
+
+// HelloWorldServiceResult
+
+// string message = 1;
+inline void HelloWorldServiceResult::clear_message() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.message_.ClearToEmpty();
+}
+inline const std::string& HelloWorldServiceResult::message() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:DSFramework.DSRPC.Packet.HelloWorldServiceResult.message)
+  return _internal_message();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void HelloWorldServiceResult::set_message(Arg_&& arg,
+                                                     Args_... args) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.message_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:DSFramework.DSRPC.Packet.HelloWorldServiceResult.message)
+}
+inline std::string* HelloWorldServiceResult::mutable_message() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_message();
+  // @@protoc_insertion_point(field_mutable:DSFramework.DSRPC.Packet.HelloWorldServiceResult.message)
+  return _s;
+}
+inline const std::string& HelloWorldServiceResult::_internal_message() const {
+  PROTOBUF_TSAN_READ(&_impl_._tsan_detect_race);
+  return _impl_.message_.Get();
+}
+inline void HelloWorldServiceResult::_internal_set_message(const std::string& value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  _impl_.message_.Set(value, GetArena());
+}
+inline std::string* HelloWorldServiceResult::_internal_mutable_message() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ;
+  return _impl_.message_.Mutable( GetArena());
+}
+inline std::string* HelloWorldServiceResult::release_message() {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  // @@protoc_insertion_point(field_release:DSFramework.DSRPC.Packet.HelloWorldServiceResult.message)
+  return _impl_.message_.Release();
+}
+inline void HelloWorldServiceResult::set_allocated_message(std::string* value) {
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  _impl_.message_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.message_.IsDefault()) {
+          _impl_.message_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:DSFramework.DSRPC.Packet.HelloWorldServiceResult.message)
+}
+
 // -------------------------------------------------------------------
 
 // RPCPacket

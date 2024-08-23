@@ -24,6 +24,51 @@ namespace DSFramework {
 namespace DSRPC {
 namespace Packet {
 
+inline constexpr HelloWorldServiceResult::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : message_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR HelloWorldServiceResult::HelloWorldServiceResult(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct HelloWorldServiceResultDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR HelloWorldServiceResultDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~HelloWorldServiceResultDefaultTypeInternal() {}
+  union {
+    HelloWorldServiceResult _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HelloWorldServiceResultDefaultTypeInternal _HelloWorldServiceResult_default_instance_;
+
+inline constexpr HelloWorldServiceParameters::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : name_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        message_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR HelloWorldServiceParameters::HelloWorldServiceParameters(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct HelloWorldServiceParametersDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR HelloWorldServiceParametersDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~HelloWorldServiceParametersDefaultTypeInternal() {}
+  union {
+    HelloWorldServiceParameters _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HelloWorldServiceParametersDefaultTypeInternal _HelloWorldServiceParameters_default_instance_;
+
 inline constexpr RPCPacket::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : _cached_size_{0},
@@ -79,12 +124,31 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 }  // namespace Packet
 }  // namespace DSRPC
 }  // namespace DSFramework
-static ::_pb::Metadata file_level_metadata_RPCPacket_2eproto[1];
+static ::_pb::Metadata file_level_metadata_RPCPacket_2eproto[3];
 static const ::_pb::EnumDescriptor* file_level_enum_descriptors_RPCPacket_2eproto[3];
 static constexpr const ::_pb::ServiceDescriptor**
     file_level_service_descriptors_RPCPacket_2eproto = nullptr;
 const ::uint32_t TableStruct_RPCPacket_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
     protodesc_cold) = {
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::DSFramework::DSRPC::Packet::HelloWorldServiceParameters, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::DSFramework::DSRPC::Packet::HelloWorldServiceParameters, _impl_.name_),
+    PROTOBUF_FIELD_OFFSET(::DSFramework::DSRPC::Packet::HelloWorldServiceParameters, _impl_.message_),
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::DSFramework::DSRPC::Packet::HelloWorldServiceResult, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::DSFramework::DSRPC::Packet::HelloWorldServiceResult, _impl_.message_),
     PROTOBUF_FIELD_OFFSET(::DSFramework::DSRPC::Packet::RPCPacket, _impl_._has_bits_),
     PROTOBUF_FIELD_OFFSET(::DSFramework::DSRPC::Packet::RPCPacket, _internal_metadata_),
     ~0u,  // no _extensions_
@@ -127,37 +191,44 @@ const ::uint32_t TableStruct_RPCPacket_2eproto::offsets[] PROTOBUF_SECTION_VARIA
 
 static const ::_pbi::MigrationSchema
     schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-        {0, 23, -1, sizeof(::DSFramework::DSRPC::Packet::RPCPacket)},
+        {0, -1, -1, sizeof(::DSFramework::DSRPC::Packet::HelloWorldServiceParameters)},
+        {10, -1, -1, sizeof(::DSFramework::DSRPC::Packet::HelloWorldServiceResult)},
+        {19, 42, -1, sizeof(::DSFramework::DSRPC::Packet::RPCPacket)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
+    &::DSFramework::DSRPC::Packet::_HelloWorldServiceParameters_default_instance_._instance,
+    &::DSFramework::DSRPC::Packet::_HelloWorldServiceResult_default_instance_._instance,
     &::DSFramework::DSRPC::Packet::_RPCPacket_default_instance_._instance,
 };
 const char descriptor_table_protodef_RPCPacket_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
     "\n\017RPCPacket.proto\022\030DSFramework.DSRPC.Pac"
-    "ket\032\031google/protobuf/any.proto\"\304\003\n\tRPCPa"
-    "cket\0225\n\004type\030\001 \001(\0162\'.DSFramework.DSRPC.P"
-    "acket.RPCPacketType\0227\n\005error\030\002 \001(\0162(.DSF"
-    "ramework.DSRPC.Packet.RPCPacketError\0229\n\006"
-    "status\030\003 \001(\0162).DSFramework.DSRPC.Packet."
-    "RPCPacketStatus\022\014\n\004from\030\004 \001(\t\022\n\n\002to\030\005 \001("
-    "\t\022\020\n\010inner_id\030\006 \001(\t\022\024\n\014created_time\030\007 \001("
-    "\t\022\021\n\tpost_time\030\010 \001(\t\022\025\n\rcommited_time\030\t "
-    "\001(\t\022\026\n\016completed_time\030\n \001(\t\022\023\n\013failed_ti"
-    "me\030\013 \001(\t\022\022\n\nrequest_id\030\014 \001(\t\022\017\n\007service\030"
-    "\r \001(\t\022(\n\nparameters\030\016 \001(\0132\024.google.proto"
-    "buf.Any\022$\n\006result\030\017 \001(\0132\024.google.protobu"
-    "f.Any*\320\001\n\016RPCPacketError\022\020\n\014PKT_NO_ERROR"
-    "\020\000\022\033\n\027PKT_SERIALIZATION_ERROR\020\001\022\035\n\031PKT_D"
-    "ESERIALIZATION_ERROR\020\002\022\025\n\021PKT_EMPTY_REQU"
-    "EST\020\003\022\020\n\014SERVICE_BUSY\020\004\022\025\n\021SERVICE_NOT_F"
-    "OUND\020\005\022\035\n\031SERVICE_IVAILD_PARAMETERS\020\006\022\021\n"
-    "\rSERVICE_ERROR\020\007*q\n\rRPCPacketType\022\024\n\020DEF"
-    "AULT_RESPONSE\020\000\022\020\n\014TASK_REQUEST\020\001\022\021\n\rTAS"
-    "K_RESPONSE\020\002\022\021\n\rQUERY_REQUEST\020\003\022\022\n\016QUERY"
-    "_RESPONSE\020\004*V\n\017RPCPacketStatus\022\r\n\tSUBMIT"
-    "TED\020\000\022\013\n\007WAITING\020\001\022\014\n\010COMMITED\020\002\022\r\n\tCOMP"
-    "LETED\020\003\022\n\n\006FAILED\020\004b\006proto3"
+    "ket\032\031google/protobuf/any.proto\"<\n\033HelloW"
+    "orldServiceParameters\022\014\n\004name\030\001 \001(\t\022\017\n\007m"
+    "essage\030\002 \001(\t\"*\n\027HelloWorldServiceResult\022"
+    "\017\n\007message\030\001 \001(\t\"\304\003\n\tRPCPacket\0225\n\004type\030\001"
+    " \001(\0162\'.DSFramework.DSRPC.Packet.RPCPacke"
+    "tType\0227\n\005error\030\002 \001(\0162(.DSFramework.DSRPC"
+    ".Packet.RPCPacketError\0229\n\006status\030\003 \001(\0162)"
+    ".DSFramework.DSRPC.Packet.RPCPacketStatu"
+    "s\022\014\n\004from\030\004 \001(\t\022\n\n\002to\030\005 \001(\t\022\020\n\010inner_id\030"
+    "\006 \001(\t\022\024\n\014created_time\030\007 \001(\t\022\021\n\tpost_time"
+    "\030\010 \001(\t\022\025\n\rcommited_time\030\t \001(\t\022\026\n\016complet"
+    "ed_time\030\n \001(\t\022\023\n\013failed_time\030\013 \001(\t\022\022\n\nre"
+    "quest_id\030\014 \001(\t\022\017\n\007service\030\r \001(\t\022(\n\nparam"
+    "eters\030\016 \001(\0132\024.google.protobuf.Any\022$\n\006res"
+    "ult\030\017 \001(\0132\024.google.protobuf.Any*\320\001\n\016RPCP"
+    "acketError\022\020\n\014PKT_NO_ERROR\020\000\022\033\n\027PKT_SERI"
+    "ALIZATION_ERROR\020\001\022\035\n\031PKT_DESERIALIZATION"
+    "_ERROR\020\002\022\025\n\021PKT_EMPTY_REQUEST\020\003\022\020\n\014SERVI"
+    "CE_BUSY\020\004\022\025\n\021SERVICE_NOT_FOUND\020\005\022\035\n\031SERV"
+    "ICE_IVAILD_PARAMETERS\020\006\022\021\n\rSERVICE_ERROR"
+    "\020\007*q\n\rRPCPacketType\022\024\n\020DEFAULT_RESPONSE\020"
+    "\000\022\020\n\014TASK_REQUEST\020\001\022\021\n\rTASK_RESPONSE\020\002\022\021"
+    "\n\rQUERY_REQUEST\020\003\022\022\n\016QUERY_RESPONSE\020\004*V\n"
+    "\017RPCPacketStatus\022\r\n\tSUBMITTED\020\000\022\013\n\007WAITI"
+    "NG\020\001\022\014\n\010COMMITED\020\002\022\r\n\tCOMPLETED\020\003\022\n\n\006FAI"
+    "LED\020\004b\006proto3"
 };
 static const ::_pbi::DescriptorTable* const descriptor_table_RPCPacket_2eproto_deps[1] =
     {
@@ -167,13 +238,13 @@ static ::absl::once_flag descriptor_table_RPCPacket_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_RPCPacket_2eproto = {
     false,
     false,
-    947,
+    1053,
     descriptor_table_protodef_RPCPacket_2eproto,
     "RPCPacket.proto",
     &descriptor_table_RPCPacket_2eproto_once,
     descriptor_table_RPCPacket_2eproto_deps,
     1,
-    1,
+    3,
     schemas,
     file_default_instances,
     TableStruct_RPCPacket_2eproto::offsets,
@@ -228,6 +299,415 @@ PROTOBUF_CONSTINIT const uint32_t RPCPacketStatus_internal_data_[] = {
     327680u, 0u, };
 bool RPCPacketStatus_IsValid(int value) {
   return 0 <= value && value <= 4;
+}
+// ===================================================================
+
+class HelloWorldServiceParameters::_Internal {
+ public:
+};
+
+HelloWorldServiceParameters::HelloWorldServiceParameters(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:DSFramework.DSRPC.Packet.HelloWorldServiceParameters)
+}
+inline PROTOBUF_NDEBUG_INLINE HelloWorldServiceParameters::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : name_(arena, from.name_),
+        message_(arena, from.message_),
+        _cached_size_{0} {}
+
+HelloWorldServiceParameters::HelloWorldServiceParameters(
+    ::google::protobuf::Arena* arena,
+    const HelloWorldServiceParameters& from)
+    : ::google::protobuf::Message(arena) {
+  HelloWorldServiceParameters* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+
+  // @@protoc_insertion_point(copy_constructor:DSFramework.DSRPC.Packet.HelloWorldServiceParameters)
+}
+inline PROTOBUF_NDEBUG_INLINE HelloWorldServiceParameters::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : name_(arena),
+        message_(arena),
+        _cached_size_{0} {}
+
+inline void HelloWorldServiceParameters::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+HelloWorldServiceParameters::~HelloWorldServiceParameters() {
+  // @@protoc_insertion_point(destructor:DSFramework.DSRPC.Packet.HelloWorldServiceParameters)
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  SharedDtor();
+}
+inline void HelloWorldServiceParameters::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.name_.Destroy();
+  _impl_.message_.Destroy();
+  _impl_.~Impl_();
+}
+
+PROTOBUF_NOINLINE void HelloWorldServiceParameters::Clear() {
+// @@protoc_insertion_point(message_clear_start:DSFramework.DSRPC.Packet.HelloWorldServiceParameters)
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.name_.ClearToEmpty();
+  _impl_.message_.ClearToEmpty();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+const char* HelloWorldServiceParameters::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
+  return ptr;
+}
+
+
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 0, 72, 2> HelloWorldServiceParameters::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_HelloWorldServiceParameters_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // string message = 2;
+    {::_pbi::TcParser::FastUS1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(HelloWorldServiceParameters, _impl_.message_)}},
+    // string name = 1;
+    {::_pbi::TcParser::FastUS1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(HelloWorldServiceParameters, _impl_.name_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // string name = 1;
+    {PROTOBUF_FIELD_OFFSET(HelloWorldServiceParameters, _impl_.name_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // string message = 2;
+    {PROTOBUF_FIELD_OFFSET(HelloWorldServiceParameters, _impl_.message_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+  }},
+  // no aux_entries
+  {{
+    "\64\4\7\0\0\0\0\0"
+    "DSFramework.DSRPC.Packet.HelloWorldServiceParameters"
+    "name"
+    "message"
+  }},
+};
+
+::uint8_t* HelloWorldServiceParameters::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:DSFramework.DSRPC.Packet.HelloWorldServiceParameters)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    const std::string& _s = this->_internal_name();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "DSFramework.DSRPC.Packet.HelloWorldServiceParameters.name");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
+  }
+
+  // string message = 2;
+  if (!this->_internal_message().empty()) {
+    const std::string& _s = this->_internal_message();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "DSFramework.DSRPC.Packet.HelloWorldServiceParameters.message");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:DSFramework.DSRPC.Packet.HelloWorldServiceParameters)
+  return target;
+}
+
+::size_t HelloWorldServiceParameters::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:DSFramework.DSRPC.Packet.HelloWorldServiceParameters)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_name());
+  }
+
+  // string message = 2;
+  if (!this->_internal_message().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_message());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::google::protobuf::Message::ClassData HelloWorldServiceParameters::_class_data_ = {
+    HelloWorldServiceParameters::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
+};
+const ::google::protobuf::Message::ClassData* HelloWorldServiceParameters::GetClassData() const {
+  return &_class_data_;
+}
+
+void HelloWorldServiceParameters::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<HelloWorldServiceParameters*>(&to_msg);
+  auto& from = static_cast<const HelloWorldServiceParameters&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:DSFramework.DSRPC.Packet.HelloWorldServiceParameters)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_name().empty()) {
+    _this->_internal_set_name(from._internal_name());
+  }
+  if (!from._internal_message().empty()) {
+    _this->_internal_set_message(from._internal_message());
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void HelloWorldServiceParameters::CopyFrom(const HelloWorldServiceParameters& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:DSFramework.DSRPC.Packet.HelloWorldServiceParameters)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+PROTOBUF_NOINLINE bool HelloWorldServiceParameters::IsInitialized() const {
+  return true;
+}
+
+::_pbi::CachedSize* HelloWorldServiceParameters::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void HelloWorldServiceParameters::InternalSwap(HelloWorldServiceParameters* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.name_, &other->_impl_.name_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.message_, &other->_impl_.message_, arena);
+}
+
+::google::protobuf::Metadata HelloWorldServiceParameters::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_RPCPacket_2eproto_getter, &descriptor_table_RPCPacket_2eproto_once,
+      file_level_metadata_RPCPacket_2eproto[0]);
+}
+// ===================================================================
+
+class HelloWorldServiceResult::_Internal {
+ public:
+};
+
+HelloWorldServiceResult::HelloWorldServiceResult(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:DSFramework.DSRPC.Packet.HelloWorldServiceResult)
+}
+inline PROTOBUF_NDEBUG_INLINE HelloWorldServiceResult::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from)
+      : message_(arena, from.message_),
+        _cached_size_{0} {}
+
+HelloWorldServiceResult::HelloWorldServiceResult(
+    ::google::protobuf::Arena* arena,
+    const HelloWorldServiceResult& from)
+    : ::google::protobuf::Message(arena) {
+  HelloWorldServiceResult* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_);
+
+  // @@protoc_insertion_point(copy_constructor:DSFramework.DSRPC.Packet.HelloWorldServiceResult)
+}
+inline PROTOBUF_NDEBUG_INLINE HelloWorldServiceResult::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : message_(arena),
+        _cached_size_{0} {}
+
+inline void HelloWorldServiceResult::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+HelloWorldServiceResult::~HelloWorldServiceResult() {
+  // @@protoc_insertion_point(destructor:DSFramework.DSRPC.Packet.HelloWorldServiceResult)
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  SharedDtor();
+}
+inline void HelloWorldServiceResult::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.message_.Destroy();
+  _impl_.~Impl_();
+}
+
+PROTOBUF_NOINLINE void HelloWorldServiceResult::Clear() {
+// @@protoc_insertion_point(message_clear_start:DSFramework.DSRPC.Packet.HelloWorldServiceResult)
+  PROTOBUF_TSAN_WRITE(&_impl_._tsan_detect_race);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.message_.ClearToEmpty();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+const char* HelloWorldServiceResult::_InternalParse(
+    const char* ptr, ::_pbi::ParseContext* ctx) {
+  ptr = ::_pbi::TcParser::ParseLoop(this, ptr, ctx, &_table_.header);
+  return ptr;
+}
+
+
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 0, 64, 2> HelloWorldServiceResult::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_HelloWorldServiceResult_default_instance_._instance,
+    ::_pbi::TcParser::GenericFallback,  // fallback
+  }, {{
+    // string message = 1;
+    {::_pbi::TcParser::FastUS1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(HelloWorldServiceResult, _impl_.message_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // string message = 1;
+    {PROTOBUF_FIELD_OFFSET(HelloWorldServiceResult, _impl_.message_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+  }},
+  // no aux_entries
+  {{
+    "\60\7\0\0\0\0\0\0"
+    "DSFramework.DSRPC.Packet.HelloWorldServiceResult"
+    "message"
+  }},
+};
+
+::uint8_t* HelloWorldServiceResult::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:DSFramework.DSRPC.Packet.HelloWorldServiceResult)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // string message = 1;
+  if (!this->_internal_message().empty()) {
+    const std::string& _s = this->_internal_message();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "DSFramework.DSRPC.Packet.HelloWorldServiceResult.message");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:DSFramework.DSRPC.Packet.HelloWorldServiceResult)
+  return target;
+}
+
+::size_t HelloWorldServiceResult::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:DSFramework.DSRPC.Packet.HelloWorldServiceResult)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string message = 1;
+  if (!this->_internal_message().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_message());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::google::protobuf::Message::ClassData HelloWorldServiceResult::_class_data_ = {
+    HelloWorldServiceResult::MergeImpl,
+    nullptr,  // OnDemandRegisterArenaDtor
+};
+const ::google::protobuf::Message::ClassData* HelloWorldServiceResult::GetClassData() const {
+  return &_class_data_;
+}
+
+void HelloWorldServiceResult::MergeImpl(::google::protobuf::Message& to_msg, const ::google::protobuf::Message& from_msg) {
+  auto* const _this = static_cast<HelloWorldServiceResult*>(&to_msg);
+  auto& from = static_cast<const HelloWorldServiceResult&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:DSFramework.DSRPC.Packet.HelloWorldServiceResult)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_message().empty()) {
+    _this->_internal_set_message(from._internal_message());
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void HelloWorldServiceResult::CopyFrom(const HelloWorldServiceResult& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:DSFramework.DSRPC.Packet.HelloWorldServiceResult)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+PROTOBUF_NOINLINE bool HelloWorldServiceResult::IsInitialized() const {
+  return true;
+}
+
+::_pbi::CachedSize* HelloWorldServiceResult::AccessCachedSize() const {
+  return &_impl_._cached_size_;
+}
+void HelloWorldServiceResult::InternalSwap(HelloWorldServiceResult* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.message_, &other->_impl_.message_, arena);
+}
+
+::google::protobuf::Metadata HelloWorldServiceResult::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_RPCPacket_2eproto_getter, &descriptor_table_RPCPacket_2eproto_once,
+      file_level_metadata_RPCPacket_2eproto[1]);
 }
 // ===================================================================
 
@@ -871,7 +1351,7 @@ void RPCPacket::InternalSwap(RPCPacket* PROTOBUF_RESTRICT other) {
 ::google::protobuf::Metadata RPCPacket::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_RPCPacket_2eproto_getter, &descriptor_table_RPCPacket_2eproto_once,
-      file_level_metadata_RPCPacket_2eproto[0]);
+      file_level_metadata_RPCPacket_2eproto[2]);
 }
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Packet
