@@ -4,15 +4,9 @@
 namespace DSFramework {
 	namespace DSRPC {
 		RequestDispatcher::RequestDispatcher(size_t maxWaitedDispatch, RPCEventHandler& rpcEventHandler) :
-			Dispatcher(maxWaitedDispatch),
-			m_rpcEventHandler(rpcEventHandler)
-		{
+			Dispatcher(maxWaitedDispatch), m_rpcEventHandler(rpcEventHandler){}
 
-		}
-
-		RequestDispatcher::~RequestDispatcher()
-		{
-		}
+		RequestDispatcher::~RequestDispatcher(){}
 
 		bool RequestDispatcher::PostRequestToQueue(SenderPtr sender, DispatchItemPtr dispatchItem)
 		{
@@ -42,7 +36,6 @@ namespace DSFramework {
 
 		void RequestDispatcher::OnDeserialized(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
-			/// 将请求分发到队列
 			this->PostRequestToQueue(session, request);
 		}
 	}

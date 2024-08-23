@@ -11,7 +11,7 @@
 #include "RPCPacketFactory.h"
 #include "RPCEventHandler.h"
 #include "RPCPacketManager.h"
-#include "RPCServer.h"
+#include "RPCProcessor.h"
 #include "RequestDispatcher.h"
 #include "ResponseDispatcher.h"
 
@@ -28,7 +28,7 @@ using DSFramework::DSRPC::RPCServerStub;
 using DSFramework::DSRPC::RPCPacketFactory;
 using DSFramework::DSRPC::RPCEventHandler;
 using DSFramework::DSRPC::RPCPacketManager;
-using DSFramework::DSRPC::RPCServer;
+using DSFramework::DSRPC::RPCProcessor;
 using DSFramework::DSRPC::RequestDispatcher;
 using DSFramework::DSRPC::ResponseDispatcher;
 
@@ -42,25 +42,23 @@ using DSFramework::DSRPC::IProcessedEventHandler;
 int main()
 {
 	RPCEventHandler rpcEventHandler;
-	std::shared_ptr<RPCServer> rpcServer = std::make_shared<RPCServer>(rpcEventHandler);
 
+	std::shared_ptr<RPCProcessor> rpcProc = std::make_shared<RPCProcessor>(rpcEventHandler);
 	std::shared_ptr<ResponseDispatcher> responseDispatcher = std::make_shared<ResponseDispatcher>(100);
 	std::shared_ptr<RequestDispatcher> requestDispatcher = std::make_shared<RequestDispatcher>(100, rpcEventHandler);
 	std::shared_ptr<RPCPacketManager> rpcPacketManager = std::make_shared<RPCPacketManager>();
 	std::shared_ptr<RPCServerStub> rpcServerStub = std::make_shared<RPCServerStub>(rpcEventHandler);
-
 	/// IDeserializedEventHandler 事件
 	rpcEventHandler.AddDeserializedEventHandler(std::static_pointer_cast<IDeserializedEventHandler>(requestDispatcher));
 	/// IDispatchEventHandler 事件
 	rpcEventHandler.AddDispatchEventHandler(std::static_pointer_cast<IDispatchEventHandler>(rpcPacketManager));
 	/// ICommitedEventHandler 事件
 	rpcEventHandler.AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(rpcPacketManager));
-	rpcEventHandler.AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(rpcServer));
+	rpcEventHandler.AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(rpcProc));
 	/// IServiceEventHandler 事件
 	rpcEventHandler.AddServiceEventHandler(std::static_pointer_cast<IServiceEventHandler>(rpcPacketManager));
 	/// IProcessedEventHandler 事件
 	rpcEventHandler.AddProcessedEventHandler(std::static_pointer_cast<IProcessedEventHandler>(rpcPacketManager));
-
 
 	//// responseDispatcher 处于调用链末端
 	rpcEventHandler.AddDeserializedEventHandler(std::static_pointer_cast<IDeserializedEventHandler>(responseDispatcher));

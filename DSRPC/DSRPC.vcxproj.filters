@@ -90,11 +90,14 @@
     <ClCompile Include="testclient.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="RPCServer.cpp">
+    <ClCompile Include="RPCProcessor.cpp">
       <Filter>源文件\Server</Filter>
     </ClCompile>
     <ClCompile Include="ResponseDispatcher.cpp">
       <Filter>源文件\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="RPCServer.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,11 +158,14 @@
     <ClInclude Include="RPCPacket.pb.h">
       <Filter>头文件\Packet</Filter>
     </ClInclude>
-    <ClInclude Include="RPCServer.h">
+    <ClInclude Include="RPCProcessor.h">
       <Filter>头文件\Server</Filter>
     </ClInclude>
     <ClInclude Include="ResponseDispatcher.h">
       <Filter>头文件\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="RPCServer.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

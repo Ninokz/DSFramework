@@ -150,6 +150,7 @@
     <ClCompile Include="RPCEventHandler.cpp" />
     <ClCompile Include="RPCPacket.pb.cc" />
     <ClCompile Include="RPCPacketManager.cpp" />
+    <ClCompile Include="RPCProcessor.cpp" />
     <ClCompile Include="RPCServer.cpp" />
     <ClCompile Include="RPCServerStub.cpp" />
     <ClCompile Include="testclient.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="RPCPacket.pb.h" />
     <ClInclude Include="RPCPacketFactory.h" />
     <ClInclude Include="RPCPacketManager.h" />
+    <ClInclude Include="RPCProcessor.h" />
     <ClInclude Include="RPCServer.h" />
     <ClInclude Include="RPCServerStub.h" />
   </ItemGroup>

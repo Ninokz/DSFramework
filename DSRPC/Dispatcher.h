@@ -5,8 +5,8 @@
 #include "../DSCommunication/Logger.h"
 #include "../DSCommunication/ConcurrentQueue.h"
 
-using DSFramework::DSComponent::Logger;
 using DSFramework::DSComponent::Log;
+using DSFramework::DSComponent::Logger;
 using DSFramework::DSComponent::ConcurrentQueue;
 
 namespace DSFramework {
@@ -24,11 +24,11 @@ namespace DSFramework {
 			std::thread m_dispatcherThread;
 			bool isStopped;
 		public:
-			Dispatcher(size_t maxWaitedDispatch) : 
-				isStopped(false), 
+			Dispatcher(size_t maxWaitedDispatch) : isStopped(false), 
 				m_maxWaitedDispatch(maxWaitedDispatch)
 			{
 				m_requestQueue = std::make_shared<ConcurrentQueue<std::pair<SenderPtr, DispatchItemPtr>>>();
+				Start();
 			}
 
 			virtual ~Dispatcher()
@@ -36,30 +36,33 @@ namespace DSFramework {
 				if (!isStopped) Stop();
 			}
 
-			void Start() 
+			virtual bool PostRequestToQueue(SenderPtr sender, DispatchItemPtr dispatchItem) = 0;
+
+			virtual void DispatchDSCMessage(SenderPtr sender, DispatchItemPtr dispatchItem) = 0;	
+		private:
+			void Start()
 			{
 				m_dispatcherThread = std::thread([this] {
 					while (!isStopped)
 					{
 						auto requset = m_requestQueue->WaitPop();
-						if (isStopped || requset == nullptr)
+						if (isStopped || requset == nullptr || (requset->first == nullptr && requset->second == nullptr))
 						{
 							isStopped = false;
 							break;
 						}
 						DispatchDSCMessage(requset->first, requset->second);
 					}
-				});
+					});
 				LOG_INFO_CONSOLE("Dispatcher started");
 			}
 
-			void Stop() 
+			void Stop()
 			{
 				isStopped = true;
 				SenderPtr quit_1 = nullptr;
 				DispatchItemPtr quit_2 = nullptr;
 				std::pair<SenderPtr, DispatchItemPtr> quit_msg(quit_1, quit_2);
-				
 				this->m_requestQueue->Push(quit_msg);
 				if (m_dispatcherThread.joinable())
 				{
@@ -67,10 +70,6 @@ namespace DSFramework {
 				}
 				LOG_INFO_CONSOLE("Dispatcher stopped");
 			}
-
-			virtual bool PostRequestToQueue(SenderPtr sender, DispatchItemPtr dispatchItem) = 0;
-
-			virtual void DispatchDSCMessage(SenderPtr sender, DispatchItemPtr dispatchItem) = 0;
 		};
 	}
 }

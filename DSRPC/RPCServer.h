@@ -1,46 +1,58 @@
 #pragma once
-#include <string>
+#include <iostream>
 #include <memory>
-#include <atomic>
-#include <vector>
-#include <unordered_map>
+#include <string>
 
-#include "../DSCommunication/Session.h"
-#include "../DSCommunication/ThreadPool.h"
-#include "../DSCommunication/Logger.h"
+#include "../DSCommunication/AsyncTcpServer.h"
 
-#include "RPCPacket.pb.h"
-#include "RPCPacketFactory.h"
+#include "RPCProcessor.h"
+#include "RPCServerStub.h"
 #include "RPCEventHandler.h"
-
-using DSFramework::DSComponent::Log;
-using DSFramework::DSComponent::Logger;
-
-using DSFramework::DSComponent::ThreadPool;
-using DSFramework::DSRPC::Packet::RPCPacket;
-using DSFramework::DSCommunication::Session;
+#include "RequestDispatcher.h"
+#include "ResponseDispatcher.h"
+#include "RPCPacketManager.h"
 
 namespace DSFramework {
 	namespace DSRPC {
-		class RPCServer : public ICommitedEventHandler
+		class RPCServer
 		{
-		public:
-			using CheckFunction = std::function<bool(std::shared_ptr<RPCPacket>)>;
-			using ExecuteFunction = std::function<void(std::shared_ptr<RPCPacket>,std::shared_ptr<Session>)>;
-		private:
-			std::unordered_map<std::string, std::pair<CheckFunction, ExecuteFunction>> m_serviceProcedures;
-			RPCEventHandler& m_rpcEventHandler;
-		public:
-			RPCServer(RPCEventHandler& rpcEventHandler);
-			virtual ~RPCServer() = default;
-			void RegisterService(std::string serviceName, CheckFunction checkFunction, ExecuteFunction executeFunction);
-			virtual void OnCommited(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
+			using RPCWorkersPtr = std::shared_ptr<RPCProcessor>;
+			using RPCRequestDispatcherPtr = std::shared_ptr<RequestDispatcher>;
+			using RPCResponseDispatcherPtr = std::shared_ptr<ResponseDispatcher>;
+			using RPCRequestManagerPtr = std::shared_ptr<RPCPacketManager>;
 
+			using RPCServerStubPtr = std::shared_ptr<RPCServerStub>;
+
+			using ParamsCheck = RPCProcessor::CheckFunction;
+			using Func = RPCProcessor::ExecuteFunction;
+		protected:
+			std::string m_serverId;
+			std::string m_serverName;
+			size_t m_maxRequestPaddingCount;
+			size_t m_maxResponsePaddingCount;
+			size_t m_maxSendPaddingQueueCount;
+			short m_port;
+
+			RPCEventHandler rpcEventHandler;
+
+			RPCWorkersPtr rpcWorkers;
+			RPCRequestDispatcherPtr rpcRequestDispatcher;
+			RPCResponseDispatcherPtr rpcResponseDispatcher;
+			RPCRequestManagerPtr rpcRequestManager;
+			RPCServerStubPtr rpcServerStub;
+
+			DSFramework::DSCommunication::AsyncTcpServer m_server;
 		private:
-			bool CheckRequestService(std::shared_ptr<RPCPacket> packet);
-			bool SearchService(std::string serviceName);
-			bool CheckServiceParameter(std::string serviceName, std::shared_ptr<RPCPacket> packet);
-			void Execute(std::string serviceName, std::shared_ptr<RPCPacket> packet, std::shared_ptr<Session> session);
+			RPCServer() = delete;
+			RPCServer(const RPCServer&) = delete;
+			RPCServer& operator=(const RPCServer&) = delete;
+		public:
+			RPCServer(std::string serverid,std::string serverName,short port,size_t maxRqSize,size_t maxRsSize,size_t maxSendPadding);
+			virtual ~RPCServer();
+			void Start();
+		private:
+			void EventHandlerInitialize();
+			void RegisterService(std::string serviceName, ParamsCheck check, Func func);
 		};
 	}
 }

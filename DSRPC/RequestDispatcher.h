@@ -4,7 +4,7 @@
 
 #include "../DSCommunication/Session.h"
 
-#include "RPCServer.h"
+#include "RPCProcessor.h"
 #include "Dispatcher.h"
 #include "RPCPacket.pb.h"
 #include "RPCEventHandler.h"

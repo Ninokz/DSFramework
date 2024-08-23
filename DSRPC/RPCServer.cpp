@@ -2,77 +2,51 @@
 
 namespace DSFramework {
 	namespace DSRPC {
-		RPCServer::RPCServer(RPCEventHandler& rpcEventHandler) : m_rpcEventHandler(rpcEventHandler)
+		RPCServer::RPCServer(std::string serverid, std::string serverName, short port, size_t maxRqSize, size_t maxRsSize, size_t maxSendPadding) :
+			m_serverId(serverid),
+			m_serverName(serverName),
+			m_port(port),
+			m_maxRequestPaddingCount(maxRqSize),
+			m_maxResponsePaddingCount(maxRsSize),
+			m_maxSendPaddingQueueCount(maxSendPadding),
+			m_server(port, m_maxSendPaddingQueueCount)
 		{
-
+			EventHandlerInitialize();
 		}
 
-		void RPCServer::RegisterService(std::string serviceName, CheckFunction checkFunction, ExecuteFunction executeFunction)
+		RPCServer::~RPCServer()
 		{
-			if (m_serviceProcedures.find(serviceName) == m_serviceProcedures.end())
-			{
-				m_serviceProcedures[serviceName] = std::make_pair(checkFunction, executeFunction);
-			}
 		}
 
-		void RPCServer::OnCommited(const std::shared_ptr<Session> sender, std::shared_ptr<RPCPacket> request)
+		void RPCServer::Start()
 		{
-			const std::string& service = request->service();
-			if (!CheckRequestService(request))
-			{
-				LOG_DEBUG_CONSOLE("Request Empty");
-				m_rpcEventHandler.OnServiceEmptyRequest(sender, request);
-				return;
-			}
-			if (!SearchService(service))
-			{
-				LOG_DEBUG_CONSOLE("Request Service Not found");
-				m_rpcEventHandler.OnServiceNotFound(sender, request);
-				return;
-			}
-			if (!CheckServiceParameter(service, request))
-			{
-				LOG_DEBUG_CONSOLE("Request Service Parameter invalid");
-				m_rpcEventHandler.OnServiceParameterInvalid(sender, request);
-				return;
-			}
-			Execute(service, request, sender);
+			m_server.Start();
 		}
 
-		bool RPCServer::CheckRequestService(std::shared_ptr<RPCPacket> packet)
+		void RPCServer::EventHandlerInitialize()
 		{
-			if (packet->service().empty()) {
-				return false;
-			}
-			return true;
+			rpcEventHandler.AddDeserializedEventHandler(std::static_pointer_cast<IDeserializedEventHandler>(rpcRequestDispatcher));
+			rpcEventHandler.AddDispatchEventHandler(std::static_pointer_cast<IDispatchEventHandler>(rpcRequestManager));
+
+			rpcEventHandler.AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(rpcRequestManager));
+			rpcEventHandler.AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(rpcWorkers));
+
+			rpcEventHandler.AddServiceEventHandler(std::static_pointer_cast<IServiceEventHandler>(rpcRequestManager));
+			rpcEventHandler.AddProcessedEventHandler(std::static_pointer_cast<IProcessedEventHandler>(rpcRequestManager));
+
+			rpcEventHandler.AddDeserializedEventHandler(std::static_pointer_cast<IDeserializedEventHandler>(rpcResponseDispatcher));
+			rpcEventHandler.AddDeserializedFailedEventHandler(std::static_pointer_cast<IDeserializedFailedEventHandler>(rpcResponseDispatcher));
+			rpcEventHandler.AddDispatchEventHandler(std::static_pointer_cast<IDispatchEventHandler>(rpcResponseDispatcher));
+			rpcEventHandler.AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(rpcResponseDispatcher));
+			rpcEventHandler.AddServiceEventHandler(std::static_pointer_cast<IServiceEventHandler>(rpcResponseDispatcher));
+			rpcEventHandler.AddProcessedEventHandler(std::static_pointer_cast<IProcessedEventHandler>(rpcResponseDispatcher));
+
+			m_server.AddDataEventHandler(std::static_pointer_cast<IDataEventHandler>(rpcServerStub));
 		}
 
-		bool RPCServer::SearchService(std::string serviceName)
+		void RPCServer::RegisterService(std::string serviceName, ParamsCheck check, Func func)
 		{
-			return m_serviceProcedures.find(serviceName) != m_serviceProcedures.end();
-		}
-
-		bool RPCServer::CheckServiceParameter(std::string serviceName, std::shared_ptr<RPCPacket> packet)
-		{
-			if (m_serviceProcedures.find(serviceName) != m_serviceProcedures.end())
-			{
-				return m_serviceProcedures[serviceName].first(packet);
-			}
-			return false;
-		}
-
-		void RPCServer::Execute(std::string serviceName, std::shared_ptr<RPCPacket> packet, std::shared_ptr<Session> session)
-		{
-			ThreadPool::GetInstance()->Commit([this, serviceName, packet, session]() {
-				try {
-					m_serviceProcedures[serviceName].second(packet, session);
-					m_rpcEventHandler.OnCompleted(session, packet);
-				}
-				catch (std::exception& ex) {
-					LOG_ERROR_CONSOLE(ex.what());
-					m_rpcEventHandler.OnServiceError(session, packet);
-				}
-			});
+			rpcWorkers->RegisterService(serviceName, check, func);
 		}
 	}
 }
