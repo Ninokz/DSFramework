@@ -41,7 +41,7 @@
 //	return true;
 //}
 //
-//int test() 
+//int test()
 //{
 //	std::shared_ptr<RPCPacket> packet = std::make_shared<RPCPacket>();
 //	packet->set_service("test");
@@ -59,5 +59,13 @@
 //	client.Send(data, static_cast<int>(size));
 //	system("pause");
 //	client.Disconnect();
+//	return 0;
+//}
+//
+//
+//int main()
+//{
+//	test();
+//
 //	return 0;
 //}
