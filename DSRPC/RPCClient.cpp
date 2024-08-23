@@ -54,7 +54,7 @@ namespace DSFramework {
 			}
 
 			m_client.Connect(ipaddress, port);
-			m_client.Send(data, size);
+			m_client.Send(data, static_cast<int>(size));
 			delete[] data;
 			data = nullptr;
 			return true;
@@ -87,7 +87,8 @@ namespace DSFramework {
 				return false;
 			}
 
-			if (!packet->SerializeToArray(const_cast<char*>(*data), (int)*size)) {
+			if (!packet->SerializeToArray(const_cast<char*>(*data), static_cast<int>(*size))) 
+			{
 				delete[] * data;
 				*data = nullptr;
 				*size = 0;

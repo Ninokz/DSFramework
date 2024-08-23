@@ -50,7 +50,7 @@ namespace DSFramework {
 				}
 				else
 				{
-					sender->Send(data, (int)size);
+					sender->Send(data, static_cast<int>(size));
 					delete[] data;
 					data = nullptr;
 				}
