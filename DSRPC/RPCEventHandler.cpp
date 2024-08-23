@@ -15,10 +15,14 @@ namespace DSFramework {
 			m_deserializedEventHandler.push_back(handler);
 		}
 
+		void RPCEventHandler::AddDeserializedFailedEventHandler(std::shared_ptr<IDeserializedFailedEventHandler> handler)
+		{
+			m_deserializedFailedEventHandler.push_back(handler);
+		}
+
 		void RPCEventHandler::AddDispatchEventHandler(std::shared_ptr<IDispatchEventHandler> handler)
 		{
 			m_dispatchEventHandler.push_back(handler);
-
 		}
 
 		void RPCEventHandler::OnDeserialized(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
@@ -26,6 +30,14 @@ namespace DSFramework {
 			for (auto handler : m_deserializedEventHandler)
 			{
 				handler->OnDeserialized(session, request);
+			}
+		}
+
+		void RPCEventHandler::OnDeserializedFailed(std::string& serverID, const std::shared_ptr<Session> session)
+		{
+			for (auto handler : m_deserializedFailedEventHandler)
+			{
+				handler->OnDeserializedFailed(serverID, session);
 			}
 		}
 
@@ -50,9 +62,14 @@ namespace DSFramework {
 			m_commitedEventHandler.push_back(handler);
 		}
 
-		void RPCEventHandler::AddProcessedHandler(std::shared_ptr<IProcessedHandler> handler)
+		void RPCEventHandler::AddProcessedEventHandler(std::shared_ptr<IProcessedEventHandler> handler)
 		{
-			m_processedHandler.push_back(handler);
+			m_processedEventHandler.push_back(handler);
+		}
+
+		void RPCEventHandler::AddServiceEventHandler(std::shared_ptr<IServiceEventHandler> handler)
+		{
+			m_serviceEventHandler.push_back(handler);
 		}
 
 		void RPCEventHandler::OnCommited(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
@@ -63,9 +80,17 @@ namespace DSFramework {
 			}
 		}
 
+		void RPCEventHandler::OnServiceEmptyRequest(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
+		{
+			for (auto handler : m_serviceEventHandler)
+			{
+				handler->OnServiceEmptyRequest(session, request);
+			}
+		}
+
 		void RPCEventHandler::OnServiceNotFound(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
-			for (auto handler : m_commitedEventHandler)
+			for (auto handler : m_serviceEventHandler)
 			{
 				handler->OnServiceNotFound(session, request);
 			}
@@ -73,15 +98,23 @@ namespace DSFramework {
 
 		void RPCEventHandler::OnServiceParameterInvalid(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
-			for (auto handler : m_commitedEventHandler)
+			for (auto handler : m_serviceEventHandler)
 			{
 				handler->OnServiceParameterInvalid(session, request);
 			}
 		}
 
+		void RPCEventHandler::OnServiceError(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
+		{
+			for (auto handler : m_serviceEventHandler)
+			{
+				handler->OnServiceError(session, request);
+			}
+		}
+
 		void RPCEventHandler::OnCompleted(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
-			for (auto handler : m_processedHandler)
+			for (auto handler : m_processedEventHandler)
 			{
 				handler->OnCompleted(session, request);
 			}
@@ -89,7 +122,7 @@ namespace DSFramework {
 
 		void RPCEventHandler::OnFailed(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
-			for (auto handler : m_processedHandler)
+			for (auto handler : m_processedEventHandler)
 			{
 				handler->OnFailed(session, request);
 			}

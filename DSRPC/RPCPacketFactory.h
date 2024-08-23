@@ -83,20 +83,7 @@ namespace DSFramework {
 				return response;
 			}
 
-			static std::shared_ptr<RPCPacket> CreateNoErrorResponse(const std::shared_ptr<RPCPacket> orign)
-			{
-				/// 5. 使用 RPCPacketFactory 生成对应响应包, 深拷贝
-				std::shared_ptr<Packet::RPCPacket> response = RPCPacketFactory::CreateCopy(orign);
-				/// 5. 设置响应类型
-				RPCPacketFactory::ChangeTypeToResponse(response);
-				/// 6. 设置错误码
-				RPCPacketFactory::SetErrorCode(response, Packet::RPCPacketError::PKT_NO_ERROR);
-				/// 7. 转换收发方(因为该包没有保存至manager)
-				RPCPacketFactory::ChangeRecvSend(response);
-				return response;
-			}
-
-			static std::shared_ptr<RPCPacket> CreatePostFailedResponsePacket(const std::shared_ptr<RPCPacket> orign)
+			static std::shared_ptr<RPCPacket> CreateDispatchedFailedResponsePacket(const std::shared_ptr<RPCPacket> orign)
 			{
 				/// 5. 使用 RPCPacketFactory 生成对应响应包, 深拷贝
 				std::shared_ptr<Packet::RPCPacket> response = RPCPacketFactory::CreateCopy(orign);
@@ -130,6 +117,19 @@ namespace DSFramework {
 				RPCPacketFactory::ChangeTypeToResponse(response);
 				/// 6. 设置错误码
 				RPCPacketFactory::SetErrorCode(response, Packet::RPCPacketError::SERVICE_IVAILD_PARAMETERS);
+				/// 7. 转换收发方(因为该包没有保存至manager)
+				RPCPacketFactory::ChangeRecvSend(response);
+				return response;
+			}
+
+			static std::shared_ptr<RPCPacket> CreateServiceErrorResponsePacket(const std::shared_ptr<RPCPacket> orign)
+			{
+				/// 5. 使用 RPCPacketFactory 生成对应响应包, 深拷贝
+				std::shared_ptr<Packet::RPCPacket> response = RPCPacketFactory::CreateCopy(orign);
+				/// 5. 设置响应类型
+				RPCPacketFactory::ChangeTypeToResponse(response);
+				/// 6. 设置错误码
+				RPCPacketFactory::SetErrorCode(response, Packet::RPCPacketError::SERVICE_ERROR);
 				/// 7. 转换收发方(因为该包没有保存至manager)
 				RPCPacketFactory::ChangeRecvSend(response);
 				return response;

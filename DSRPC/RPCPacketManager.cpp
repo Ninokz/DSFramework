@@ -96,6 +96,20 @@ namespace DSFramework {
 			RemoveRequest(request_id);
 		}
 
+		void RPCPacketManager::OnServiceError(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
+		{
+			const std::string& request_id = request->request_id();
+			UpdateRequestStatus(request->request_id(), Packet::RPCPacketStatus::FAILED);
+			RemoveRequest(request_id);
+		}
+
+		void RPCPacketManager::OnServiceEmptyRequest(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
+		{
+			const std::string& request_id = request->request_id();
+			UpdateRequestStatus(request->request_id(), Packet::RPCPacketStatus::FAILED);
+			RemoveRequest(request_id);
+		}
+
 		void RPCPacketManager::OnCompleted(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
 			const std::string& request_id = request->request_id();

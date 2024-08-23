@@ -19,15 +19,17 @@ using DSFramework::DSComponent::Logger;
 using DSFramework::DSRPC::ICommitedEventHandler;
 using DSFramework::DSRPC::IDeserializedEventHandler;
 using DSFramework::DSRPC::IDispatchEventHandler;
-using DSFramework::DSRPC::IProcessedHandler;
+using DSFramework::DSRPC::IProcessedEventHandler;
 using DSFramework::DSRPC::Packet::RPCPacket;
 
 namespace DSFramework {
 	namespace DSRPC {
-		class RPCPacketManager : public IDeserializedEventHandler, 
+		class RPCPacketManager : 
+			public IDeserializedEventHandler, 
 			public IDispatchEventHandler, 
 			public ICommitedEventHandler, 
-			public IProcessedHandler
+			public IProcessedEventHandler,
+			public IServiceEventHandler
 		{
 		private:
 			using REQUEST_ID = std::string;
@@ -51,16 +53,20 @@ namespace DSFramework {
 
 			std::string InitRPCPacket(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> packet);
 		public:
-			void OnDeserialized(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
-			void OnDispatched(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
-			void OnDispatchFailed( const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
+			virtual void OnDeserialized(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
 
-			void OnCommited(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
-			void OnServiceNotFound(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
-			void OnServiceParameterInvalid(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
+			virtual void OnDispatched(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
+			virtual void OnDispatchFailed( const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
 
-			void OnCompleted(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
-			void OnFailed(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> requestD) override;
+			virtual void OnCommited(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
+			virtual void OnServiceNotFound(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
+			virtual void OnServiceParameterInvalid(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
+			virtual void OnServiceError(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
+			virtual void OnServiceEmptyRequest(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
+
+
+			virtual void OnCompleted(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
+			virtual void OnFailed(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> requestD) override;
 		};
 	}
 }

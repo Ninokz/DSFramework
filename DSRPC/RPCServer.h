@@ -11,7 +11,7 @@
 
 #include "RPCPacket.pb.h"
 #include "RPCPacketFactory.h"
-#include "ResponseDispatcher.h"
+#include "RPCEventHandler.h"
 
 using DSFramework::DSComponent::Log;
 using DSFramework::DSComponent::Logger;
@@ -22,27 +22,25 @@ using DSFramework::DSCommunication::Session;
 
 namespace DSFramework {
 	namespace DSRPC {
-		class RPCServer
+		class RPCServer : public ICommitedEventHandler
 		{
 		public:
 			using CheckFunction = std::function<bool(std::shared_ptr<RPCPacket>)>;
 			using ExecuteFunction = std::function<void(std::shared_ptr<RPCPacket>,std::shared_ptr<Session>)>;
 		private:
 			std::unordered_map<std::string, std::pair<CheckFunction, ExecuteFunction>> m_serviceProcedures;
-
+			RPCEventHandler& m_rpcEventHandler;
 		public:
-			RPCServer();
+			RPCServer(RPCEventHandler& rpcEventHandler);
 			virtual ~RPCServer() = default;
-
 			void RegisterService(std::string serviceName, CheckFunction checkFunction, ExecuteFunction executeFunction);
-		public:
-			virtual bool SearchService(std::string serviceName);
-			virtual bool CheckServiceParameter(std::string serviceName, std::shared_ptr<RPCPacket> packet);
-			virtual void Execute(std::string serviceName, std::shared_ptr<RPCPacket> packet, std::shared_ptr<Session> session);
-		private:
-			void HandleCompleted(std::shared_ptr<Session> sender, std::shared_ptr<RPCPacket> packet);
+			virtual void OnCommited(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
 
-			void HandleFailed(std::shared_ptr<Session> sender, std::shared_ptr<RPCPacket> packet);
+		private:
+			bool CheckRequestService(std::shared_ptr<RPCPacket> packet);
+			bool SearchService(std::string serviceName);
+			bool CheckServiceParameter(std::string serviceName, std::shared_ptr<RPCPacket> packet);
+			void Execute(std::string serviceName, std::shared_ptr<RPCPacket> packet, std::shared_ptr<Session> session);
 		};
 	}
 }

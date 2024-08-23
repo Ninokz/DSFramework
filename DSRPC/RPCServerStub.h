@@ -32,15 +32,7 @@ namespace DSFramework {
 			virtual ~RPCServerStub();
 			virtual void OnData(std::shared_ptr<Session> sender, std::shared_ptr<DSCRecvPacket> msg) override;
 		private:
-			void HandleDeserializedSuccess(std::shared_ptr<Session> sender, std::shared_ptr<RPCPacket> packet);
-
-			void HandleDeserializedFailed(std::shared_ptr<Session> sender, std::shared_ptr<RPCPacket> packet);
-
-			void Send(std::shared_ptr<Session> sender, std::shared_ptr<Packet::RPCPacket> packet);
-
-			inline std::shared_ptr<RPCPacket> Deserialize(const char* data, int datalength, bool* serializeResult);
-
-			inline bool Serialize(const std::shared_ptr<RPCPacket> packet, const char** data, size_t* size);
+			std::shared_ptr<RPCPacket> Deserialize(const char* data, int datalength, bool* serializeResult);
 		};
 	}
 }

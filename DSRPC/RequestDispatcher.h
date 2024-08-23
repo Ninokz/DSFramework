@@ -7,7 +7,6 @@
 #include "RPCServer.h"
 #include "Dispatcher.h"
 #include "RPCPacket.pb.h"
-#include "RPCPacketFactory.h"
 #include "RPCEventHandler.h"
 
 using DSFramework::DSCommunication::Session;
@@ -27,18 +26,8 @@ namespace DSFramework {
 			virtual bool PostRequestToQueue(SenderPtr sender, DispatchItemPtr dispatchItem) override ;
 
 			virtual void DispatchDSCMessage(SenderPtr sender, DispatchItemPtr dispatchItem) override;
-		
-			void HandlePostSuccess(SenderPtr sender, DispatchItemPtr dispatchItem);
-
-			void HandlePostFaile(SenderPtr sender, DispatchItemPtr dispatchItem);
-
-			void HandleCommited(SenderPtr sender, DispatchItemPtr dispatchItem);
-
-			void HandleServiceNotFound(SenderPtr sender, DispatchItemPtr dispatchItem);
-
-			void HandleServiceParameterInvalid(SenderPtr sender, DispatchItemPtr dispatchItem);
 		public:
-			void OnDeserialized(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
+			virtual void OnDeserialized(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
 		};
 	}
 }
