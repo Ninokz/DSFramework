@@ -2,14 +2,6 @@
 
 namespace DSFramework {
 	namespace DSRPC {
-		RPCPacketManager::RPCPacketManager()
-		{
-		}
-
-		RPCPacketManager::~RPCPacketManager()
-		{
-		}
-
 		void RPCPacketManager::AddRequest(const std::string requestID, const std::string sessionID, std::shared_ptr<RPCPacket> request)
 		{
 			std::unique_lock<std::shared_mutex> lock(m_requestsMutex);
@@ -54,49 +46,68 @@ namespace DSFramework {
 			return nullptr;
 		}
 
-		void RPCPacketManager::OnDeserialized(const std::string requestID, const std::string sessionID, std::shared_ptr<RPCPacket> request)
+		std::string RPCPacketManager::InitRPCPacket(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> packet)
 		{
-			AddRequest(requestID, sessionID, request);
+			std::string uid = boost::uuids::to_string(boost::uuids::random_generator()());
+			packet->set_request_id(uid);
+			packet->set_status(Packet::RPCPacketStatus::SUBMITTED);
+			packet->set_error(Packet::RPCPacketError::PKT_NO_ERROR);
+			packet->set_inner_id(session->GetUUID());
+			packet->set_created_time(CurrentTime());
+			packet->set_commited_time("");
+			packet->set_completed_time("");
+			return uid;
 		}
 
-		void RPCPacketManager::OnDispatched(const std::string& requestID)
+		void RPCPacketManager::OnDeserialized(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
-			UpdateRequestStatus(requestID, Packet::RPCPacketStatus::WAITING);
+			InitRPCPacket(session, request);
+			AddRequest(request->request_id(), session->GetUUID(), request);
 		}
 
-		void RPCPacketManager::OnDispatchFailed(const std::string& requestID)
+		void RPCPacketManager::OnDispatched(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
-			UpdateRequestStatus(requestID, Packet::RPCPacketStatus::FAILED);
-			RemoveRequest(requestID);
+			UpdateRequestStatus(request->request_id(), Packet::RPCPacketStatus::WAITING);
 		}
 
-		void RPCPacketManager::OnCommited(const std::string& requestID)
+		void RPCPacketManager::OnDispatchFailed(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
-			UpdateRequestStatus(requestID, Packet::RPCPacketStatus::COMMITED);
+			const std::string& request_id = request->request_id();
+			UpdateRequestStatus(request_id, Packet::RPCPacketStatus::FAILED);
+			RemoveRequest(request_id);
 		}
 
-		void RPCPacketManager::OnServiceNotFound(const std::string& requestID)
+		void RPCPacketManager::OnCommited(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
-			UpdateRequestStatus(requestID, Packet::RPCPacketStatus::FAILED);
-			RemoveRequest(requestID);
+			UpdateRequestStatus(request->request_id(), Packet::RPCPacketStatus::COMMITED);
 		}
 
-		void RPCPacketManager::OnServiceParameterInvalid(const std::string& requestID)
+		void RPCPacketManager::OnServiceNotFound(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
-			UpdateRequestStatus(requestID, Packet::RPCPacketStatus::FAILED);
-			RemoveRequest(requestID);
+			const std::string& request_id = request->request_id();
+			UpdateRequestStatus(request->request_id(), Packet::RPCPacketStatus::FAILED);
+			RemoveRequest(request_id);
 		}
 
-		void RPCPacketManager::OnCompleted(const std::string& requestID)
+		void RPCPacketManager::OnServiceParameterInvalid(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
-			UpdateRequestStatus(requestID, Packet::RPCPacketStatus::COMPLETED);
-			RemoveRequest(requestID);
+			const std::string& request_id = request->request_id();
+			UpdateRequestStatus(request->request_id(), Packet::RPCPacketStatus::FAILED);
+			RemoveRequest(request_id);
 		}
 
-		void RPCPacketManager::OnFailed(const std::string& requestID)
+		void RPCPacketManager::OnCompleted(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
-			UpdateRequestStatus(requestID, Packet::RPCPacketStatus::FAILED);
-			RemoveRequest(requestID);
+			const std::string& request_id = request->request_id();
+			UpdateRequestStatus(request_id, Packet::RPCPacketStatus::COMPLETED);
+			RemoveRequest(request_id);
+		}
+
+		void RPCPacketManager::OnFailed(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
+		{
+			const std::string& request_id = request->request_id();
+			UpdateRequestStatus(request_id, Packet::RPCPacketStatus::FAILED);
+			RemoveRequest(request_id);
 		}
 	}
 }

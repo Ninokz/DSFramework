@@ -24,12 +24,11 @@ namespace DSFramework {
 		private:
 			std::string m_serverid;
 			RPCEventHandler& m_rpcEventHandler;
-			RequestDispatcher& m_requestDispatcher;
 		private:
 			RPCServerStub(const RPCServerStub& other) = delete;
 			RPCServerStub& operator=(const RPCServerStub& other) = delete;
 		public:
-			RPCServerStub(RPCEventHandler& rpcEventHandler, RequestDispatcher& requestDispatcher);
+			RPCServerStub(RPCEventHandler& rpcEventHandler);
 			virtual ~RPCServerStub();
 			virtual void OnData(std::shared_ptr<Session> sender, std::shared_ptr<DSCRecvPacket> msg) override;
 		private:

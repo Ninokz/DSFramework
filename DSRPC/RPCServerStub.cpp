@@ -2,9 +2,8 @@
 
 namespace DSFramework {
 	namespace DSRPC {
-		RPCServerStub::RPCServerStub(RPCEventHandler& rpcEventHandler, RequestDispatcher& requestDispatcher) :
-			m_rpcEventHandler(rpcEventHandler),
-			m_requestDispatcher(requestDispatcher)
+		RPCServerStub::RPCServerStub(RPCEventHandler& rpcEventHandler) :
+			m_rpcEventHandler(rpcEventHandler)
 		{
 
 		}
@@ -35,24 +34,20 @@ namespace DSFramework {
 			if (packet->service().empty()) {
 				/// 空service则返回错误响应
 				packet.reset();
-				packet = RPCPacketFactory::CreateErrorResponse(m_serverid, sender->GetUUID(), Packet::RPCPacketError::PKT_EMPTY_REQUEST, sender->GetUUID());
+				packet = RPCPacketFactory::CreateEmptyRequestErrorPacket(packet);
 				Send(sender, packet);
 				return;
 			}
-			/// 1. 初始化包并生成请求ID
-			std::string requestid = RPCPacketFactory::InitRPCPacket(packet, sender->GetUUID());
-			/// 2. 将请求ID和RPCPacket交给EventHandler处理: 目前只有RPCPacketManager实现了IDeserializedEventHandler, 会将请求ID和RPCPacket保存到m_requests中, 处于OnDeserialized事件调用链第一位
-			m_rpcEventHandler.OnDeserialized(requestid, sender->GetUUID(), packet);
-			/// 3. dispatcher分发请求 todo 完成dispatcher的实现
 			LOG_DEBUG_CONSOLE("Packet deserialized:\n" + packet->DebugString());
-
-			/*m_requestDispatcher.PostRequestToQueue(sender, packet);*/
+			m_rpcEventHandler.OnDeserialized(sender, packet);
+			auto response = RPCPacketFactory::CreatePacketResponse(packet);
+			Send(sender, response);
 		}
 
 		void RPCServerStub::HandleDeserializedFailed(std::shared_ptr<Session> sender, std::shared_ptr<RPCPacket> packet)
 		{
 			packet.reset();
-			packet = RPCPacketFactory::CreateErrorResponse(m_serverid, sender->GetUUID(), Packet::RPCPacketError::PKT_DESERIALIZATION_ERROR, sender->GetUUID());
+			packet = RPCPacketFactory::CreateDeserializedErrorPacket(m_serverid, sender->GetUUID(), sender->GetUUID());
 			Send(sender, packet);
 		}
 

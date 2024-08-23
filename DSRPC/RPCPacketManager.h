@@ -24,7 +24,10 @@ using DSFramework::DSRPC::Packet::RPCPacket;
 
 namespace DSFramework {
 	namespace DSRPC {
-		class RPCPacketManager : public IDeserializedEventHandler, public IDispatchEventHandler, public ICommitedEventHandler, public IProcessedHandler
+		class RPCPacketManager : public IDeserializedEventHandler, 
+			public IDispatchEventHandler, 
+			public ICommitedEventHandler, 
+			public IProcessedHandler
 		{
 		private:
 			using REQUEST_ID = std::string;
@@ -33,8 +36,8 @@ namespace DSFramework {
 			std::unordered_map<REQUEST_ID, std::pair<SESSION_ID, std::shared_ptr<Packet::RPCPacket>>> m_requests;
 			std::shared_mutex m_requestsMutex;
 		public:
-			RPCPacketManager();
-			virtual ~RPCPacketManager();
+			RPCPacketManager() = default;
+			virtual ~RPCPacketManager() = default;
 		private:
 			static inline std::string CurrentTime() { return boost::posix_time::to_simple_string(boost::posix_time::second_clock::local_time()); }
 
@@ -45,17 +48,19 @@ namespace DSFramework {
 			void UpdateRequestStatus(const std::string& requestID, Packet::RPCPacketStatus status);
 
 			std::shared_ptr<Packet::RPCPacket> QueryRequest(const std::string& requestID, bool* queryResult);
+
+			std::string InitRPCPacket(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> packet);
 		public:
-			void OnDeserialized(const std::string requestID, const std::string sessionID, std::shared_ptr<RPCPacket> request) override;
-			void OnDispatched(const std::string& requestID) override;
-			void OnDispatchFailed(const std::string& requestID) override;
+			void OnDeserialized(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
+			void OnDispatched(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
+			void OnDispatchFailed( const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
 
-			void OnCommited(const std::string& requestID) override;
-			void OnServiceNotFound(const std::string& requestID) override;
-			void OnServiceParameterInvalid(const std::string& requestID) override;
+			void OnCommited(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
+			void OnServiceNotFound(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
+			void OnServiceParameterInvalid(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
 
-			void OnCompleted(const std::string& requestID) override;
-			void OnFailed(const std::string& requestID) override;
+			void OnCompleted(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
+			void OnFailed(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> requestD) override;
 		};
 	}
 }

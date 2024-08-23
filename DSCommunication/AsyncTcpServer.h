@@ -28,7 +28,6 @@ namespace DSFramework {
 			std::thread m_serverThread;
 			std::unique_ptr<ConAcceptor> m_acceptor;
 			std::shared_ptr<EventHandler> m_eventHandlerPtr;
-
 			std::shared_ptr<SessionManager> m_sessionManager;
 			short m_port;
 			bool m_running;

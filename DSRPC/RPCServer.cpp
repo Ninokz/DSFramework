@@ -2,7 +2,7 @@
 
 namespace DSFramework {
 	namespace DSRPC {
-		RPCServer::RPCServer(ResponseDispatcher& responseDispatcher) : m_responseDispatcher(responseDispatcher) 
+		RPCServer::RPCServer()
 		{
 		
 		}
@@ -29,46 +29,36 @@ namespace DSFramework {
 			return false;
 		}
 
-		void RPCServer::Execute(std::string serviceName, std::shared_ptr<RPCPacket> packet, RPCEventHandler& eventHandler, std::shared_ptr<Session> session)
+		void RPCServer::Execute(std::string serviceName, std::shared_ptr<RPCPacket> packet, std::shared_ptr<Session> session)
 		{
 			if (m_serviceProcedures.find(serviceName) != m_serviceProcedures.end())
 			{
 				return;
 			}
-			ThreadPool::GetInstance()->Commit([this, serviceName, packet, &eventHandler, session]() {
+			ThreadPool::GetInstance()->Commit([this, serviceName, packet, session]() {
 				try {
-					m_serviceProcedures[serviceName].second(packet, eventHandler, session);
-					HandleCompleted(session, packet, eventHandler);
+					m_serviceProcedures[serviceName].second(packet, session);
+					HandleCompleted(session, packet);
 				}
 				catch (std::exception& ex) {
 					LOG_ERROR_CONSOLE(ex.what());
-					HandleFailed(session, packet, eventHandler);
+					HandleFailed(session, packet);
 				}
 				catch (...) {
 					LOG_ERROR_CONSOLE("Execute failed: Unknown exception");
-					HandleFailed(session, packet, eventHandler);
+					HandleFailed(session, packet);
 				}
 			});
 		}
 
-		void RPCServer::HandleCompleted(std::shared_ptr<Session> sender, std::shared_ptr<RPCPacket> packet, RPCEventHandler& eventHandler)
+		void RPCServer::HandleCompleted(std::shared_ptr<Session> sender, std::shared_ptr<RPCPacket> packet)
 		{
 			LOG_DEBUG_CONSOLE("Execute completed");
-			eventHandler.OnCompleted(packet->request_id());
-			RPCPacketFactory::ChangeTypeToResponse(packet);
-			RPCPacketFactory::SetErrorCode(packet, Packet::RPCPacketError::PKT_NO_ERROR);
-			RPCPacketFactory::ChangeRecvSend(packet);
-			m_responseDispatcher.PostRequestToQueue(sender, packet);
 		}
 
-		void RPCServer::HandleFailed(std::shared_ptr<Session> sender, std::shared_ptr<RPCPacket> packet, RPCEventHandler& eventHandler)
+		void RPCServer::HandleFailed(std::shared_ptr<Session> sender, std::shared_ptr<RPCPacket> packet)
 		{
 			LOG_DEBUG_CONSOLE("Execute failed");
-			eventHandler.OnFailed(packet->request_id());
-			RPCPacketFactory::ChangeTypeToResponse(packet);
-			RPCPacketFactory::SetErrorCode(packet, Packet::RPCPacketError::SERVICE_ERROR);
-			RPCPacketFactory::ChangeRecvSend(packet);
-			m_responseDispatcher.PostRequestToQueue(sender, packet);
 		}
 	}
 }

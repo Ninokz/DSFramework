@@ -13,18 +13,6 @@ namespace DSFramework {
 		{
 		private:
 			static inline std::string CurrentTime() { return boost::posix_time::to_simple_string(boost::posix_time::second_clock::local_time()); }
-		public:
-			static std::shared_ptr<RPCPacket> CreateErrorResponse(std::string from, std::string to, Packet::RPCPacketError error, std::string innerID) {
-				std::shared_ptr<RPCPacket> response = std::make_shared<RPCPacket>();
-				response->set_type(Packet::DEFAULT_RESPONSE);
-				response->set_error(error);
-				response->set_status(Packet::RPCPacketStatus::FAILED);
-				response->set_inner_id(innerID);
-
-				response->set_from(from);
-				response->set_to(to);
-				return response;
-			}
 
 			static inline std::shared_ptr<RPCPacket> CreateCopy(std::shared_ptr<RPCPacket> request)
 			{
@@ -48,25 +36,103 @@ namespace DSFramework {
 			{
 				packet->set_error(error);
 			}
-
+	
 			static inline void ChangeRecvSend(std::shared_ptr<RPCPacket> packet)
 			{
 				std::string temp = packet->from();
 				packet->set_from(packet->to());
 				packet->set_to(temp);
 			}
-
-			static inline std::string InitRPCPacket(std::shared_ptr<RPCPacket> packet, std::string innerID)
+		public:
+			static std::shared_ptr<RPCPacket> CreateDeserializedErrorPacket(std::string from, std::string to, std::string innerID)
 			{
-				std::string uid = boost::uuids::to_string(boost::uuids::random_generator()());
-				packet->set_request_id(uid);
-				packet->set_status(Packet::RPCPacketStatus::SUBMITTED);
-				packet->set_error(Packet::RPCPacketError::PKT_NO_ERROR);
-				packet->set_inner_id(innerID);
-				packet->set_created_time(CurrentTime());
-				packet->set_commited_time("");
-				packet->set_completed_time("");
-				return uid;
+				std::shared_ptr<RPCPacket> response = std::make_shared<RPCPacket>();
+				response->set_type(Packet::DEFAULT_RESPONSE);
+				response->set_error(Packet::RPCPacketError::PKT_DESERIALIZATION_ERROR);
+				response->set_status(Packet::RPCPacketStatus::FAILED);
+				response->set_inner_id(innerID);
+
+				response->set_from(from);
+				response->set_to(to);
+				return response;
+			}
+
+			static std::shared_ptr<RPCPacket> CreatePacketResponse(std::shared_ptr<RPCPacket> request)
+			{
+				/// 5. 使用 RPCPacketFactory 生成对应响应包, 深拷贝
+				std::shared_ptr<RPCPacket> response = RPCPacketFactory::CreateCopy(request);
+				/// 5. 设置响应类型
+				RPCPacketFactory::ChangeTypeToResponse(response);
+				/// 6. 设置错误码
+				RPCPacketFactory::SetErrorCode(response, Packet::RPCPacketError::PKT_NO_ERROR);
+				/// 7. 转换收发方(因为该包没有保存至manager)
+				RPCPacketFactory::ChangeRecvSend(response);
+				return response;
+			}
+
+			static std::shared_ptr<RPCPacket> CreateEmptyRequestErrorPacket(const std::shared_ptr<RPCPacket> orign)
+			{
+				/// 5. 使用 RPCPacketFactory 生成对应响应包, 深拷贝
+				std::shared_ptr<Packet::RPCPacket> response = RPCPacketFactory::CreateCopy(orign);
+				/// 5. 设置响应类型
+				RPCPacketFactory::ChangeTypeToResponse(response);
+				/// 6. 设置错误码
+				RPCPacketFactory::SetErrorCode(response, Packet::RPCPacketError::PKT_EMPTY_REQUEST);
+				/// 7. 转换收发方(因为该包没有保存至manager)
+				RPCPacketFactory::ChangeRecvSend(response);
+				return response;
+			}
+
+			static std::shared_ptr<RPCPacket> CreateNoErrorResponse(const std::shared_ptr<RPCPacket> orign)
+			{
+				/// 5. 使用 RPCPacketFactory 生成对应响应包, 深拷贝
+				std::shared_ptr<Packet::RPCPacket> response = RPCPacketFactory::CreateCopy(orign);
+				/// 5. 设置响应类型
+				RPCPacketFactory::ChangeTypeToResponse(response);
+				/// 6. 设置错误码
+				RPCPacketFactory::SetErrorCode(response, Packet::RPCPacketError::PKT_NO_ERROR);
+				/// 7. 转换收发方(因为该包没有保存至manager)
+				RPCPacketFactory::ChangeRecvSend(response);
+				return response;
+			}
+
+			static std::shared_ptr<RPCPacket> CreatePostFailedResponsePacket(const std::shared_ptr<RPCPacket> orign)
+			{
+				/// 5. 使用 RPCPacketFactory 生成对应响应包, 深拷贝
+				std::shared_ptr<Packet::RPCPacket> response = RPCPacketFactory::CreateCopy(orign);
+				/// 5. 设置响应类型
+				RPCPacketFactory::ChangeTypeToResponse(response);
+				/// 6. 设置错误码
+				RPCPacketFactory::SetErrorCode(response, Packet::RPCPacketError::SERVICE_BUSY);
+				/// 7. 转换收发方(因为该包没有保存至manager)
+				RPCPacketFactory::ChangeRecvSend(response);
+				return response;
+			}
+
+			static std::shared_ptr<RPCPacket> CreateServiceNotFoundResponsePacket(const std::shared_ptr<RPCPacket> orign)
+			{
+				/// 5. 使用 RPCPacketFactory 生成对应响应包, 深拷贝
+				std::shared_ptr<Packet::RPCPacket> response = RPCPacketFactory::CreateCopy(orign);
+				/// 5. 设置响应类型
+				RPCPacketFactory::ChangeTypeToResponse(response);
+				/// 6. 设置错误码
+				RPCPacketFactory::SetErrorCode(response, Packet::RPCPacketError::SERVICE_NOT_FOUND);
+				/// 7. 转换收发方(因为该包没有保存至manager)
+				RPCPacketFactory::ChangeRecvSend(response);
+				return response;			
+			}
+
+			static std::shared_ptr<RPCPacket> CreateServiceParameterInvalidResponsePacket(const std::shared_ptr<RPCPacket> orign)
+			{
+				/// 5. 使用 RPCPacketFactory 生成对应响应包, 深拷贝
+				std::shared_ptr<Packet::RPCPacket> response = RPCPacketFactory::CreateCopy(orign);
+				/// 5. 设置响应类型
+				RPCPacketFactory::ChangeTypeToResponse(response);
+				/// 6. 设置错误码
+				RPCPacketFactory::SetErrorCode(response, Packet::RPCPacketError::SERVICE_IVAILD_PARAMETERS);
+				/// 7. 转换收发方(因为该包没有保存至manager)
+				RPCPacketFactory::ChangeRecvSend(response);
+				return response;
 			}
 		};
 	}
