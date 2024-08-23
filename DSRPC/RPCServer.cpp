@@ -24,6 +24,11 @@ namespace DSFramework {
 			m_server.Start();
 		}
 
+		void RPCServer::AddService(std::string serviceName, ParamsCheck check, Func func)
+		{
+			RegisterService(serviceName, check, func);
+		}
+
 		void RPCServer::ComponentInitialize()
 		{
 			m_rpcWorkers = std::make_shared<RPCProcessor>(m_rpcEventHandler);

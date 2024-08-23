@@ -50,6 +50,8 @@ namespace DSFramework {
 			RPCServer(std::string serverid,std::string serverName,short port,size_t maxRqSize,size_t maxRsSize,size_t maxSendPadding);
 			virtual ~RPCServer();
 			void Start();
+
+			void AddService(std::string serviceName, ParamsCheck check, Func func);
 		private:
 			void ComponentInitialize();
 			void EventHandlerInitialize();

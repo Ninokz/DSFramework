@@ -21,11 +21,11 @@ namespace DSFramework {
 			auto ec = response->error();
 			if (deserializeResult && ((ec & DSRPC::Packet::PKT_NO_ERROR) == DSRPC::Packet::PKT_NO_ERROR))
 			{
-
+				LOG_DEBUG_CONSOLE("Stub Layer Data deserialized:\n " + response->DebugString());
 			}
-			else 
+			else
 			{
-
+				LOG_DEBUG_CONSOLE("Stub Layer Data deserialized failed:\n " + response->DebugString());
 			}
 		}
 
