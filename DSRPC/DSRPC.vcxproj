@@ -155,7 +155,6 @@
     <ClCompile Include="RPCProcessor.cpp" />
     <ClCompile Include="RPCServer.cpp" />
     <ClCompile Include="RPCServerStub.cpp" />
-    <ClCompile Include="testclient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DSCommunication\AsyncTcpClient.h" />
