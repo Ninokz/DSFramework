@@ -17,6 +17,7 @@ namespace DSFramework {
 
 		RPCServer::~RPCServer()
 		{
+
 		}
 
 		void RPCServer::Start()

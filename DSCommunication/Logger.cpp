@@ -115,6 +115,8 @@ namespace DSFramework {
 
         void LogDumpTask::Dump()
         {
+			if (m_dumpLogs.empty())
+				return;
 			m_file.open(m_fileName, std::ios::out | std::ios::app);
             if (m_file.is_open())
             {

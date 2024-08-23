@@ -17,7 +17,7 @@ namespace DSFramework {
 		{
 			if (!m_closed)
 				Close();
-			LOG_INFO_CONSOLE("Session " + m_uuid + " closed and destroyed.");
+			LOG_INFO_CONSOLE("Session " + m_uuid + " destroyed.");
 			m_eventHandlerPtr.reset();
 		}
 
@@ -26,6 +26,7 @@ namespace DSFramework {
 			m_closed = true;
 			m_eventHandlerPtr->OnClose(shared_from_this());
 			m_socket.close();
+			LOG_INFO_CONSOLE("Session " + m_uuid + " closed.");
 		}
 
 		void Session::Start()
@@ -101,7 +102,7 @@ namespace DSFramework {
 				if (!ec) {
 					//// Deep copy
 					auto recvPacketShawdow = std::make_shared<DSCRecvPacket>(*m_cached_BodyRecvPacket);
-					LOG_DEBUG_CONSOLE("Session Layer Data received: " + recvPacketShawdow->GetDataStringLength());
+					LOG_DEBUG_CONSOLE("Source Data received: " + recvPacketShawdow->GetDataStringLength());
 
 					/// 消息接收触发, 使用OnMessage将消息传递给上层
 					this->m_eventHandlerPtr->OnData(shared_from_this(), std::move(recvPacketShawdow));

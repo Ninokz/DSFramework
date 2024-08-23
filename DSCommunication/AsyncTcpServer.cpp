@@ -38,7 +38,7 @@ namespace DSFramework {
 					m_running = true;
 					m_ioc.run();
 				});
-				LOG_INFO_CONSOLE("Server running at " + std::to_string(m_port));
+				LOG_INFO_CONSOLE("Server started running at " + std::to_string(m_port));
 				m_serverThread.join();
 			}
 			catch (std::exception& e) {

@@ -21,14 +21,14 @@ namespace DSFramework {
 				return false;
 			}
 			m_sessions.insert(std::make_pair(session->GetUUID(), session));
-			LOG_INFO_CONSOLE("Session" + session->GetUUID() + " is added.");
+			LOG_INFO_CONSOLE(session->GetUUID() + " connected.");
 			return true;
 		}
 
 		void SessionManager::RemoveSession(std::string& uuid)
 		{
 			m_sessions.erase(uuid);
-			LOG_INFO_CONSOLE("Session" + uuid + " is removed.");
+			LOG_INFO_CONSOLE(uuid + " removed.");
 		}
 
 		void SessionManager::OnClose(std::shared_ptr<Session> sender)
@@ -39,13 +39,13 @@ namespace DSFramework {
 
 		void SessionManager::OnConnect(std::shared_ptr<Session> sender)
 		{
-			if (AddSession(sender))
+			if (!AddSession(sender))
 			{
-				
+				LOG_WARN_CONSOLE(sender->GetUUID() + " is rejected, SessionManager is full.");
 			}
 			else
 			{
-				LOG_WARN_CONSOLE("Session " + sender->GetUUID() + " is rejected, Sessions is full.");
+				
 			}
 		}
 	}

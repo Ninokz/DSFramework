@@ -5,25 +5,26 @@ namespace DSFramework {
 		ResponseDispatcher::ResponseDispatcher(size_t maxWaitedDispatch) : Dispatcher(maxWaitedDispatch)
 		{
 			Start();
-			LOG_INFO_CONSOLE("ResponseDispatcher Started");
+			LOG_INFO_CONSOLE("ResponseDispatcher started");
 		}
 
 		ResponseDispatcher::~ResponseDispatcher()
 		{
-			LOG_INFO_CONSOLE("ResponseDispatcher will destory");
+			LOG_INFO_CONSOLE("ResponseDispatcher will stop and destory");
 		}
 
 		bool ResponseDispatcher::PostRequestToQueue(SenderPtr sender, DispatchItemPtr dispatchItem)
 		{
+			std::string requester = sender->GetUUID();
 			if (this->m_requestQueue->size() < this->m_maxWaitedDispatch)
 			{
 				this->m_requestQueue->Push(std::make_pair(sender, dispatchItem));
-				LOG_DEBUG_CONSOLE("Response dispatched success");
+				LOG_DEBUG_CONSOLE(requester + " response dispatched");
 				return true;
 			}
 			else
 			{
-				LOG_DEBUG_CONSOLE("Response dispatched failed");
+				LOG_DEBUG_CONSOLE(requester + " response dispatched failed");
 				return false;
 			}
 		}
@@ -31,6 +32,9 @@ namespace DSFramework {
 		void ResponseDispatcher::DispatchDSCMessage(SenderPtr sender, DispatchItemPtr dispatchItem)
 		{
 			Send(sender, dispatchItem);
+
+			std::string requester = sender->GetUUID();
+			LOG_DEBUG_CONSOLE(requester + " request has been sent");
 		}
 
 		void ResponseDispatcher::Send(std::shared_ptr<Session> sender, std::shared_ptr<Packet::RPCPacket> packet)

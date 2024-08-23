@@ -15,7 +15,6 @@ namespace DSFramework {
 
 		void RPCServerStub::OnData(std::shared_ptr<Session> sender, std::shared_ptr<DSCRecvPacket> msg)
 		{
-			LOG_DEBUG_CONSOLE("Stub Layer Data received: " + msg->GetDataString());
 			bool deserializeResult = false;
 			/// 将接收到的数据反序列化为RPCPacket
 			std::shared_ptr<Packet::RPCPacket> packet = this->Deserialize(msg->m_data, msg->m_dataSize, &deserializeResult);
