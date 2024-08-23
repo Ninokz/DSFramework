@@ -36,7 +36,7 @@ namespace DSFramework {
 			RPCClientStub(const RPCClientStub& other) = delete;
 			RPCClientStub& operator=(const RPCClientStub& other) = delete;
 		public:
-			RPCClientStub();
+			RPCClientStub(std::string clientid);
 			virtual ~RPCClientStub();
 
 			virtual void OnData(std::shared_ptr<Session> session, std::shared_ptr<DSCRecvPacket> packet) override;
