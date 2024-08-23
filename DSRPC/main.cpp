@@ -45,6 +45,24 @@ public:
 		result_any.PackFrom(result);
 		packet->mutable_result()->CopyFrom(result_any);
 	}
+public:
+	static std::shared_ptr<RPCPacket> CreateHelloWorldServiceRequestPacket(std::string name, std::string msg, std::string from, std::string to)
+	{
+		HelloWorldServiceParameters parameters;
+		parameters.set_name(name);
+		parameters.set_message(msg);
+		std::shared_ptr<RPCPacket> packet;
+		packet->set_service("HelloWorldService");
+		google::protobuf::Any parameters_any;
+		parameters_any.PackFrom(parameters);
+		packet->mutable_parameters()->CopyFrom(parameters_any);
+
+		packet->set_from(from);
+		packet->set_to(to);
+
+		packet->set_type(DSFramework::DSRPC::Packet::TASK_REQUEST);
+		return packet;
+	}
 };
 
 
