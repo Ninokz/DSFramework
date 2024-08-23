@@ -97,6 +97,9 @@
       <Filter>源文件\Server</Filter>
     </ClCompile>
     <ClCompile Include="RPCServer.cpp">
+      <Filter>源文件\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="RPCClient.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -165,6 +168,9 @@
       <Filter>头文件\Server</Filter>
     </ClInclude>
     <ClInclude Include="RPCServer.h">
+      <Filter>头文件\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="RPCClient.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

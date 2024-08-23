@@ -51,6 +51,7 @@ namespace DSFramework {
 			virtual ~RPCServer();
 			void Start();
 		private:
+			void ComponentInitialize();
 			void EventHandlerInitialize();
 			void RegisterService(std::string serviceName, ParamsCheck check, Func func);
 		};

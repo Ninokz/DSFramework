@@ -11,6 +11,8 @@ namespace DSFramework {
 			m_maxSendPaddingQueueCount(maxSendPadding),
 			m_server(port, m_maxSendPaddingQueueCount)
 		{
+			rpcEventHandler = RPCEventHandler();
+			ComponentInitialize();
 			EventHandlerInitialize();
 		}
 
@@ -21,6 +23,15 @@ namespace DSFramework {
 		void RPCServer::Start()
 		{
 			m_server.Start();
+		}
+
+		void RPCServer::ComponentInitialize()
+		{
+			rpcWorkers = std::make_shared<RPCProcessor>();
+			rpcRequestDispatcher = std::make_shared<RequestDispatcher>(m_maxRequestPaddingCount, rpcEventHandler);
+			rpcResponseDispatcher = std::make_shared<ResponseDispatcher>(m_maxResponsePaddingCount);
+			rpcRequestManager = std::make_shared<RPCPacketManager>();
+			rpcServerStub = std::make_shared<RPCServerStub>(rpcEventHandler);
 		}
 
 		void RPCServer::EventHandlerInitialize()
