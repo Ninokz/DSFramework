@@ -75,15 +75,14 @@ namespace DSFramework {
 namespace DSRPC {
 namespace Packet {
 enum RPCPacketError : int {
-  PKT_UNKNOWN = 0,
-  PKT_NO_ERROR = 1,
-  PKT_SERIALIZATION_ERROR = 2,
-  PKT_DESERIALIZATION_ERROR = 3,
-  PKT_EMPTY_REQUEST = 4,
-  SERVICE_BUSY = 5,
-  SERVICE_NOT_FOUND = 6,
-  SERVICE_IVAILD_PARAMETERS = 7,
-  SERVICE_ERROR = 8,
+  PKT_NO_ERROR = 0,
+  PKT_SERIALIZATION_ERROR = 1,
+  PKT_DESERIALIZATION_ERROR = 2,
+  PKT_EMPTY_REQUEST = 3,
+  SERVICE_BUSY = 4,
+  SERVICE_NOT_FOUND = 5,
+  SERVICE_IVAILD_PARAMETERS = 6,
+  SERVICE_ERROR = 7,
   RPCPacketError_INT_MIN_SENTINEL_DO_NOT_USE_ =
       std::numeric_limits<::int32_t>::min(),
   RPCPacketError_INT_MAX_SENTINEL_DO_NOT_USE_ =
@@ -93,8 +92,8 @@ enum RPCPacketError : int {
 bool RPCPacketError_IsValid(int value);
 extern const uint32_t RPCPacketError_internal_data_[];
 constexpr RPCPacketError RPCPacketError_MIN = static_cast<RPCPacketError>(0);
-constexpr RPCPacketError RPCPacketError_MAX = static_cast<RPCPacketError>(8);
-constexpr int RPCPacketError_ARRAYSIZE = 8 + 1;
+constexpr RPCPacketError RPCPacketError_MAX = static_cast<RPCPacketError>(7);
+constexpr int RPCPacketError_ARRAYSIZE = 7 + 1;
 const ::google::protobuf::EnumDescriptor*
 RPCPacketError_descriptor();
 template <typename T>
@@ -107,7 +106,7 @@ const std::string& RPCPacketError_Name(T value) {
 template <>
 inline const std::string& RPCPacketError_Name(RPCPacketError value) {
   return ::google::protobuf::internal::NameOfDenseEnum<RPCPacketError_descriptor,
-                                                 0, 8>(
+                                                 0, 7>(
       static_cast<int>(value));
 }
 inline bool RPCPacketError_Parse(absl::string_view name, RPCPacketError* value) {

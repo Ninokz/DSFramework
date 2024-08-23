@@ -34,7 +34,6 @@ namespace DSFramework {
 
 			inline bool Serialize(const std::shared_ptr<RPCPacket> packet, const char** data, size_t* size);
 		public:
-			/// ini all interface 
 			virtual void OnDeserialized(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
 			virtual void OnDeserializedFailed(std::string& serverID, const std::shared_ptr<Session> session) override;
 
