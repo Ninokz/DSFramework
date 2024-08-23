@@ -97,10 +97,10 @@ namespace DSFramework {
 			this->PostRequestToQueue(session, response);
 		}
 		
-		void ResponseDispatcher::OnDeserializedFailed(std::string& serverID, const std::shared_ptr<Session> session)
+		void ResponseDispatcher::OnDeserializedFailed(std::string& senderID, const std::shared_ptr<Session> session)
 		{
 			std::string to = session->GetUUID();
-			auto response = RPCPacketFactory::CreateDeserializedErrorPacket(serverID, to, to);
+			auto response = RPCPacketFactory::CreateDeserializedErrorPacket(senderID, to, to);
 			this->PostRequestToQueue(session, response);
 		}
 		

@@ -33,11 +33,11 @@ namespace DSFramework {
 			}
 		}
 
-		void RPCEventHandler::OnDeserializedFailed(std::string& serverID, const std::shared_ptr<Session> session)
+		void RPCEventHandler::OnDeserializedFailed(std::string& senderID, const std::shared_ptr<Session> session)
 		{
 			for (auto handler : m_deserializedFailedEventHandler)
 			{
-				handler->OnDeserializedFailed(serverID, session);
+				handler->OnDeserializedFailed(senderID, session);
 			}
 		}
 

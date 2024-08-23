@@ -3,13 +3,13 @@
 #include <string>
 
 #include "RPCServer.h"
+#include "RPCClient.h"
 
 using DSFramework::DSRPC::RPCServer;
-
+using DSFramework::DSRPC::RPCClient;
 
 int main()
 {
-	RPCServer server("serverid", "serverName", 9000, 100, 100, 100);
-	server.Start();
+	
 	return 0;
 }

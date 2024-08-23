@@ -4,9 +4,6 @@
 #include <string>
 #include <thread>
 
-#include <boost/asio.hpp>
-#include <boost/bind/bind.hpp>
-
 #include "../DSCommunication/Logger.h"
 #include "../DSCommunication/Session.h"
 #include "../DSCommunication/DSCPacket.h"
@@ -15,6 +12,7 @@
 
 #include "RPCPacket.pb.h"
 #include "RPCPacketFactory.h"
+#include "RPCEventHandler.h"
 
 using DSFramework::DSComponent::Log;
 using DSFramework::DSComponent::Logger;
@@ -30,18 +28,19 @@ namespace DSFramework {
 	namespace DSRPC {
 		class RPCClientStub : public IDataEventHandler
 		{
-		private:
+		public:
 			std::string m_clientid;
+			std::shared_ptr<RPCPacket> m_cachedRequestPacket;
 		private:
 			RPCClientStub(const RPCClientStub& other) = delete;
 			RPCClientStub& operator=(const RPCClientStub& other) = delete;
+
+			std::shared_ptr<RPCPacket> Deserialize(const char* data, int datalength, bool* serializeResult);
 		public:
 			RPCClientStub(std::string clientid);
 			virtual ~RPCClientStub();
 
-			virtual void OnData(std::shared_ptr<Session> session, std::shared_ptr<DSCRecvPacket> packet) override;
-		private:
-			std::shared_ptr<RPCPacket> Deserialize(const char* data, int datalength, bool* serializeResult);
+			virtual void OnData(const std::shared_ptr<Session> session, const std::shared_ptr<DSCRecvPacket> packet) override;
 		};
 	}
 }

@@ -22,7 +22,7 @@ namespace DSFramework {
 		class IDeserializedFailedEventHandler
 		{
 		public:
-			virtual void OnDeserializedFailed(std::string& serverID, const std::shared_ptr<Session> session) = 0;
+			virtual void OnDeserializedFailed(std::string& senderID, const std::shared_ptr<Session> session) = 0;
 		};
 
 		class IDispatchEventHandler
@@ -75,7 +75,7 @@ namespace DSFramework {
 			void AddServiceEventHandler(std::shared_ptr<IServiceEventHandler> handler);
 		public:
 			void OnDeserialized(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request);
-			void OnDeserializedFailed(std::string& serverID, const std::shared_ptr<Session> session);
+			void OnDeserializedFailed(std::string& senderID, const std::shared_ptr<Session> session);
 
 			void OnDispatched(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request);
 			void OnDispatchFailed(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request);

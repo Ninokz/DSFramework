@@ -34,7 +34,7 @@ namespace DSFramework {
 				else
 				{
 					m_session->Start();
-					m_clientThread = std::thread([this] {
+					m_clientThread = std::thread([this] (){
 						m_running = true;
 						m_ioc.run();
 					});
