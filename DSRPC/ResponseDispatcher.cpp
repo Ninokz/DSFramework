@@ -4,11 +4,13 @@ namespace DSFramework {
 	namespace DSRPC {
 		ResponseDispatcher::ResponseDispatcher(size_t maxWaitedDispatch) : Dispatcher(maxWaitedDispatch)
 		{
-
+			Start();
+			LOG_INFO_CONSOLE("ResponseDispatcher Started");
 		}
 
 		ResponseDispatcher::~ResponseDispatcher()
 		{
+			LOG_INFO_CONSOLE("ResponseDispatcher will destory");
 		}
 
 		bool ResponseDispatcher::PostRequestToQueue(SenderPtr sender, DispatchItemPtr dispatchItem)

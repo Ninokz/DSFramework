@@ -27,7 +27,6 @@ namespace DSFramework {
 				m_maxWaitedDispatch(maxWaitedDispatch)
 			{
 				m_requestQueue = std::make_shared<ConcurrentQueue<std::pair<SenderPtr, DispatchItemPtr>>>();
-				Start();
 			}
 
 			virtual ~Dispatcher()
@@ -37,8 +36,8 @@ namespace DSFramework {
 
 			virtual bool PostRequestToQueue(SenderPtr sender, DispatchItemPtr dispatchItem) = 0;
 
-			virtual void DispatchDSCMessage(SenderPtr sender, DispatchItemPtr dispatchItem) = 0;	
-		private:
+			virtual void DispatchDSCMessage(SenderPtr sender, DispatchItemPtr dispatchItem) = 0;
+
 			void Start()
 			{
 				m_dispatcherThread = std::thread([this] {
@@ -53,7 +52,6 @@ namespace DSFramework {
 						DispatchDSCMessage(requset->first, requset->second);
 					}
 					});
-				LOG_INFO_CONSOLE("Dispatcher started");
 			}
 
 			void Stop()
@@ -67,7 +65,6 @@ namespace DSFramework {
 				{
 					m_dispatcherThread.join();
 				}
-				LOG_INFO_CONSOLE("Dispatcher stopped");
 			}
 		};
 	}

@@ -4,9 +4,16 @@
 namespace DSFramework {
 	namespace DSRPC {
 		RequestDispatcher::RequestDispatcher(size_t maxWaitedDispatch, RPCEventHandler& m_rpcEventHandler) :
-			Dispatcher(maxWaitedDispatch), m_rpcEventHandler(m_rpcEventHandler){}
+			Dispatcher(maxWaitedDispatch), m_rpcEventHandler(m_rpcEventHandler)
+		{
+			Start();
+			LOG_INFO_CONSOLE("RequestDispatcher Started");
+		}
 
-		RequestDispatcher::~RequestDispatcher(){}
+		RequestDispatcher::~RequestDispatcher()
+		{
+			LOG_INFO_CONSOLE("RequestDispatcher will destory");
+		}
 
 		bool RequestDispatcher::PostRequestToQueue(SenderPtr sender, DispatchItemPtr dispatchItem)
 		{
