@@ -49,7 +49,7 @@ namespace DSFramework {
 			for (auto& td : m_pool) {
 				if (td.joinable()) {
 					std::ostringstream oss;
-					oss << "join thread " << td.get_id() << std::endl;
+					oss << "ThreadPool join thread " << td.get_id();
 					LOG_INFO_CONSOLE(oss.str());
 					td.join();
 				}

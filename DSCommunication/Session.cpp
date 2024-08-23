@@ -101,7 +101,7 @@ namespace DSFramework {
 				if (!ec) {
 					//// Deep copy
 					auto recvPacketShawdow = std::make_shared<DSCRecvPacket>(*m_cached_BodyRecvPacket);
-					LOG_DEBUG_CONSOLE("Session Layer Data received: " + recvPacketShawdow->PrintStringFormat());
+					LOG_DEBUG_CONSOLE("Session Layer Data received: " + recvPacketShawdow->GetDataStringLength());
 
 					/// 消息接收触发, 使用OnMessage将消息传递给上层
 					this->m_eventHandlerPtr->OnData(shared_from_this(), std::move(recvPacketShawdow));

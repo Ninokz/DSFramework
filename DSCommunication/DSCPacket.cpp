@@ -22,13 +22,21 @@ namespace DSFramework {
 			m_dataSize = 0;
 		}
 
-		std::string DSCPacket::PrintStringFormat() {
+		std::string DSCPacket::GetDataString() {
 			std::string str;
 			str.append("DataSize: ");
 			str.append(std::to_string(m_dataSize));
 			std::string data = std::string(m_data, m_dataSize);
 			str.append(" Data: ");
 			str.append(data);
+			return str;
+		}
+
+		std::string DSCPacket::GetDataStringLength()
+		{
+			std::string str;
+			str.append("DataSize: ");
+			str.append(std::to_string(m_dataSize));
 			return str;
 		}
 

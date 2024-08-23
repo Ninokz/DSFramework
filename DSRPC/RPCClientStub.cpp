@@ -15,7 +15,7 @@ namespace DSFramework {
 
 		void RPCClientStub::OnData(const std::shared_ptr<Session> session, const std::shared_ptr<DSCRecvPacket> packet)
 		{
-			LOG_DEBUG_CONSOLE("Stub Layer Data received: " + packet->PrintStringFormat());
+			LOG_DEBUG_CONSOLE("Stub Layer Data received: " + packet->GetDataString());
 			bool deserializeResult = false;
 			std::shared_ptr<Packet::RPCPacket> response = this->Deserialize(packet->m_data, packet->m_dataSize, &deserializeResult);
 			auto ec = response->error();
