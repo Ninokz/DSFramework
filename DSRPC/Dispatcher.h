@@ -2,13 +2,12 @@
 #include <memory>
 #include <string>
 
-#include "../DSCommunication/Logger.h"
 #include "../DSCommunication/ConcurrentQueue.h"
+#include "../DSCommunication/Logger.h"
 
 using DSFramework::DSComponent::Log;
 using DSFramework::DSComponent::Logger;
 using DSFramework::DSComponent::ConcurrentQueue;
-
 namespace DSFramework {
 	namespace DSRPC {
 

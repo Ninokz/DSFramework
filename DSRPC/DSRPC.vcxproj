@@ -148,6 +148,7 @@
     <ClCompile Include="RequestDispatcher.cpp" />
     <ClCompile Include="ResponseDispatcher.cpp" />
     <ClCompile Include="RPCClient.cpp" />
+    <ClCompile Include="RPCClientStub.cpp" />
     <ClCompile Include="RPCEventHandler.cpp" />
     <ClCompile Include="RPCPacket.pb.cc" />
     <ClCompile Include="RPCPacketManager.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="RequestDispatcher.h" />
     <ClInclude Include="ResponseDispatcher.h" />
     <ClInclude Include="RPCClient.h" />
+    <ClInclude Include="RPCClientStub.h" />
     <ClInclude Include="RPCEventHandler.h" />
     <ClInclude Include="RPCPacket.pb.h" />
     <ClInclude Include="RPCPacketFactory.h" />

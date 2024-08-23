@@ -31,7 +31,7 @@ namespace DSFramework {
 			m_rpcRequestDispatcher = std::make_shared<RequestDispatcher>(m_maxRequestPaddingCount, m_rpcEventHandler);
 
 			m_rpcRequestManager = std::make_shared<RPCPacketManager>();
-			m_rpcServerStub = std::make_shared<RPCServerStub>(m_rpcEventHandler);
+			m_rpcServerStub = std::make_shared<RPCServerStub>(m_serverId, m_rpcEventHandler);
 		}
 
 		void RPCServer::EventHandlerInitialize()

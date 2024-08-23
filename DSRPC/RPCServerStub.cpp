@@ -2,7 +2,8 @@
 
 namespace DSFramework {
 	namespace DSRPC {
-		RPCServerStub::RPCServerStub(RPCEventHandler& m_rpcEventHandler) :
+		RPCServerStub::RPCServerStub(std::string& serverid, RPCEventHandler& m_rpcEventHandler) :
+			m_serverid(serverid),
 			m_rpcEventHandler(m_rpcEventHandler)
 		{
 

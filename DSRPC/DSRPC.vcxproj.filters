@@ -37,6 +37,12 @@
     <Filter Include="源文件\Ref">
       <UniqueIdentifier>{a500bb72-d070-4cc3-a290-b8084a5cbe47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Client">
+      <UniqueIdentifier>{b79e222c-d7a4-4592-a7da-90253e194237}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Client">
+      <UniqueIdentifier>{dbfcb873-364e-4162-a249-1d2595507460}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -99,8 +105,11 @@
     <ClCompile Include="RPCServer.cpp">
       <Filter>源文件\Server</Filter>
     </ClCompile>
+    <ClCompile Include="RPCClientStub.cpp">
+      <Filter>源文件\Client</Filter>
+    </ClCompile>
     <ClCompile Include="RPCClient.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Client</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -171,7 +180,10 @@
       <Filter>头文件\Server</Filter>
     </ClInclude>
     <ClInclude Include="RPCClient.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="RPCClientStub.h">
+      <Filter>头文件\Client</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

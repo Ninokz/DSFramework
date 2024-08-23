@@ -28,7 +28,7 @@ namespace DSFramework {
 			RPCServerStub(const RPCServerStub& other) = delete;
 			RPCServerStub& operator=(const RPCServerStub& other) = delete;
 		public:
-			RPCServerStub(RPCEventHandler& m_rpcEventHandler);
+			RPCServerStub(std::string& serverid, RPCEventHandler& m_rpcEventHandler);
 			virtual ~RPCServerStub();
 			virtual void OnData(std::shared_ptr<Session> sender, std::shared_ptr<DSCRecvPacket> msg) override;
 		private:
