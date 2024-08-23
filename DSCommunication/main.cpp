@@ -12,11 +12,11 @@ using namespace DSFramework::DSCommunication;
 
 int main()
 {
-	std::shared_ptr<SessionManager> sessionManager = std::make_shared<SessionManager>(100);
+	std::shared_ptr<SessionManager> m_sessionManager = std::make_shared<SessionManager>(100);
 
 	AsyncTcpServer server(9000);
-	server.AddConnectEventHandler(std::static_pointer_cast<IConnectEventHandler>(sessionManager));
-	server.AddCloseEventHandler(std::static_pointer_cast<ICloseEventHandler>(sessionManager));
+	server.AddConnectEventHandler(std::static_pointer_cast<IConnectEventHandler>(m_sessionManager));
+	server.AddCloseEventHandler(std::static_pointer_cast<ICloseEventHandler>(m_sessionManager));
 	server.Start();
 	return 0;
 }

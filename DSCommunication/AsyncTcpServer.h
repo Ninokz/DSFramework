@@ -29,13 +29,14 @@ namespace DSFramework {
 			std::unique_ptr<ConAcceptor> m_acceptor;
 			std::shared_ptr<EventHandler> m_eventHandlerPtr;
 
+			std::shared_ptr<SessionManager> m_sessionManager;
 			short m_port;
 			bool m_running;
 		private:
 			AsyncTcpServer(const AsyncTcpServer& other) = delete;
 			AsyncTcpServer& operator=(const AsyncTcpServer& other) = delete;
 		public:
-			AsyncTcpServer(short port);
+			AsyncTcpServer(short port,size_t maxSessionCount);
 			virtual ~AsyncTcpServer();
 			void Start();
 

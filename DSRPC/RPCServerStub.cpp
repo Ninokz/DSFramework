@@ -46,7 +46,7 @@ namespace DSFramework {
 			/// 3. dispatcher分发请求 todo 完成dispatcher的实现
 			LOG_DEBUG_CONSOLE("Packet deserialized:\n" + packet->DebugString());
 
-			m_requestDispatcher.PostRequestToQueue(sender, packet);
+			/*m_requestDispatcher.PostRequestToQueue(sender, packet);*/
 		}
 
 		void RPCServerStub::HandleDeserializedFailed(std::shared_ptr<Session> sender, std::shared_ptr<RPCPacket> packet)

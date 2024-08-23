@@ -3,13 +3,17 @@
 
 namespace DSFramework {
 	namespace DSCommunication {
-		AsyncTcpServer::AsyncTcpServer(short port)
+		AsyncTcpServer::AsyncTcpServer(short port, size_t maxSessionCount)
 			: m_ioc(),
 			m_eventHandlerPtr(std::make_shared<EventHandler>()),
 			m_port(port),
-			m_running(false)
+			m_running(false),
+			m_sessionManager(std::make_shared<SessionManager>(maxSessionCount))
 		{
-			m_acceptor = std::make_unique<ConAcceptor>(m_ioc, port, m_eventHandlerPtr);
+			m_acceptor = std::make_unique<ConAcceptor>(m_ioc, port, m_eventHandlerPtr);	
+
+			m_eventHandlerPtr->AddConnectEventHandler(std::static_pointer_cast<IConnectEventHandler>(m_sessionManager));
+			m_eventHandlerPtr->AddCloseEventHandler(std::static_pointer_cast<ICloseEventHandler>(m_sessionManager));
 		}
 
 		AsyncTcpServer::~AsyncTcpServer()
