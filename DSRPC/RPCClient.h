@@ -1,5 +1,10 @@
 #pragma once
-class RPCClient
-{
-};
 
+namespace DSFramework {
+	namespace DSRPC {
+		class RPCClient
+		{
+		};
+
+	}
+}
