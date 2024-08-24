@@ -21,10 +21,8 @@ namespace DSFramework {
 			if (this->m_requestQueue->size() < this->m_maxWaitedDispatch)
 			{
 				/// 若成功分发请求则执行以下代码
-
-				this->m_requestQueue->Push(std::make_pair(sender, dispatchItem));
-				LOG_DEBUG_CONSOLE(requester + " request dispatched");
 				m_rpcEventHandler.OnDispatched(sender, dispatchItem);
+				this->m_requestQueue->Push(std::make_pair(sender, dispatchItem));			
 				return true;
 			}
 			else
@@ -39,9 +37,6 @@ namespace DSFramework {
 		void RequestDispatcher::DispatchDSCMessage(SenderPtr sender, DispatchItemPtr dispatchItem)
 		{
 			this->m_rpcEventHandler.OnCommited(sender, dispatchItem);
-
-			std::string requester = sender->GetUUID();
-			LOG_DEBUG_CONSOLE(requester + " request has commited");
 		}
 
 

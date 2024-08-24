@@ -41,7 +41,7 @@ namespace DSFramework {
 			RPCPacketManager() = default;
 			virtual ~RPCPacketManager() = default;
 		private:
-			static inline std::string CurrentTime() { return boost::posix_time::to_simple_string(boost::posix_time::second_clock::local_time()); }
+			static inline std::string CurrentTime() { return boost::posix_time::to_simple_string(boost::posix_time::microsec_clock::local_time()); }
 
 			void AddRequest(const std::string requestID, const std::string sessionID, std::shared_ptr<RPCPacket> request);
 

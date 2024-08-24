@@ -16,12 +16,11 @@ namespace DSFramework {
 
 		void RPCPacketManager::UpdateRequestStatus(const std::string& requestID, Packet::RPCPacketStatus status)
 		{
-			std::unique_lock<std::shared_mutex> lock(m_requestsMutex);
 			auto it = m_requests.find(requestID);
 			if (it != m_requests.end())
 			{
+				std::unique_lock<std::shared_mutex> lock(m_requestsMutex);
 				it->second.second->set_status(status);
-
 				if ((status & Packet::RPCPacketStatus::WAITING) == Packet::RPCPacketStatus::WAITING)
 					it->second.second->set_post_time(CurrentTime());
 				else if ((status & Packet::RPCPacketStatus::COMMITED) == Packet::RPCPacketStatus::COMMITED)

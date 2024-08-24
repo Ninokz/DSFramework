@@ -19,7 +19,6 @@ namespace DSFramework {
 			if (this->m_requestQueue->size() < this->m_maxWaitedDispatch)
 			{
 				this->m_requestQueue->Push(std::make_pair(sender, dispatchItem));
-				LOG_DEBUG_CONSOLE(requester + " response dispatched");
 				return true;
 			}
 			else
@@ -33,8 +32,6 @@ namespace DSFramework {
 		{
 			Send(sender, dispatchItem);
 
-			std::string requester = sender->GetUUID();
-			LOG_DEBUG_CONSOLE(requester + " request has been sent");
 		}
 
 		void ResponseDispatcher::Send(std::shared_ptr<Session> sender, std::shared_ptr<Packet::RPCPacket> packet)
@@ -100,6 +97,8 @@ namespace DSFramework {
 		void ResponseDispatcher::OnDeserialized(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
 			auto response = RPCPacketFactory::CreatePacketResponse(request);
+			LOG_DEBUG_CONSOLE("ResponseDispatcher::OnDeserialized");
+			LOG_DEBUG_CONSOLE(response->DebugString());
 			this->PostRequestToQueue(session, response);
 		}
 		
@@ -113,6 +112,8 @@ namespace DSFramework {
 		void ResponseDispatcher::OnDispatched(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
 			auto response = RPCPacketFactory::CreatePacketResponse(request);
+			LOG_DEBUG_CONSOLE("ResponseDispatcher::OnDispatched");
+			LOG_DEBUG_CONSOLE(response->DebugString());
 			this->PostRequestToQueue(session, response);
 		}
 		
@@ -125,6 +126,8 @@ namespace DSFramework {
 		void ResponseDispatcher::OnCommited(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
 			auto response = RPCPacketFactory::CreatePacketResponse(request);
+			LOG_DEBUG_CONSOLE("ResponseDispatcher::OnCommited");
+			LOG_DEBUG_CONSOLE(response->DebugString());
 			this->PostRequestToQueue(session, response);
 		}
 		
@@ -155,6 +158,8 @@ namespace DSFramework {
 		void ResponseDispatcher::OnCompleted(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
 			auto response = RPCPacketFactory::CreatePacketResponse(request);
+			LOG_DEBUG_CONSOLE("ResponseDispatcher::OnCompleted");
+			LOG_DEBUG_CONSOLE(response->DebugString());
 			this->PostRequestToQueue(session, response);
 		}
 		
