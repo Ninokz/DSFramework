@@ -28,7 +28,7 @@ namespace DSFramework {
 		void SessionManager::RemoveSession(std::string& uuid)
 		{
 			m_sessions.erase(uuid);
-			LOG_INFO_CONSOLE(uuid + " removed.");
+			LOG_INFO_CONSOLE("Session " + uuid + " removed.");
 		}
 
 		void SessionManager::OnClose(std::shared_ptr<Session> sender)

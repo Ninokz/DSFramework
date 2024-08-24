@@ -26,7 +26,6 @@ namespace DSFramework {
 			}
 			else
 			{
-				/// 若分发请求失败则执行以下代码
 				LOG_WARN_CONSOLE(requester + " request dispatched failed");
 				m_rpcEventHandler.OnDispatchFailed(sender, dispatchItem);
 				return false;

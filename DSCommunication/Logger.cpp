@@ -183,39 +183,6 @@ namespace DSFramework {
 				m_dumpTask->Dump();
 		}
 
-        std::string Logger::ColorfulText(std::string& text, Color color)
-        {
-			std::string color_code;
-			switch (color)
-			{
-			case Color::RED:
-				color_code = "\033[31m";
-				break;
-			case Color::GREEN:
-				color_code = "\033[32m";
-				break;
-			case Color::YELLOW:
-				color_code = "\033[33m";
-				break;
-			case Color::BLUE:
-				color_code = "\033[34m";
-				break;
-			case Color::MAGENTA:
-				color_code = "\033[35m";
-				break;
-			case Color::CYAN:
-				color_code = "\033[36m";
-				break;
-			case Color::WHITE:
-				color_code = "\033[37m";
-				break;
-			default:
-				color_code = "\033[37m";
-			}
-			std::string reset_code = "\033[0m";
-			return color_code + text + reset_code;
-        }
-
         std::shared_ptr<std::string> Logger::ToString(std::shared_ptr<Log> log)
         {
             std::ostringstream oss;
@@ -224,17 +191,6 @@ namespace DSFramework {
                log->m_fileName << " " << log->m_functionName << " " << log->m_line << "\n";
             else
                oss << Log::GetColorTextLogLv(log->m_lv) << " " << log->m_time << " " << log->m_threadID << " " << log->m_content << "\n";
-            return std::make_shared<std::string>(oss.str());
-        }
-
-        std::shared_ptr<std::string> Logger::ToColorString(std::shared_ptr<Log> log, Color color)
-        {
-            std::ostringstream oss;
-            if (log->m_srcDetail)
-                oss << Log::GetColorTextLogLv(log->m_lv) << " " << log->m_time << " " << log->m_threadID << " " << ColorfulText(log->m_content,color) << " " <<
-                log->m_fileName << " " << log->m_functionName << " " << log->m_line << "\n";
-            else
-                oss << Log::GetColorTextLogLv(log->m_lv) << " " << log->m_time << " " << log->m_threadID << " " << ColorfulText(log->m_content,color) << "\n";
             return std::make_shared<std::string>(oss.str());
         }
 
@@ -252,18 +208,6 @@ namespace DSFramework {
         {
             std::shared_ptr<Log> log = std::make_shared<Log>(level, content, fileName, functionName, line, srcDetail, toConsole);
             m_logs.Push(log);
-        }
-
-        void Logger::LogMessageC(Log::LogLv level, std::string content, const char* fileName, const char* functionName, int line, Color color, bool srcDetail, bool toConsole)
-        {
-			std::shared_ptr<Log> log = std::make_shared<Log>(level, content, fileName, functionName, line, srcDetail, toConsole);
-			m_logs.Push(log);
-        }
-
-        void Logger::LogMessageC(Log::LogLv level, const char* content, const char* fileName, const char* functionName, int line, Color color, bool srcDetail, bool toConsole)
-        {
-			std::shared_ptr<Log> log = std::make_shared<Log>(level, content, fileName, functionName, line, srcDetail, toConsole);
-			m_logs.Push(log);
         }
     }
 }
