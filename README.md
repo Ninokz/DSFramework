@@ -203,7 +203,7 @@ A simple Hello World Echo Service remote process for this framework might look l
    client.RemoteCall("127.0.0.1", 9000, CreateHelloWorldServiceRequestPacket("Alice", "World", "Client", "Server"), 20);
    ```
 
-<div align=center><img src="https://observer-storage.oss-cn-chengdu.aliyuncs.com/github/DSFramework/DSLog.png"></div>
+<div align=center><img src="https://observer-storage.oss-cn-chengdu.aliyuncs.com/github/DSFramework/DSRPCServer.png"></div>
 
 <div align=center><img src="https://observer-storage.oss-cn-chengdu.aliyuncs.com/github/DSFramework/DSCRequestResult.png"></div>
 
