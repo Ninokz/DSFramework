@@ -22,8 +22,10 @@ namespace DSFramework {
 	namespace DSTest {
 		void TestRPCServer()
 		{
+			//std::shared_ptr<HelloWorldService> service = std::make_shared<HelloWorldService>();
 			TestHelloWorldService testService;
 			RPCServer server("serverID", "serverName", 9000, 100, 100, 100);
+			//server.AddService(service);
 			server.AddService(testService.serviceName, std::bind(&TestHelloWorldService::ParametersCheck, &testService, std::placeholders::_1), std::bind(&TestHelloWorldService::Execute, &testService, std::placeholders::_1));
 			server.Start();
 		}

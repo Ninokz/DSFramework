@@ -19,6 +19,43 @@ using DSFramework::DSRPC::Packet::HelloWorldServiceResult;
 
 namespace DSFramework {
 	namespace DSTest {
+		/// Inherits
+		class HelloWorldService : public RPCServer::RPCService
+		{
+		public:
+			HelloWorldService() : RPCServer::RPCService("HelloWorldService") {}
+			virtual ~HelloWorldService() = default;
+
+			bool ParametersCheck(std::shared_ptr<RPCPacket> packet) override
+			{
+				if (!packet->has_parameters()) {
+					return false;
+				}
+				HelloWorldServiceParameters parameters;
+				if (packet->parameters().UnpackTo(&parameters))
+				{
+					return true;
+				}
+				return false;
+			}
+
+			void Execute(std::shared_ptr<RPCPacket> packet) override
+			{
+				HelloWorldServiceParameters parameters;
+				packet->parameters().UnpackTo(&parameters);
+				auto name = parameters.name();
+				auto msg = parameters.message();
+				LOG_DEBUG_CONSOLE("HelloWorldService: " + name + " " + msg);
+
+				HelloWorldServiceResult result;
+				result.set_message("Hello " + name + " " + msg);
+
+				google::protobuf::Any* result_any = packet->mutable_result();
+				result_any->PackFrom(result);
+			}
+		};
+
+		/// No Inherits 
 		class TestHelloWorldService
 		{
 		public:
