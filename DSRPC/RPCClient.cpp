@@ -22,6 +22,7 @@ namespace DSFramework {
 
 		void RPCClient::RemoteCall(std::string ipaddress, short port, std::shared_ptr<RPCPacket> requestPacket, int timeoutSec)
 		{
+			LOG_DEBUG_CONSOLE("Start procedure");
 			m_rpcThread = std::thread([this, ipaddress, port,requestPacket, timeoutSec]() {
 				m_timer.expires_after(std::chrono::seconds(timeoutSec));
 				m_timer.async_wait(boost::bind(&RPCClient::StopCallProcedure, this, boost::asio::placeholders::error));
@@ -62,6 +63,7 @@ namespace DSFramework {
 
 		void RPCClient::StopCallProcedure(const boost::system::error_code& error)
 		{
+			LOG_DEBUG_CONSOLE("Timeout stop call procedure");
 			m_client.Disconnect();
 			m_ioc.stop();
 		}

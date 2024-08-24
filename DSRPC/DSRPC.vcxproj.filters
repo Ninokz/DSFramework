@@ -43,6 +43,9 @@
     <Filter Include="源文件\Client">
       <UniqueIdentifier>{dbfcb873-364e-4162-a249-1d2595507460}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Test">
+      <UniqueIdentifier>{1d16cde0-4f69-45bc-9b7b-b348fcf89739}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -181,6 +184,15 @@
     </ClInclude>
     <ClInclude Include="RPCClientStub.h">
       <Filter>头文件\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientTest.h">
+      <Filter>头文件\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerTest.h">
+      <Filter>头文件\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="HelloWorldTestService.h">
+      <Filter>头文件\Test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

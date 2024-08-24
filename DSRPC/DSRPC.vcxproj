@@ -169,7 +169,9 @@
     <ClInclude Include="..\DSCommunication\SessionManager.h" />
     <ClInclude Include="..\DSCommunication\Singleton.h" />
     <ClInclude Include="..\DSCommunication\ThreadPool.h" />
+    <ClInclude Include="ClientTest.h" />
     <ClInclude Include="Dispatcher.h" />
+    <ClInclude Include="HelloWorldTestService.h" />
     <ClInclude Include="RequestDispatcher.h" />
     <ClInclude Include="ResponseDispatcher.h" />
     <ClInclude Include="RPCClient.h" />
@@ -181,6 +183,7 @@
     <ClInclude Include="RPCProcessor.h" />
     <ClInclude Include="RPCServer.h" />
     <ClInclude Include="RPCServerStub.h" />
+    <ClInclude Include="ServerTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

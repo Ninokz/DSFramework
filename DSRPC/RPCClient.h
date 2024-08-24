@@ -19,12 +19,12 @@ namespace DSFramework {
 			std::string m_clientId;
 			std::string m_clientName;
 
-			RPCClientStubPtr m_rpcClientStub;
-			AsyncTcpClient m_client;
-
 			std::thread m_rpcThread;
 			boost::asio::io_context m_ioc;
 			boost::asio::steady_timer m_timer;
+
+			RPCClientStubPtr m_rpcClientStub;
+			AsyncTcpClient m_client;
 		public:
 			RPCClient(std::string clientId, std::string clientName);
 			virtual ~RPCClient();
