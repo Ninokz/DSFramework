@@ -39,8 +39,9 @@ namespace DSFramework {
 		public:
 			RPCClientStub(std::string clientid);
 			virtual ~RPCClientStub();
-
 			virtual void OnData(const std::shared_ptr<Session> session, const std::shared_ptr<DSCRecvPacket> packet) override;
+		protected:
+			virtual void HandleResponse(std::shared_ptr<RPCPacket> response);
 		};
 	}
 }
