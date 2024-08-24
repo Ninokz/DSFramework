@@ -13,11 +13,11 @@
 
 Basic structure of the framework below.
 
-![](https://observer-storage.oss-cn-chengdu.aliyuncs.com/github/DSFramework/DSC.drawio.png)
+![](https://observer-storage.oss-cn-chengdu.aliyuncs.com/github/DSFramework/DSC.drawio.png#pic_center)
 
 A simple Hello World Echo Service remote process for this framework might look like the following.
 
-![](https://observer-storage.oss-cn-chengdu.aliyuncs.com/github/DSFramework/DSCStage.drawio.png)
+![](https://observer-storage.oss-cn-chengdu.aliyuncs.com/github/DSFramework/DSCStage.drawio.png#pic_center)
 
 ### 3.1 Connection  Layer
 
