@@ -25,6 +25,11 @@ namespace DSFramework {
 			m_server.Start();
 		}
 
+		void RPCServer::AddService(std::shared_ptr<RPCService> service)
+		{
+			RegisterService(service->m_serviceName, std::bind(&RPCService::ParametersCheck, service, std::placeholders::_1), std::bind(&RPCService::Execute, service, std::placeholders::_1));
+		}
+
 		void RPCServer::AddService(std::string serviceName, ParamsCheck check, Func func)
 		{
 			RegisterService(serviceName, check, func);
@@ -42,6 +47,10 @@ namespace DSFramework {
 
 		void RPCServer::EventHandlerInitialize()
 		{
+			/// 事件调度顺序极其重要 请勿随意调整
+			/// m_rpcRequestManager: 修改request的状态和部分数据
+			/// m_rpcResponseDispatcher: 拷贝request数据并发送response，所以要在 m_rpcRequestManager 之后
+			/// m_rpcWorkers: 执行service 逻辑，所以要在 m_rpcResponseDispatcher 之后
 			m_rpcEventHandler.AddDeserializedEventHandler(std::static_pointer_cast<IDeserializedEventHandler>(m_rpcRequestManager));
 			m_rpcEventHandler.AddDeserializedEventHandler(std::static_pointer_cast<IDeserializedEventHandler>(m_rpcResponseDispatcher));
 			m_rpcEventHandler.AddDeserializedEventHandler(std::static_pointer_cast<IDeserializedEventHandler>(m_rpcRequestDispatcher));

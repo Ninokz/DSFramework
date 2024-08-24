@@ -20,8 +20,6 @@ namespace DSFramework {
 			std::shared_ptr<Packet::RPCPacket> packet = this->Deserialize(msg->m_data, msg->m_dataSize, &deserializeResult);
 			if (deserializeResult)
 			{
-				LOG_DEBUG_CONSOLE("Packet deserialized:\n" + packet->DebugString());
-				/// 调用dispatcher的PostRequestToQueue方法
 				m_rpcEventHandler.OnDeserialized(sender, packet);				
 			}
 			else

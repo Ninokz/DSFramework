@@ -2,6 +2,13 @@
 
 namespace DSFramework {
 	namespace DSRPC {
+
+		int RPCPacketManager::GetRequestCount()
+		{
+			std::shared_lock<std::shared_mutex> lock(m_requestsMutex);
+			return static_cast<int>(m_requests.size());
+		}
+
 		void RPCPacketManager::AddRequest(const std::string requestID, const std::string sessionID, std::shared_ptr<RPCPacket> request)
 		{
 			std::unique_lock<std::shared_mutex> lock(m_requestsMutex);
@@ -21,14 +28,27 @@ namespace DSFramework {
 			{
 				std::unique_lock<std::shared_mutex> lock(m_requestsMutex);
 				it->second.second->set_status(status);
-				if ((status & Packet::RPCPacketStatus::WAITING) == Packet::RPCPacketStatus::WAITING)
+				
+				switch (status)
+				{
+				case DSFramework::DSRPC::Packet::SUBMITTED:
+					it->second.second->set_created_time(CurrentTime());
+					break;
+				case DSFramework::DSRPC::Packet::WAITING:
 					it->second.second->set_post_time(CurrentTime());
-				else if ((status & Packet::RPCPacketStatus::COMMITED) == Packet::RPCPacketStatus::COMMITED)
+					break;
+				case DSFramework::DSRPC::Packet::COMMITED:
 					it->second.second->set_commited_time(CurrentTime());
-				else if ((status & Packet::RPCPacketStatus::COMPLETED) == Packet::RPCPacketStatus::COMPLETED)
+					break;
+				case DSFramework::DSRPC::Packet::COMPLETED:
 					it->second.second->set_completed_time(CurrentTime());
-				else if ((status & Packet::RPCPacketStatus::FAILED) == Packet::RPCPacketStatus::FAILED)
+					break;
+				case DSFramework::DSRPC::Packet::FAILED:
 					it->second.second->set_failed_time(CurrentTime());
+					break;
+				default:
+					break;
+				}
 			}
 		}
 
@@ -62,6 +82,7 @@ namespace DSFramework {
 		{
 			InitRPCPacket(session, request);
 			AddRequest(request->request_id(), session->GetUUID(), request);
+			LOG_INFO_CONSOLE("Request remain count: " + std::to_string(GetRequestCount()));
 		}
 
 		void RPCPacketManager::OnDispatched(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
@@ -114,6 +135,7 @@ namespace DSFramework {
 			const std::string& request_id = request->request_id();
 			UpdateRequestStatus(request_id, Packet::RPCPacketStatus::COMPLETED);
 			RemoveRequest(request_id);
+			LOG_INFO_CONSOLE("Request remain count: " + std::to_string(GetRequestCount()));
 		}
 
 		void RPCPacketManager::OnFailed(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)

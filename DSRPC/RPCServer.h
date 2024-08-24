@@ -20,11 +20,20 @@ namespace DSFramework {
 			using RPCRequestDispatcherPtr = std::shared_ptr<RequestDispatcher>;
 			using RPCResponseDispatcherPtr = std::shared_ptr<ResponseDispatcher>;
 			using RPCRequestManagerPtr = std::shared_ptr<RPCPacketManager>;
-
 			using RPCServerStubPtr = std::shared_ptr<RPCServerStub>;
-
 			using ParamsCheck = RPCProcessor::CheckFunction;
 			using Func = RPCProcessor::ExecuteFunction;
+		public:
+			class RPCService : public std::enable_shared_from_this<RPCService>
+			{
+			public:
+				std::string m_serviceName;
+			public:
+				RPCService(std::string serviceName) : m_serviceName(serviceName) {}
+				virtual ~RPCService() = default;
+				virtual bool ParametersCheck(std::shared_ptr<RPCPacket> packet) = 0;
+				virtual void Execute(std::shared_ptr<RPCPacket> packet) = 0;
+			};
 		protected:
 			std::string m_serverId;
 			std::string m_serverName;
@@ -51,6 +60,7 @@ namespace DSFramework {
 			virtual ~RPCServer();
 			void Start();
 
+			void AddService(std::shared_ptr<RPCService> service);
 			void AddService(std::string serviceName, ParamsCheck check, Func func);
 		private:
 			void ComponentInitialize();

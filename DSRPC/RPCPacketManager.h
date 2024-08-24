@@ -40,6 +40,8 @@ namespace DSFramework {
 		public:
 			RPCPacketManager() = default;
 			virtual ~RPCPacketManager() = default;
+
+			int GetRequestCount();
 		private:
 			static inline std::string CurrentTime() { return boost::posix_time::to_simple_string(boost::posix_time::microsec_clock::local_time()); }
 
@@ -54,7 +56,6 @@ namespace DSFramework {
 			std::string InitRPCPacket(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> packet);
 		public:
 			virtual void OnDeserialized(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
-
 			virtual void OnDispatched(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
 			virtual void OnDispatchFailed( const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
 
@@ -63,7 +64,6 @@ namespace DSFramework {
 			virtual void OnServiceParameterInvalid(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
 			virtual void OnServiceError(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
 			virtual void OnServiceEmptyRequest(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
-
 
 			virtual void OnCompleted(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
 			virtual void OnFailed(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> requestD) override;

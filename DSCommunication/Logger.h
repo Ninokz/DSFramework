@@ -83,6 +83,16 @@ namespace DSFramework {
         class Logger : public Singleton<Logger>
         {
 			friend Singleton<Logger>;
+        public:
+			enum class Color {
+				RED = 31,
+				GREEN = 32,
+				YELLOW = 33,
+				BLUE = 34,
+				MAGENTA = 35,
+				CYAN = 36,
+				WHITE = 37
+            };
         private:
 			ConcurrentQueue<std::shared_ptr<Log>> m_logs;
 			std::shared_ptr<LogDumpTask> m_dumpTask;
@@ -96,7 +106,9 @@ namespace DSFramework {
 			Logger& operator=(const Logger&) = delete;
 			Logger(Logger&&) = delete;
 
+			std::string ColorfulText(std::string& text, Color color);
             std::shared_ptr<std::string> ToString(std::shared_ptr<Log> log);
+			std::shared_ptr<std::string> ToColorString(std::shared_ptr<Log> log, Color color);
 		public:
 			virtual ~Logger();
         public:
@@ -105,6 +117,12 @@ namespace DSFramework {
 
             void LogMessage(Log::LogLv level, const char* content,
                 const char* fileName, const char* functionName, int line, bool srcDetail = true, bool toConsole = true);
+
+            void LogMessageC(Log::LogLv level, std::string content,
+                const char* fileName, const char* functionName, int line, Color color, bool srcDetail = true, bool toConsole = true);
+
+            void LogMessageC(Log::LogLv level, const char* content,
+                const char* fileName, const char* functionName, int line, Color color, bool srcDetail = true, bool toConsole = true);
         };
 
         #define LOG_DEBUG_CONSOLE_DETAIL(CONTENT) Logger::GetInstance()->LogMessage(Log::LogLv::DEBUGS, CONTENT, __FILE__, __FUNCTION__, __LINE__, true, true)
@@ -126,6 +144,26 @@ namespace DSFramework {
         #define LOG_ERROR_CONSOLE(CONTENT) Logger::GetInstance()->LogMessage(Log::LogLv::ERRORS, CONTENT, "", "", 0, false, true)
         #define LOG_ERROR_FILE_DETAIL(CONTENT) Logger::GetInstance()->LogMessage(Log::LogLv::ERRORS, CONTENT, __FILE__, __FUNCTION__, __LINE__, true, false)
         #define LOG_ERROR_FILE(CONTENT) Logger::GetInstance()->LogMessage(Log::LogLv::ERRORS, CONTENT, "", "", 0, false, false)
+
+        #define LOG_DEBUG_CONSOLE_DETAIL_C(CONTENT, COLOR) Logger::GetInstance()->LogMessageC(Log::LogLv::DEBUGS, CONTENT, __FILE__, __FUNCTION__, __LINE__, COLOR, true, true)
+        #define LOG_DEBUG_CONSOLE_C(CONTENT, COLOR) Logger::GetInstance()->LogMessageC(Log::LogLv::DEBUGS, CONTENT,"","", 0, COLOR, false, true)
+        #define LOG_DEBUG_FILE_DETAIL_C(CONTENT, COLOR) Logger::GetInstance()->LogMessageC(Log::LogLv::DEBUGS, CONTENT, __FILE__, __FUNCTION__, __LINE__, COLOR, true, false)
+        #define LOG_DEBUG_FILE_C(CONTENT, COLOR) Logger::GetInstance()->LogMessageC(Log::LogLv::DEBUGS, CONTENT,"","", 0, COLOR, false, false)
+
+        #define LOG_INFO_CONSOLE_DETAIL_C(CONTENT, COLOR) Logger::GetInstance()->LogMessageC(Log::LogLv::INFO, CONTENT, __FILE__, __FUNCTION__, __LINE__, COLOR, true, true)
+        #define LOG_INFO_CONSOLE_C(CONTENT, COLOR) Logger::GetInstance()->LogMessageC(Log::LogLv::INFO, CONTENT,"","", 0, COLOR, false, true)
+        #define LOG_INFO_FILE_DETAIL_C(CONTENT, COLOR) Logger::GetInstance()->LogMessageC(Log::LogLv::INFO, CONTENT, __FILE__, __FUNCTION__, __LINE__, COLOR, true, false)
+        #define LOG_INFO_FILE_C(CONTENT, COLOR) Logger::GetInstance()->LogMessageC(Log::LogLv::INFO, CONTENT,"","", 0, COLOR, false, false) 
+
+        #define LOG_WARN_CONSOLE_DETAIL_C(CONTENT, COLOR) Logger::GetInstance()->LogMessageC(Log::LogLv::WARN, CONTENT, __FILE__, __FUNCTION__, __LINE__, COLOR, true, true)
+        #define LOG_WARN_CONSOLE_C(CONTENT, COLOR) Logger::GetInstance()->LogMessageC(Log::LogLv::WARN, CONTENT,"", "", 0, COLOR, false, true)
+        #define LOG_WARN_FILE_DETAIL_C(CONTENT, COLOR) Logger::GetInstance()->LogMessageC(Log::LogLv::WARN, CONTENT, __FILE__, __FUNCTION__, __LINE__, COLOR, true, false)
+        #define LOG_WARN_FILE_C(CONTENT, COLOR) Logger::GetInstance()->LogMessageC(Log::LogLv::WARN, CONTENT, "", "", 0, COLOR, false, false)
+
+        #define LOG_ERROR_CONSOLE_DETAIL_C(CONTENT, COLOR) Logger::GetInstance()->LogMessageC(Log::LogLv::ERRORS, CONTENT, __FILE__, __FUNCTION__, __LINE__, COLOR, true, true)
+        #define LOG_ERROR_CONSOLE_C(CONTENT, COLOR) Logger::GetInstance()->LogMessageC(Log::LogLv::ERRORS, CONTENT, "", "", 0, COLOR, false, true)
+        #define LOG_ERROR_FILE_DETAIL_C(CONTENT, COLOR) Logger::GetInstance()->LogMessageC(Log::LogLv::ERRORS, CONTENT, __FILE__, __FUNCTION__, __LINE__, COLOR, true, false)
+        #define LOG_ERROR_FILE_C(CONTENT, COLOR) Logger::GetInstance()->LogMessageC(Log::LogLv::ERRORS, CONTENT, "", "", 0, COLOR, false, false)
 	}
 }
 
