@@ -1,17 +1,48 @@
 # 🌠DSFramework
 
-## Description
+## 1. Description
 
- 一款基于`Boost Asio`与`ProtoBuf`库的 C++ 轻量级 RPC 框架，框架核心基于主从Reactor多线程模型
+ A C++11 simple remote procedure call  framework based on the `Boost Asio` and `ProtoBuf` libraries, the core of the framework is based on the master-slave Reactor multi-threading model and the `Boost Asio` asynchronous read/write mechanism.
 
-## Design
+## 2. Dependency
 
-## Dependency
+- [Boost 1.8.5](https://www.boost.org/users/history/version_1_85_0.html)
+- [Google protobuf 4.25.1](https://github.com/protocolbuffers/protobuf/tree/main/src)
 
-## Component
+## 3. Design
 
-### DSCommunication
+Basic structure of the framework below.
 
-### DSRPC
+![](https://observer-storage.oss-cn-chengdu.aliyuncs.com/github/DSFramework/DSC.drawio.png)
 
-## Test
+A simple Hello World Echo Service remote process for this framework might look like the following.
+
+![](https://observer-storage.oss-cn-chengdu.aliyuncs.com/github/DSFramework/DSCStage.drawio.png)
+
+### 3.1 Connection  Layer
+
+
+
+### 3.2 Communication Layer
+
+
+
+### 3.3 Stub
+
+
+
+### 3.4 Server
+
+
+
+
+
+## 4. Use Example
+
+
+
+## 5. Test
+
+
+
+## 6. Other
