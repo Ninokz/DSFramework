@@ -4,7 +4,6 @@ namespace DSFramework {
 	namespace DSRPC {
 		RPCProcessor::RPCProcessor(RPCEventHandler& m_rpcEventHandler) : m_rpcEventHandler(m_rpcEventHandler)
 		{
-
 		}
 
 		void RPCProcessor::RegisterService(std::string serviceName, CheckFunction checkFunction, ExecuteFunction executeFunction)
@@ -72,7 +71,7 @@ namespace DSFramework {
 					LOG_ERROR_CONSOLE(ex.what());
 					m_rpcEventHandler.OnServiceError(session, packet);
 				}
-			});
+				});
 		}
 	}
 }

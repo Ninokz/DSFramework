@@ -24,10 +24,10 @@ using DSFramework::DSRPC::Packet::RPCPacket;
 
 namespace DSFramework {
 	namespace DSRPC {
-		class RPCPacketManager : 
-			public IDeserializedEventHandler, 
-			public IDispatchEventHandler, 
-			public ICommitedEventHandler, 
+		class RPCPacketManager :
+			public IDeserializedEventHandler,
+			public IDispatchEventHandler,
+			public ICommitedEventHandler,
 			public IProcessedEventHandler,
 			public IServiceEventHandler
 		{
@@ -57,7 +57,7 @@ namespace DSFramework {
 		public:
 			virtual void OnDeserialized(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
 			virtual void OnDispatched(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
-			virtual void OnDispatchFailed( const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
+			virtual void OnDispatchFailed(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
 
 			virtual void OnCommited(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;
 			virtual void OnServiceNotFound(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) override;

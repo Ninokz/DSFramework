@@ -1,6 +1,5 @@
 #include "DSCPacket.h"
 
-
 namespace DSFramework {
 	namespace DSCommunication {
 		DSCPacket::DSCPacket() : m_data(nullptr), m_dataSize(0) {}
@@ -58,10 +57,8 @@ namespace DSFramework {
 			return *this;
 		}
 
-
 		DSCRecvPacket::DSCRecvPacket(uint16_t recvSize) : DSCPacket(recvSize)
 		{
-
 		}
 
 		DSCSendPacket::DSCSendPacket(char* data, uint16_t dataSize) :
@@ -69,7 +66,7 @@ namespace DSFramework {
 		{
 			/// convert the dataSize to network byte order
 			unsigned short size = boost::asio::detail::socket_ops::host_to_network_short(dataSize);
-			
+
 			/// write the size num to the first DSC_PACKET_HEAD_BYTES_SIZE bytes
 			memcpy(m_data, &size, DSC_PACKET_HEAD_BYTES_SIZE);
 			/// copy the data to the rest of the array
@@ -85,7 +82,7 @@ namespace DSFramework {
 			/// write the size num to the first DSC_PACKET_HEAD_BYTES_SIZE bytes
 			memcpy(m_data, &size, DSC_PACKET_HEAD_BYTES_SIZE);
 			/// copy the data to the rest of the array
-			memcpy(m_data + DSC_PACKET_HEAD_BYTES_SIZE, data, dataSize);	
+			memcpy(m_data + DSC_PACKET_HEAD_BYTES_SIZE, data, dataSize);
 		}
 	}
 }

@@ -1,7 +1,6 @@
 #include "ConAcceptor.h"
 #include "Session.h"
 
-
 using DSFramework::DSComponent::IOServicePool;
 namespace DSFramework {
 	namespace DSCommunication {
@@ -21,8 +20,8 @@ namespace DSFramework {
 		void ConAcceptor::StartAccept() {
 			auto& ioc = IOServicePool::GetInstance()->getIOContext();
 			std::shared_ptr<Session> new_session = std::make_shared<Session>(ioc, m_eventHandlerPtr, SEND_QUEUE_MAX_SIZE);
-			m_acceptor.async_accept(new_session->GetSocket(), 
-				boost::bind(&ConAcceptor::HandleAccept, 
+			m_acceptor.async_accept(new_session->GetSocket(),
+				boost::bind(&ConAcceptor::HandleAccept,
 					this, new_session, boost::asio::placeholders::error));
 		}
 

@@ -6,7 +6,6 @@ namespace DSFramework {
 			m_serverid(serverid),
 			m_rpcEventHandler(m_rpcEventHandler)
 		{
-
 		}
 
 		RPCServerStub::~RPCServerStub()
@@ -20,7 +19,7 @@ namespace DSFramework {
 			std::shared_ptr<Packet::RPCPacket> packet = this->Deserialize(msg->m_data, msg->m_dataSize, &deserializeResult);
 			if (deserializeResult)
 			{
-				m_rpcEventHandler.OnDeserialized(sender, packet);				
+				m_rpcEventHandler.OnDeserialized(sender, packet);
 			}
 			else
 			{

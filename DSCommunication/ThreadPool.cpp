@@ -1,6 +1,5 @@
 #include "ThreadPool.h"
 
-
 namespace DSFramework {
 	namespace DSComponent {
 		ThreadPool::ThreadPool(int poolSize) : m_threadNum(poolSize), m_stop(false)
@@ -16,29 +15,28 @@ namespace DSFramework {
 		{
 			for (int i = 0; i < m_threadNum; i++)
 			{
-				this->m_pool.emplace_back([this]() 
-				{
-					while (!m_stop.load())
+				this->m_pool.emplace_back([this]()
 					{
-						Task task;
+						while (!m_stop.load())
 						{
-							std::unique_lock<std::mutex> lock(m_cv_mt);
-							this->m_cv_lock.wait(lock, [this] {
-								return this->m_stop.load() || !this->m_tasks.empty();
-							});
+							Task task;
+							{
+								std::unique_lock<std::mutex> lock(m_cv_mt);
+								this->m_cv_lock.wait(lock, [this] {
+									return this->m_stop.load() || !this->m_tasks.empty();
+									});
 
-							if (this->m_tasks.empty())
-								return;
+								if (this->m_tasks.empty())
+									return;
 
-							task = std::move(this->m_tasks.front());
-							this->m_tasks.pop();
-
+								task = std::move(this->m_tasks.front());
+								this->m_tasks.pop();
+							}
+							this->m_threadNum--;
+							task();
+							this->m_threadNum++;
 						}
-						this->m_threadNum--;
-						task();
-						this->m_threadNum++;
-					}		
-				});
+					});
 			}
 		}
 

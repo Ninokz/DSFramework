@@ -56,7 +56,7 @@ namespace DSFramework {
 			RPCServer(const RPCServer&) = delete;
 			RPCServer& operator=(const RPCServer&) = delete;
 		public:
-			RPCServer(std::string serverid,std::string serverName,short port,size_t maxRqSize,size_t maxRsSize,size_t maxSendPadding);
+			RPCServer(std::string serverid, std::string serverName, short port, size_t maxRqSize, size_t maxRsSize, size_t maxSendPadding);
 			virtual ~RPCServer();
 			void Start();
 

@@ -1,11 +1,10 @@
 #include "ClientTest.h"
 #include "ServerTest.h"
 
-using DSFramework::DSTest::TestRPCClient;
-using DSFramework::DSTest::TestRPCServer;
-
+using namespace DSFramework::DSTest;
 int main()
 {
-	
+	TestRPCServer();
+	//TestRPCClient();
 	return 0;
 }

@@ -1,6 +1,5 @@
 #include "RequestDispatcher.h"
 
-
 namespace DSFramework {
 	namespace DSRPC {
 		RequestDispatcher::RequestDispatcher(size_t maxWaitedDispatch, RPCEventHandler& m_rpcEventHandler) :
@@ -21,7 +20,7 @@ namespace DSFramework {
 			if (this->m_requestQueue->size() < this->m_maxWaitedDispatch)
 			{
 				m_rpcEventHandler.OnDispatched(sender, dispatchItem);
-				this->m_requestQueue->Push(std::make_pair(sender, dispatchItem));			
+				this->m_requestQueue->Push(std::make_pair(sender, dispatchItem));
 				return true;
 			}
 			else
@@ -36,7 +35,6 @@ namespace DSFramework {
 		{
 			this->m_rpcEventHandler.OnCommited(sender, dispatchItem);
 		}
-
 
 		void RequestDispatcher::OnDeserialized(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{

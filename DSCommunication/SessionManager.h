@@ -17,7 +17,6 @@ using DSFramework::DSComponent::Log;
 using DSFramework::DSComponent::IOServicePool;
 namespace DSFramework {
 	namespace DSCommunication {
-
 		class SessionManager : public ICloseEventHandler, public IConnectEventHandler
 		{
 		protected:

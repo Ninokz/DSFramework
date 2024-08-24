@@ -1,6 +1,5 @@
 #include "EventHandler.h"
 
-
 namespace DSFramework {
 	namespace DSCommunication {
 		EventHandler::EventHandler()

@@ -92,53 +92,53 @@ namespace DSFramework {
 			}
 			return true;
 		}
-		
+
 		void ResponseDispatcher::OnDeserialized(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
 			auto response = RPCPacketFactory::CreatePacketResponse(request);
 			LOG_INFO_CONSOLE("Requst deserialized: " + request->request_id());
 			this->PostRequestToQueue(session, response);
 		}
-		
+
 		void ResponseDispatcher::OnDeserializedFailed(std::string& senderID, const std::shared_ptr<Session> session)
 		{
 			std::string to = session->GetUUID();
 			auto response = RPCPacketFactory::CreateDeserializedErrorPacket(senderID, to, to);
 			this->PostRequestToQueue(session, response);
 		}
-		
+
 		void ResponseDispatcher::OnDispatched(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
 			auto response = RPCPacketFactory::CreatePacketResponse(request);
 			LOG_INFO_CONSOLE("Requst dispatched: " + request->request_id());
 			this->PostRequestToQueue(session, response);
 		}
-		
+
 		void ResponseDispatcher::OnDispatchFailed(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
 			auto response = RPCPacketFactory::CreateDispatchedFailedResponsePacket(request);
 			this->PostRequestToQueue(session, response);
 		}
-		
+
 		void ResponseDispatcher::OnCommited(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
 			auto response = RPCPacketFactory::CreatePacketResponse(request);
 			LOG_INFO_CONSOLE("Requst commited: " + request->request_id());
 			this->PostRequestToQueue(session, response);
 		}
-		
+
 		void ResponseDispatcher::OnServiceNotFound(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
 			auto response = RPCPacketFactory::CreateServiceNotFoundResponsePacket(request);
 			this->PostRequestToQueue(session, response);
 		}
-		
+
 		void ResponseDispatcher::OnServiceParameterInvalid(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
 			auto response = RPCPacketFactory::CreateServiceParameterInvalidResponsePacket(request);
 			this->PostRequestToQueue(session, response);
 		}
-		
+
 		void ResponseDispatcher::OnServiceError(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
 			auto response = RPCPacketFactory::CreateServiceErrorResponsePacket(request);
@@ -150,14 +150,14 @@ namespace DSFramework {
 			auto response = RPCPacketFactory::CreateEmptyRequestErrorPacket(request);
 			this->PostRequestToQueue(session, response);
 		}
-		
+
 		void ResponseDispatcher::OnCompleted(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request)
 		{
 			auto response = RPCPacketFactory::CreatePacketResponse(request);
 			this->PostRequestToQueue(session, response);
 			LOG_INFO_CONSOLE("Requst completed: " + request->request_id());
 		}
-		
+
 		void ResponseDispatcher::OnFailed(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> requestD)
 		{
 			auto response = RPCPacketFactory::CreateServiceErrorResponsePacket(requestD);

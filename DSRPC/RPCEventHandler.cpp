@@ -3,7 +3,6 @@ namespace DSFramework {
 	namespace DSRPC {
 		RPCEventHandler::RPCEventHandler()
 		{
-		
 		}
 
 		RPCEventHandler::~RPCEventHandler()

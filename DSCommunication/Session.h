@@ -30,7 +30,7 @@ namespace DSFramework {
 			tcp::socket m_socket;
 
 			std::shared_ptr<EventHandler> m_eventHandlerPtr;
-	
+
 			std::mutex m_sendQueueMutex;
 			std::uint8_t m_sendQueueMaxSize;
 			std::queue<std::shared_ptr<DSCSendPacket>> m_sendQueue;

@@ -1,6 +1,5 @@
 #include "AsyncTcpServer.h"
 
-
 namespace DSFramework {
 	namespace DSCommunication {
 		AsyncTcpServer::AsyncTcpServer(short port, size_t maxSessionCount)
@@ -12,7 +11,7 @@ namespace DSFramework {
 		{
 			m_eventHandlerPtr->AddConnectEventHandler(std::static_pointer_cast<IConnectEventHandler>(m_sessionManager));
 			m_eventHandlerPtr->AddCloseEventHandler(std::static_pointer_cast<ICloseEventHandler>(m_sessionManager));
-			m_acceptor = std::make_unique<ConAcceptor>(m_ioc, port, m_eventHandlerPtr);	
+			m_acceptor = std::make_unique<ConAcceptor>(m_ioc, port, m_eventHandlerPtr);
 		}
 
 		AsyncTcpServer::~AsyncTcpServer()
@@ -32,18 +31,18 @@ namespace DSFramework {
 				signals.async_wait([this](auto, auto) {
 					m_running = false;
 					m_ioc.stop();
-				});
+					});
 
 				m_serverThread = std::thread([this] {
 					m_running = true;
 					m_ioc.run();
-				});
+					});
 				LOG_INFO_CONSOLE("Server started running at " + std::to_string(m_port));
 				m_serverThread.join();
 			}
 			catch (std::exception& e) {
 				LOG_ERROR_CONSOLE_DETAIL(e.what());
-			}	
+			}
 		}
 
 		void AsyncTcpServer::AddCloseEventHandler(std::shared_ptr<ICloseEventHandler> handler)

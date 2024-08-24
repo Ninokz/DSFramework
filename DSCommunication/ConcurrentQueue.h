@@ -42,7 +42,7 @@ namespace DSFramework {
 			}
 
 		public:
-			ConcurrentQueue():m_head(new Node), m_tail(m_head.get()){}
+			ConcurrentQueue() :m_head(new Node), m_tail(m_head.get()) {}
 			ConcurrentQueue(const ConcurrentQueue& other) = delete;
 			ConcurrentQueue& operator=(const ConcurrentQueue& other) = delete;
 
@@ -64,7 +64,7 @@ namespace DSFramework {
 				return m_count.load();
 			}
 
-			void Push(T newValue) 
+			void Push(T newValue)
 			{
 				std::shared_ptr<T> new_data(std::make_shared<T>(std::move(newValue)));
 				std::unique_ptr<Node> p(new Node);

@@ -23,7 +23,7 @@ namespace DSFramework {
 
 			static inline void ChangeTypeToResponse(std::shared_ptr<RPCPacket> packet)
 			{
-				if((packet->type() & Packet::RPCPacketType::TASK_REQUEST) == Packet::RPCPacketType::TASK_REQUEST)
+				if ((packet->type() & Packet::RPCPacketType::TASK_REQUEST) == Packet::RPCPacketType::TASK_REQUEST)
 					packet->set_type(Packet::RPCPacketType::TASK_RESPONSE);
 				else if ((packet->type() & Packet::RPCPacketType::TASK_RESPONSE) == Packet::RPCPacketType::TASK_RESPONSE)
 					packet->set_type(Packet::RPCPacketType::TASK_REQUEST);
@@ -35,7 +35,7 @@ namespace DSFramework {
 			{
 				packet->set_error(error);
 			}
-	
+
 			static inline void ChangeRecvSend(std::shared_ptr<RPCPacket> packet)
 			{
 				std::string temp = packet->from();
@@ -89,7 +89,7 @@ namespace DSFramework {
 				RPCPacketFactory::ChangeTypeToResponse(response);
 				RPCPacketFactory::SetErrorCode(response, Packet::RPCPacketError::SERVICE_NOT_FOUND);
 				RPCPacketFactory::ChangeRecvSend(response);
-				return response;			
+				return response;
 			}
 
 			static std::shared_ptr<RPCPacket> CreateServiceParameterInvalidResponsePacket(const std::shared_ptr<RPCPacket> orign)

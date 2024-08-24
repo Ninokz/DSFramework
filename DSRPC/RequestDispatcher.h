@@ -15,7 +15,7 @@ using DSFramework::DSRPC::RPCEventHandler;
 
 namespace DSFramework {
 	namespace DSRPC {
-		class RequestDispatcher : public Dispatcher<Session, RPCPacket> , public IDeserializedEventHandler
+		class RequestDispatcher : public Dispatcher<Session, RPCPacket>, public IDeserializedEventHandler
 		{
 		private:
 			RPCEventHandler& m_rpcEventHandler;
@@ -23,7 +23,7 @@ namespace DSFramework {
 			RequestDispatcher(size_t maxWaitedDispatch, RPCEventHandler& m_rpcEventHandler);
 			virtual ~RequestDispatcher();
 		private:
-			virtual bool PostRequestToQueue(SenderPtr sender, DispatchItemPtr dispatchItem) override ;
+			virtual bool PostRequestToQueue(SenderPtr sender, DispatchItemPtr dispatchItem) override;
 
 			virtual void DispatchDSCMessage(SenderPtr sender, DispatchItemPtr dispatchItem) override;
 		public:

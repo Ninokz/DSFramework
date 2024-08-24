@@ -10,8 +10,7 @@ using DSFramework::DSComponent::Logger;
 using DSFramework::DSComponent::ConcurrentQueue;
 namespace DSFramework {
 	namespace DSRPC {
-
-		template<class TSender,class TDispatchItem>
+		template<class TSender, class TDispatchItem>
 		class Dispatcher
 		{
 		public:
@@ -23,7 +22,7 @@ namespace DSFramework {
 			std::thread m_dispatcherThread;
 			bool isStopped;
 		public:
-			Dispatcher(size_t maxWaitedDispatch) : isStopped(false), 
+			Dispatcher(size_t maxWaitedDispatch) : isStopped(false),
 				m_maxWaitedDispatch(maxWaitedDispatch)
 			{
 				m_requestQueue = std::make_shared<ConcurrentQueue<std::pair<SenderPtr, DispatchItemPtr>>>();

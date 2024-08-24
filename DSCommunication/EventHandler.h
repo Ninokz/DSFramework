@@ -5,7 +5,6 @@
 
 namespace DSFramework {
 	namespace DSCommunication {
-		
 		class ICloseEventHandler
 		{
 		public:

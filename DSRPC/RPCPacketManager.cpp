@@ -2,7 +2,6 @@
 
 namespace DSFramework {
 	namespace DSRPC {
-
 		int RPCPacketManager::GetRequestCount()
 		{
 			std::shared_lock<std::shared_mutex> lock(m_requestsMutex);
@@ -28,7 +27,7 @@ namespace DSFramework {
 			{
 				std::unique_lock<std::shared_mutex> lock(m_requestsMutex);
 				it->second.second->set_status(status);
-				
+
 				switch (status)
 				{
 				case DSFramework::DSRPC::Packet::SUBMITTED:

@@ -2,7 +2,7 @@
 
 namespace DSFramework {
 	namespace DSComponent {
-		IOServicePool::IOServicePool(std::size_t poolSize) : 
+		IOServicePool::IOServicePool(std::size_t poolSize) :
 			m_ioContexts(poolSize),
 			m_works(poolSize),
 			m_nextIOContext(0)
@@ -16,12 +16,12 @@ namespace DSFramework {
 			{
 				m_threads.emplace_back([this, i]() {
 					m_ioContexts[i].run();
-				});
+					});
 			}
 		}
 
 		IOServicePool::~IOServicePool()
-		{	
+		{
 			Stop();
 			LOG_INFO_CONSOLE("IOServicePool destoried");
 		}

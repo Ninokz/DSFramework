@@ -16,12 +16,12 @@ namespace DSFramework {
 		public:
 			virtual ~Singleton() = default;
 
-			static std::shared_ptr<T> GetInstance() 
+			static std::shared_ptr<T> GetInstance()
 			{
 				static std::once_flag flag;
 				std::call_once(flag, [&]() {
 					m_instance = std::shared_ptr<T>(new T);
-				});
+					});
 				return m_instance;
 			}
 		};

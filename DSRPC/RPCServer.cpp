@@ -17,7 +17,6 @@ namespace DSFramework {
 
 		RPCServer::~RPCServer()
 		{
-
 		}
 
 		void RPCServer::Start()
@@ -58,7 +57,6 @@ namespace DSFramework {
 			m_rpcEventHandler.AddDispatchEventHandler(std::static_pointer_cast<IDispatchEventHandler>(m_rpcRequestManager));
 			m_rpcEventHandler.AddDispatchEventHandler(std::static_pointer_cast<IDispatchEventHandler>(m_rpcResponseDispatcher));
 
-
 			m_rpcEventHandler.AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(m_rpcRequestManager));
 			m_rpcEventHandler.AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(m_rpcResponseDispatcher));
 			m_rpcEventHandler.AddCommitedEventHandler(std::static_pointer_cast<ICommitedEventHandler>(m_rpcWorkers));
@@ -68,7 +66,7 @@ namespace DSFramework {
 
 			m_rpcEventHandler.AddProcessedEventHandler(std::static_pointer_cast<IProcessedEventHandler>(m_rpcRequestManager));
 			m_rpcEventHandler.AddProcessedEventHandler(std::static_pointer_cast<IProcessedEventHandler>(m_rpcResponseDispatcher));
-			
+
 			m_rpcEventHandler.AddDeserializedFailedEventHandler(std::static_pointer_cast<IDeserializedFailedEventHandler>(m_rpcResponseDispatcher));
 
 			m_server.AddDataEventHandler(std::static_pointer_cast<IDataEventHandler>(m_rpcServerStub));

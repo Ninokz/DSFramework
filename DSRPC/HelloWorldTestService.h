@@ -17,7 +17,6 @@ using DSFramework::DSRPC::Packet::RPCPacket;
 using DSFramework::DSRPC::Packet::HelloWorldServiceParameters;
 using DSFramework::DSRPC::Packet::HelloWorldServiceResult;
 
-
 namespace DSFramework {
 	namespace DSTest {
 		class TestHelloWorldService
@@ -70,6 +69,5 @@ namespace DSFramework {
 				return packet;
 			}
 		};
-
 	}
 }

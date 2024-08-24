@@ -2,7 +2,7 @@
 
 namespace DSFramework {
 	namespace DSCommunication {
-		AsyncTcpClient::AsyncTcpClient(): 
+		AsyncTcpClient::AsyncTcpClient() :
 			m_ioc(),
 			m_running(false)
 		{
@@ -21,7 +21,7 @@ namespace DSFramework {
 
 		bool AsyncTcpClient::Connect(std::string address, short port)
 		{
-			try 
+			try
 			{
 				m_remoteEp = tcp::endpoint(boost::asio::ip::address::from_string(address), port);
 				boost::system::error_code error = boost::asio::error::host_not_found;
@@ -34,10 +34,10 @@ namespace DSFramework {
 				else
 				{
 					m_session->Start();
-					m_clientThread = std::thread([this] (){
+					m_clientThread = std::thread([this]() {
 						m_running = true;
 						m_ioc.run();
-					});
+						});
 					LOG_INFO_CONSOLE("Client connected to " + address + ":" + std::to_string(port));
 					return true;
 				}

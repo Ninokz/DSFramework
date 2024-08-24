@@ -12,7 +12,6 @@ using DSFramework::DSCommunication::Session;
 using DSFramework::DSRPC::Packet::RPCPacket;
 namespace DSFramework {
 	namespace DSRPC {
-
 		class IDeserializedEventHandler
 		{
 		public:
@@ -47,7 +46,7 @@ namespace DSFramework {
 			virtual void OnServiceError(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) = 0;
 		};
 
-		class IProcessedEventHandler 
+		class IProcessedEventHandler
 		{
 		public:
 			virtual void OnCompleted(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request) = 0;
@@ -89,6 +88,6 @@ namespace DSFramework {
 
 			void OnCompleted(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request);
 			void OnFailed(const std::shared_ptr<Session> session, std::shared_ptr<RPCPacket> request);
-		};	
+		};
 	}
 }

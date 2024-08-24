@@ -1,16 +1,13 @@
 #include "SessionManager.h"
 
-
 namespace DSFramework {
 	namespace DSCommunication {
 		SessionManager::SessionManager(size_t maxSize) : m_maxSessionCount(maxSize)
 		{
-
 		}
 
-		SessionManager::~SessionManager() 
+		SessionManager::~SessionManager()
 		{
-			
 		}
 
 		bool SessionManager::AddSession(std::shared_ptr<Session> session)
@@ -45,7 +42,6 @@ namespace DSFramework {
 			}
 			else
 			{
-				
 			}
 		}
 	}

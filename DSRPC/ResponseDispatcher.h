@@ -14,7 +14,7 @@ using DSFramework::DSCommunication::Session;
 using DSFramework::DSRPC::Packet::RPCPacket;
 namespace DSFramework {
 	namespace DSRPC {
-		class ResponseDispatcher : public Dispatcher<Session, RPCPacket>, 
+		class ResponseDispatcher : public Dispatcher<Session, RPCPacket>,
 			public IDeserializedEventHandler,
 			public IDispatchEventHandler,
 			public ICommitedEventHandler,
@@ -29,7 +29,7 @@ namespace DSFramework {
 			virtual bool PostRequestToQueue(SenderPtr sender, DispatchItemPtr dispatchItem) override;
 
 			virtual void DispatchDSCMessage(SenderPtr sender, DispatchItemPtr dispatchItem) override;
-		
+
 			void Send(std::shared_ptr<Session> sender, std::shared_ptr<Packet::RPCPacket> packet);
 
 			inline bool Serialize(const std::shared_ptr<RPCPacket> packet, const char** data, size_t* size);

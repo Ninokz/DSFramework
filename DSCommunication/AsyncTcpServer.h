@@ -35,7 +35,7 @@ namespace DSFramework {
 			AsyncTcpServer(const AsyncTcpServer& other) = delete;
 			AsyncTcpServer& operator=(const AsyncTcpServer& other) = delete;
 		public:
-			AsyncTcpServer(short port,size_t maxSessionCount);
+			AsyncTcpServer(short port, size_t maxSessionCount);
 			virtual ~AsyncTcpServer();
 			void Start();
 

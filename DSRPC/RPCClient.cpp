@@ -23,12 +23,12 @@ namespace DSFramework {
 		void RPCClient::RemoteCall(std::string ipaddress, short port, std::shared_ptr<RPCPacket> requestPacket, int timeoutSec)
 		{
 			LOG_DEBUG_CONSOLE("Start procedure");
-			m_rpcThread = std::thread([this, ipaddress, port,requestPacket, timeoutSec]() {
+			m_rpcThread = std::thread([this, ipaddress, port, requestPacket, timeoutSec]() {
 				m_timer.expires_after(std::chrono::seconds(timeoutSec));
 				m_timer.async_wait(boost::bind(&RPCClient::StopCallProcedure, this, boost::asio::placeholders::error));
 				CallProcedure(ipaddress, port, requestPacket);
 				m_ioc.run();
-			});
+				});
 		}
 
 		void RPCClient::ComponentInitialize()
@@ -41,7 +41,7 @@ namespace DSFramework {
 			m_client.AddDataEventHandler(std::static_pointer_cast<IDataEventHandler>(m_rpcClientStub));
 		}
 
-		bool RPCClient::CallProcedure(std::string ipaddress, short port ,std::shared_ptr<RPCPacket> requestPacket)
+		bool RPCClient::CallProcedure(std::string ipaddress, short port, std::shared_ptr<RPCPacket> requestPacket)
 		{
 			if (!requestPacket) {
 				return false;
@@ -89,7 +89,7 @@ namespace DSFramework {
 				return false;
 			}
 
-			if (!packet->SerializeToArray(const_cast<char*>(*data), static_cast<int>(*size))) 
+			if (!packet->SerializeToArray(const_cast<char*>(*data), static_cast<int>(*size)))
 			{
 				delete[] * data;
 				*data = nullptr;

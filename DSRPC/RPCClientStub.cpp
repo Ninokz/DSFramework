@@ -1,6 +1,5 @@
 #include "RPCClientStub.h"
 
-
 namespace DSFramework {
 	namespace DSRPC {
 		RPCClientStub::RPCClientStub(std::string clientid) : m_clientid(clientid)
@@ -54,7 +53,7 @@ namespace DSFramework {
 			}
 			else
 			{
-				LOG_WARN_CONSOLE("Deserialization error");	
+				LOG_WARN_CONSOLE("Deserialization error");
 			}
 		}
 

@@ -5,7 +5,7 @@
 
 namespace DSFramework {
 	namespace DSCommunication {
-		Session::Session(boost::asio::io_context& ioContext, std::shared_ptr<EventHandler> eventHandler, uint8_t sendQMaxSize):
+		Session::Session(boost::asio::io_context& ioContext, std::shared_ptr<EventHandler> eventHandler, uint8_t sendQMaxSize) :
 			m_uuid(boost::uuids::to_string(boost::uuids::random_generator()())),
 			m_eventHandlerPtr(eventHandler),
 			m_socket(ioContext),
@@ -83,7 +83,7 @@ namespace DSFramework {
 						std::bind(&Session::HandleBodyRead, shared_from_this(),
 							std::placeholders::_1, std::placeholders::_2));
 				}
-				else 
+				else
 				{
 					LOG_WARN_CONSOLE(this->m_uuid + " " + std::to_string(ec.value()) + " " + ec.message() + " in HandleHeadRead");
 					Close();
@@ -97,7 +97,6 @@ namespace DSFramework {
 
 		void Session::HandleBodyRead(const boost::system::error_code& ec, size_t bytes_tramsferred)
 		{
-
 			try {
 				if (!ec) {
 					//// Deep copy
@@ -186,7 +185,7 @@ namespace DSFramework {
 			catch (std::exception& e) {
 				LOG_ERROR_CONSOLE_DETAIL(e.what());
 				Close();
-			}	
+			}
 		}
 	}
 }

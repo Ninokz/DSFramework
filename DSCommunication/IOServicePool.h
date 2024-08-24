@@ -27,7 +27,7 @@ namespace DSFramework {
 			IOServicePool(const IOServicePool&) = delete;
 			IOServicePool& operator=(const IOServicePool&) = delete;
 			IOServicePool(IOServicePool&&) = delete;
-		public:		
+		public:
 			virtual ~IOServicePool();
 
 			Context& getIOContext();
