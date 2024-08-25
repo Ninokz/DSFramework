@@ -23,8 +23,6 @@ Currently, this framework supports peer-to-peer remote procedure calls, and cent
 
   use `async_accept` processes connection requests asynchronously, constructs the session and registers it with the Asio IO-Service pool.
   
-  1. Receive connection requests asynchronously
-  2. Register session to IO Service Pool
 
 ### 3.2 Communication Layer
 
