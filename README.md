@@ -1,4 +1,4 @@
-# 🌠DSFramework
+# 🌠DSFramework[abandoned]
 
 [en](./README.md) [zh](./README-zh.md)
 
